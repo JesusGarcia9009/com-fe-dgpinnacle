@@ -1,0 +1,192 @@
+<div class="main-content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+
+
+                <div class="card">
+                    <div class="card-header card-header-rose card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">list_alt</i>
+                        </div>
+                        <h4 class="card-title">Registro de operaciones</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="toolbar">
+                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                            <form [formGroup]="operationForm">
+                                <div class="row">
+                                    <div class="form-group col-sm-4">
+                                        <div>
+                                            <div class="d-flex flex-row">
+                                                <mat-form-field>
+                                                    <mat-select placeholder="* Tipo" formControlName="operationType"
+                                                        name="operationType">
+                                                        <mat-option *ngFor="let item of operationTypes"
+                                                            [value]="item.code">
+                                                            {{ item.description }}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <div>
+                                            <div class="d-flex flex-row">
+                                                <mat-form-field>
+                                                    <mat-select placeholder="* Usuario"
+                                                        formControlName="operationFullName" name="operationFullName">
+                                                        <mat-option *ngFor="let item of operationUsers" [value]="item">
+                                                            {{ item }}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-2">
+                                        <div>
+                                            <div class="d-flex flex-row">
+                                                <mat-form-field>
+                                                    <mat-select placeholder="* Estado"
+                                                        formControlName="operationCurrentState"
+                                                        name="operationCurrentState">
+                                                        <mat-option *ngFor="let item of operationStates" [value]="item">
+                                                            {{ item }}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-2">
+
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-4">
+                                        <div>
+                                            <div class="d-flex flex-row">
+                                                <mat-form-field>
+                                                    <input matInput formControlName="startDate" readonly="readonly"
+                                                        [matDatepicker]="picker" placeholder=" Fecha de inicio"
+                                                        [value]="operationFormControls.startDate.value"
+                                                        (click)="picker.open()" type="input">
+                                                    <mat-datepicker-toggle matSuffix
+                                                        [for]="picker"></mat-datepicker-toggle>
+                                                    <mat-datepicker #picker></mat-datepicker>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <div>
+                                            <div class="d-flex flex-row">
+                                                <mat-form-field>
+                                                    <input matInput formControlName="endDate" readonly="readonly"
+                                                        [matDatepicker]="picker1" placeholder=" Fecha de fin"
+                                                        [value]="operationFormControls.endDate.value"
+                                                        (click)="picker1.open()" type="input">
+                                                    <mat-datepicker-toggle matSuffix
+                                                        [for]="picker1"></mat-datepicker-toggle>
+                                                    <mat-datepicker #picker1></mat-datepicker>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-2">
+                                        <div>
+                                            <div class="d-flex flex-row">
+                                                <mat-form-field>
+                                                    <input matInput formControlName="operationIdObject"
+                                                        placeholder="Identificador" type="number">
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-2">
+                                        <div class="row">
+                                            <button mat-raised-button type="button" [disabled]="!operationForm.valid"
+                                                (click)="onClean()"
+                                                class="mat-focus-indicator btn btn-primary mat-raised-button mat-button-base btn-custom"
+                                                title="Limpiar filtros">
+                                                <i class="material-icons">clear</i>
+                                                <span>Limpiar</span>
+                                            </button>
+                                            <button mat-raised-button type="button" [disabled]="!operationForm.valid"
+                                                (click)="onSearch()"
+                                                class="mat-focus-indicator btn btn-primary mat-raised-button mat-button-base btn-custom"
+                                                title="Buscar">
+                                                <i class="material-icons">search</i>
+                                                <span>Buscar</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="material-datatables">
+                                    <div class="table-responsive">
+                                        <table datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions"
+                                            class="table table-striped  table-hover" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Identificador</th>
+                                                    <th>Operación</th>
+                                                    <th>Estado actual</th>
+                                                    <th>Fecha</th>
+                                                    <th>Usuario</th>
+                                                    <!-- <th>Actualizado por</th>
+                                                    <th>Fecha de actualización</th> -->
+                                                    <!-- <th>Emitido por</th>
+                                                    <th>Fecha de emisión</th> -->
+                                                    <!-- <th>Reversado por</th>
+                                                    <th>Fecha de reversa</th> -->
+
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let row of tblData">
+                                                    <td>{{ row.operationIdObject }}</td>
+                                                    <td>{{ row.operationType }}</td>
+                                                    <td>{{ row.operationCurrentState }}</td>
+                                                    <td>{{ row.operationDate | date: "dd/MM/yyyy hh:mm" }}</td>
+                                                    <td>{{ row.operationUsername }} - {{ row.operationFullName }}</td>
+
+                                                    <!-- <td>{{ row.operationUsernameUpdate }}</td>
+                                                    <td>{{ row.operationDateUpdate | date: "dd/MM/yyyy hh:mm" }}</td> -->
+                                                    <!-- <td>{{ row.operationUsernameEmit }}</td>
+                                                    <td>{{ row.operationDateEmit | date: "dd/MM/yyyy hh:mm" }}</td> -->
+                                                    <!-- <td>{{ row.operationUsernameReverse }}</td>
+                                                    <td>{{ row.operationDateReverse | date: "dd/MM/yyyy hh:mm" }}</td> -->
+
+                                                    <td>
+                                                        <button mat-raised-button type="button"
+                                                            (click)="openDialog(row)"
+                                                            class="btn btn-link btn-warning btn-just-icon edit-user"
+                                                            title="Información"><i
+                                                                class="material-icons">info</i></button>
+                                                        <!-- <div *ngFor="let row2 of row.operationLogProducts">
+                                                            <p>{{ row2.productGISCode}} - {{row2.productDescription}} </p>
+                                                        </div> -->
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

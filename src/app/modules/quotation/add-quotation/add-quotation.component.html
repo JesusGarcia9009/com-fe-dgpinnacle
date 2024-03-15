@@ -1,0 +1,345 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <form [formGroup]="quotationForm" (ngSubmit)="onRegisterSubmit()">
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div class="card ">
+                        <div class="card-header card-header-rose card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">border_color</i>
+                            </div>
+                            <h4 class="card-title">Datos básicos de la cotización</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="card" style="margin-top: 0px;">
+                                <div class="card-body">
+                                    <h5 class="font-weight-bold mb-3">Cliente</h5>
+                                    <div class="row">
+                                        <div class="col">
+                                            <!-- <mat-form-field>
+                                                <mat-select placeholder="* Cliente" formControlName="clientId"
+                                                    name="clientId"
+                                                    (selectionChange)="onClientSelectChange($event.value)">
+                                                    <mat-option *ngFor="let c of clientList" [value]="c.id">
+                                                        {{ c.rutOrId }} - {{ c.fantasyName }}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="(quotationFormControls.clientId.dirty || quotationFormControls.clientId.touched) 
+                                            && quotationFormControls.clientId.errors?.required">
+                                                    La cliente es requerido<strong>requerida</strong>
+                                                </mat-error>
+                                            </mat-form-field> -->
+                                            <mat-form-field class="example-full-width">
+                                                <input type="text" 
+                                                    #autoCompleteInput aria-label="Number" matInput
+                                                    placeholder="Escriba nombre cliente.." 
+                                                    formControlName="clientFantasyName" 
+                                                    [matAutocomplete]="auto"
+                                                    autocomplete="one-time-code">
+                                                <mat-autocomplete 
+                                                    #auto="matAutocomplete" 
+                                                    panelWidth="auto"
+                                                    (optionSelected)="onClientSelectChange($event.option.value)">
+                                                    <mat-option *ngFor="let option of filteredClientsOptions | async"
+                                                        [ngClass]="test" [value]="option.id">
+                                                        {{option.desc}}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                                <mat-error *ngIf="(quotationFormControls.clientFantasyName.dirty || quotationFormControls.clientFantasyName.touched) 
+                                            && quotationFormControls.clientFantasyName.errors?.required">
+                                                    El cliente es <strong>requerido</strong>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col">
+                                            <mat-form-field>
+                                                <input matInput formControlName="attention" placeholder="Atención"
+                                                    type="text">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col"></div>
+                                        <div class="col"></div>
+
+
+                                    </div>
+                                    <div class="card" style="margin-top: 0px;" *ngIf="this.clientSelected">
+                                        <div class="card-body">
+                                            <div class="row">
+
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Identificador:</b> </div>
+                                                        <div class="col-6"> {{ this.clientSelected.rutOrId }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Dirección:</b> </div>
+                                                        <div class="col-6"> {{
+                                                            this.clientSelected.address }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Región o estado:</b> </div>
+                                                        <div class="col-6"> {{
+                                                            this.clientSelected.provinceOrStateDescription }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>País:</b> </div>
+                                                        <div class="col-6"> {{
+                                                            this.clientSelected.countryDescription }}</div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Contacto:</b> </div>
+                                                        <div class="col-6"> {{ this.clientSelected.contactName }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Teléfono:</b> </div>
+                                                        <div class="col-6"> {{clientSelected.contactphone }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Teléfono celular:</b> </div>
+                                                        <div class="col-6"> {{clientSelected.contactcellPhone }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Mail comercial:</b> </div>
+                                                        <div class="col-6"> {{ clientSelected.contactbusinessMail }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Forma de entrega:</b> </div>
+                                                        <div class="col-6">{{
+                                                            this.clientSelected.deliveryTypeCode }} </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Método de pago:</b> </div>
+                                                        <div class="col-6"> {{
+                                                            this.clientSelected.paymentMethodInitials }} - {{
+                                                            this.clientSelected.paymentMethodDescription }} - {{
+                                                            this.clientSelected.paymentMethodDays }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Transporte:</b> </div>
+                                                        <div class="col-6"> {{ clientSelected.transport }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Obs de entrega:</b> </div>
+                                                        <div class="col-6"> {{ clientSelected.deliveryObservation }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                            <div class="card" style="margin-top: 0px;">
+                                <div class="card-body">
+                                    <form [formGroup]="productForm" (ngSubmit)="onSubmitProduct()"
+                                        *ngIf="!this.isReadOnly">
+                                        <h5 class="font-weight-bold mb-3">Productos</h5>
+                                        <p class="mb-0" style="margin-top: -20px;font-size: 10px;">Seleccione los
+                                            productos
+                                            y agregre la cantidad deseada! </p>
+                                        <div class="row">
+
+                                            <div class="col">
+                                                <!-- <mat-form-field>
+                                                    <mat-select placeholder="* Seleccione producto" name="producto"
+                                                        formControlName="productId"
+                                                        (selectionChange)="onProductSelectChange($event.value)">
+                                                        <mat-option *ngFor="let p of productList" [value]="p.id">
+                                                            {{ p.brandCode}}-{{ p.universalGroupCode}}-{{ p.modelCode}}-{{p.sourceCode}} - {{p.description}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field> -->
+                                                <mat-form-field class="example-full-width">
+                                                    <input 
+                                                    type="text" 
+                                                    #autoCompleteProductInput
+                                                    placeholder="Escriba codigo de producto.." 
+                                                    aria-label="Number" 
+                                                    matInput
+                                                    formControlName="productDescription" 
+                                                    [matAutocomplete]="autoProduct"
+                                                    autocomplete="one-time-code">
+                                                    <mat-autocomplete #autoProduct="matAutocomplete" panelWidth="auto"
+                                                        (optionSelected)="onProductSelectChange($event.option.value)"
+                                                        panelClass="test">
+                                                        <mat-option *ngFor="let option of filteredOptions | async"
+                                                            [value]="option.id">
+                                                            {{option.desc}}
+                                                        </mat-option>
+                                                    </mat-autocomplete>
+                                                    <mat-error *ngIf="(productFormControls.productDescription.dirty || productFormControls.productDescription.touched) 
+                                                    && productFormControls.productDescription.errors?.required">
+                                                            Debe añadir un <strong>producto</strong>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col">
+                                                <mat-form-field>
+                                                    <input matInput formControlName="amount" placeholder="Cantidad"
+                                                        type="number">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col">
+                                                <mat-form-field>
+                                                    <input matInput formControlName="salePrice"
+                                                        placeholder="Precio de venta" type="text">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col">
+                                                <mat-form-field>
+                                                    <mat-select placeholder="* Seleccione entrega" name="delivery"
+                                                        formControlName="delivery">
+                                                        <mat-option *ngFor="let p of deliveryList"
+                                                            [value]="p.description">
+                                                            {{ p.description }}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col">
+                                                <button mat-raised-button
+                                                    [disabled]="!(this.productForm.valid && this.isValid)" type="submit"
+                                                    *ngIf="!this.isReadOnly"
+                                                    class="btn btn-fill btn-rose">Agregar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="card" style="margin-top: 0px;" *ngIf="tblData.length > 0">
+                                        <div class="card-body">
+                                            <table datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions"
+                                                class="table table-striped  table-hover" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="min-width: 50px;" class="disabled-sorting text-left"
+                                                            *ngIf="!this.isReadOnly">
+                                                            Acciones
+                                                        </th>
+                                                        <th style="min-width: 100px;">Producto</th>
+                                                        <th style="min-width: 140px;">Codigo GIS</th>
+                                                        <th style="min-width: 140px;">Entrega</th>
+                                                        <th style="min-width: 50px;">Cantidad</th>
+                                                        <th style="min-width: 50px;">Precio de venta</th>
+                                                        <th style="min-width: 50px;">Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let row of tblData">
+                                                        <td class="text-left" *ngIf="!this.isReadOnly">
+                                                            <button mat-raised-button type="button"
+                                                                (click)="deleteProduct(row)"
+                                                                class="btn btn-link btn-danger btn-just-icon remove-user icon-display"
+                                                                title="eliminar"><i
+                                                                    class="material-icons">close</i></button>
+                                                            <button mat-raised-button type="button"
+                                                                (click)="onProductUpdateChange(row)"
+                                                                class="btn btn-link btn-warning btn-just-icon edit-user icon-display"
+                                                                title="editar"><i
+                                                                    class="material-icons">edit</i></button>
+
+                                                        </td>
+                                                        <td>{{ row.productDescription }}</td>
+                                                        <td>{{ row.productGISCode }}</td>
+                                                        <td>{{ row.delivery }}</td>
+                                                        <td>{{ row.amount }}</td>
+                                                        <td>{{ row.salePrice }}</td>
+                                                        <td>{{ doMultiply(row.salePrice, row.amount) }} </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="row">
+                                                <div class="col"></div>
+                                                <div class="col"></div>
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <mat-form-field>
+                                                            <input matInput formControlName="discount"
+                                                                placeholder="Aplicar Descuento (%)" type="number"
+                                                                (keyup)="doFilter($event.target.value)">
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col"></div>
+
+                                                <div class="col" style="padding-right: 4%; margin-top: 0%;">
+
+                                                    <div class="row">
+                                                        <div class="col-6"><b>Subtotal:</b> </div>
+                                                        <div class="col-6" style="text-align: end;">{{ totalExcludingIva
+                                                            | currency:'CLP':'symbol':'1.0-0' }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6"><b>Descuento:</b> </div>
+                                                        <div class="col-6" style="text-align: end;"> {{ totalDiscount |
+                                                            currency:'CLP':'symbol':'1.0-0' }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6" style="border-top: 1px solid ;"><b>Neto:</b>
+                                                        </div>
+                                                        <div class="col-6"
+                                                            style="border-top: 1px solid ; text-align: end;"> {{
+                                                            totalNet | currency:'CLP':'symbol':'1.0-0' }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6"><b>IVA:</b> </div>
+                                                        <div class="col-6" style="text-align: end;"> {{ totalIVA |
+                                                            currency:'CLP':'symbol':'1.0-0' }}</div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-6"
+                                                            style="border-top: 1px solid ;font-weight : bold;">
+                                                            <b>Total:</b> </div>
+                                                        <div class="col-6"
+                                                            style="border-top: 1px solid ;font-weight : bold; text-align: end;">
+                                                            {{ total | currency:'CLP':'symbol':'1.0-0' }}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="card" style="margin-top: 0px;">
+                                <div class="card-body">
+                                    <mat-form-field>
+                                        <mat-label>Información Adicional</mat-label>
+                                        <textarea matInput placeholder="Información Adicional" rows="4"
+                                            formControlName="additionalInformation"></textarea>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button *ngIf="!this.isReadOnly" (click)="volver()" mat-raised-button type="button"
+                class="btn btn-fill btn-default">
+                Cancelar</button>
+
+            <button *ngIf="!this.isReadOnly" mat-raised-button type="submit" [disabled]="!quotationForm.valid"
+                class="btn btn-fill btn-rose">Guardar</button>
+
+
+            <button *ngIf="this.isReadOnly" (click)="volver()" mat-raised-button type="button"
+                class="btn btn-fill btn-default">
+                Volver</button>
+
+
+
+        </form>
+    </div>
+</div>

@@ -1,0 +1,143 @@
+<div class="main-content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <mat-tab-group mat-align-tabs="start" [selectedIndex]="tabIndex">
+                    <mat-tab label="Proyectos">
+                        <app-listar-proyectos></app-listar-proyectos>
+                    </mat-tab>
+                    <mat-tab label="Propiedades">
+                        <div class="card">
+                            <div class="card-header card-header-rose card-header-icon">
+                                <div class="card-icon">
+                                    <i class="material-icons">apartment</i>
+                                </div>
+                                <h4 class="card-title">Lista de Propiedades</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="toolbar">
+                                    <!--        Here you can write extra buttons/actions for the toolbar              -->
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="material-datatables">
+                                            <!-- <app-empty-state *ngIf="tblData.length === 0" [icon]="'visibility_off'"
+                                        text="No hay registros para mostrar.">
+                                    </app-empty-state> -->
+                                            <div class="table-responsive">
+                                                <table datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions"
+                                                    class="table table-striped  table-hover" cellspacing="0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="min-width: 100px;">Referencia</th>
+                                                            <th style="min-width: 140px;">Proyecto</th>
+                                                            <th style="min-width: 50px;">Tipo</th>
+                                                            <th style="min-width: 50px;">Depto</th>
+                                                            <th style="min-width: 90px;">Comuna</th>
+                                                            <th style="min-width: 50px;">Status</th>
+                                                            <th style="min-width: 50px;">Desde</th>
+                                                            <th style="min-width: 50px;">Estado</th>
+                                                            <th style="min-width: 50px;"
+                                                                class="disabled-sorting text-right">
+                                                                Acciones
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let row of tblData">
+                                                            <td>{{ row.referenciaPropiedad }}</td>
+                                                            <td>{{ row.proyectoDesc }}</td>
+                                                            <td>{{ row.tipoUnidadDesc }}</td>
+                                                            <td>{{ row.numeroDepto }}</td>
+                                                            <td>{{ row.comunaNombre }}</td>
+                                                            <!-- <td>{{ row.disponibilidadDesc }}</td>     -->
+                                                            <td>{{ row.status === 1 ? 'Arrendada' : 'Disponible'}}</td>
+                                                            <!-- <td>{{ row.fechaDesdeDisponibilidad | date: "dd/MM/yyyy" }}</td>     -->
+                                                            <td>{{ row.fechaCreacion | date: "dd/MM/yyyy" }}</td>
+
+                                                            <td>{{ row.estadoPropiedad === 1 ? 'Activa' : 'Inactiva' }}
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <button mat-icon-button
+                                                                    [matMenuTriggerFor]="menuPropiedades"
+                                                                    aria-label="Menu de propiedades">
+                                                                    <mat-icon>more_vert</mat-icon>
+                                                                </button>
+                                                                <mat-menu #menuPropiedades="matMenu">
+                                                                    <button (click)="redirectToView(row)" mat-menu-item>
+                                                                        <mat-icon>visibility</mat-icon>
+                                                                        <span>Ver</span>
+                                                                    </button>
+                                                                    <button (click)="redirectToEdit(row)" mat-menu-item
+                                                                        [disabled]="row.estadoPropiedad !== 1">
+                                                                        <mat-icon>edit</mat-icon>
+                                                                        <span>Editar</span>
+                                                                    </button>
+                                                                    <!-- <button mat-menu-item (click)="onEliminar(row)">
+                                                            <mat-icon>close</mat-icon>
+                                                            <span>Eliminar</span>
+                                                        </button> -->
+                                                                    <button mat-menu-item (click)="onCambioEstado(row)">
+                                                                        <mat-icon>delete</mat-icon>
+                                                                        <span>Activar/Desactivar</span>
+                                                                    </button>
+                                                                    <button mat-menu-item>
+                                                                        <mat-icon>attach_money</mat-icon>
+                                                                        <span>Cuentas y Gastos</span>
+                                                                    </button>
+                                                                    <button mat-menu-item>
+                                                                        <mat-icon>emoji_people</mat-icon>
+                                                                        <span>Visitas</span>
+                                                                    </button>
+                                                                    <button mat-menu-item>
+                                                                        <mat-icon>work</mat-icon>
+                                                                        <span>Trabajos</span>
+                                                                    </button>
+                                                                    <button mat-menu-item>
+                                                                        <mat-icon>calendar_today</mat-icon>
+                                                                        <span>Reservas</span>
+                                                                    </button>
+
+                                                                    <button (click)="onVerDocumentos(row)"
+                                                                        mat-menu-item>
+                                                                        <mat-icon>attach_file</mat-icon>
+                                                                        <span>Documentos</span>
+                                                                    </button>
+                                                                </mat-menu>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button mat-raised-button routerLink="/propiedades/add-upd-propiedad" type="button"
+                                    class="btn btn-primary" title="Agregar Usuario">Agregar
+                                    Propiedad</button>
+                                <button mat-raised-button type="button" class="btn btn-success"
+                                    (click)="descargarReportePropiedad()" title="Generar reporte">
+                                    Generar reporte</button>
+
+
+
+
+                            </div>
+                            <!-- end content-->
+                        </div>
+                        <!--  end card  -->
+
+                    </mat-tab>
+                </mat-tab-group>
+
+
+
+            </div>
+            <!-- end col-md-12 -->
+        </div>
+        <!-- end row -->
+    </div>
+</div>

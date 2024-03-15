@@ -1,0 +1,221 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <form [formGroup]="reverseBillOfBuyForm" (ngSubmit)="onRegisterSubmit()">
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div class="card ">
+                        <div class="card-header card-header-rose card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">reorder</i>
+                            </div>
+                            <h4 class="card-title">Reversar factura de compra</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="card" style="margin-top: 0px; margin-bottom: 0px;" *ngIf="this.providerSelected">
+                                <div class="card-body">
+                                    <h5 class="font-weight-bold mb-3">Datos del cliente {{
+                                        this.providerSelected.fantasyName }}.</h5>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Identificador de cliente:</b> </div>
+                                                <div class="col-6 t-l"> {{ this.providerSelected.rutOrId }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Dirección:</b> </div>
+                                                <div class="col-6"> {{
+                                                    this.providerSelected.address }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Región o estado:</b> </div>
+                                                <div class="col-6"> {{
+                                                    this.providerSelected.provinceOrStateDescription }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>País:</b></div>
+                                                <div class="col-6"> {{
+                                                    this.providerSelected.countryDescription }}</div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Contacto:</b> </div>
+                                                <div class="col-6"> {{ this.providerSelected.contactName }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Teléfono:</b> </div>
+                                                <div class="col-6"> {{providerSelected.contactphone }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Teléfono celular:</b> </div>
+                                                <div class="col-6"> {{providerSelected.contactcellPhone }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Mail comercial:</b> </div>
+                                                <div class="col-6"> {{ providerSelected.contactbusinessMail }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Forma de entrega:</b> </div>
+                                                <div class="col-6">{{
+                                                    this.providerSelected.deliveryTypeCode }} </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Método de pago:</b> </div>
+                                                <div class="col-6"> {{
+                                                    this.providerSelected.paymentMethodInitials }} - {{
+                                                    this.providerSelected.paymentMethodDescription }} - {{
+                                                    this.providerSelected.paymentMethodDays }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Transporte:</b> </div>
+                                                <div class="col-6"> {{ providerSelected.transport }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Obs de entrega:</b> </div>
+                                                <div class="col-6"> {{ providerSelected.deliveryObservation }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card" style="margin-top: 0px;">
+                                <div class="card-body">
+                                    <h5 class="font-weight-bold mb-3">Datos de la factura.</h5>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Número de orden de compra:</b> </div>
+                                                <div class="col-6"> {{ billOfBuy.id }}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Fecha de generación:</b> </div>
+                                                <div class="col-6"> {{ billOfBuy.generationDate | date: "dd/MM/yyyy" }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Descuento:</b> </div>
+                                                <div class="col-6"> {{ billOfBuy.discount }}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>IVA:</b> </div>
+                                                <div class="col-6"> {{ billOfBuy.iva }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Última actualización:</b> </div>
+                                                <div class="col-6"> {{ billOfBuy.updateDate | date: "dd/MM/yyyy HH:MM" }}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Actualizado por:</b> </div>
+                                                <div class="col-6"> {{ billOfBuy.username }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card" style="margin-top: 0px;">
+                                <div class="card-body">
+                                    <h5 class="font-weight-bold mb-3">Productos de la orden.</h5>
+                                    <table datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions"
+                                        class="table table-striped  table-hover" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th style="min-width: 100px;">Producto</th>
+                                                <th style="min-width: 140px;">Codigo GIS</th>
+                                                <th style="min-width: 50px;">Cantidad</th>
+                                                <th style="min-width: 50px;">Precio de venta</th>
+                                                <th style="min-width: 50px;">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let row of tblData">
+                                                <td>{{ row.productDescription }}</td>
+                                                <td>{{ row.productGISCode }}</td>
+                                                <td>{{ row.amount }}</td>
+                                                <td>{{ row.salePrice }}</td>
+                                                <td>{{ doMultiply(row.salePrice, row.amount) }} </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="row">
+                                        <div class="col"></div>
+                                        <div class="col"></div>
+                                        <div class="col"></div>
+                                        <div class="col" style="padding-right: 4%; margin-top: 0%;">
+
+                                            <div class="row">
+                                                <div class="col-6"><b>Subtotal:</b> </div>
+                                                <div class="col-6" style="text-align: end;">{{ totalExcludingIva
+                                                    | currency:'CLP':'symbol':'1.0-0' }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6"><b>Descuento:</b> </div>
+                                                <div class="col-6" style="text-align: end;"> {{ totalDiscount |
+                                                    currency:'CLP':'symbol':'1.0-0' }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6" style="border-top: 1px solid ;"><b>Neto:</b>
+                                                </div>
+                                                <div class="col-6" style="border-top: 1px solid ; text-align: end;"> {{
+                                                    totalNet | currency:'CLP':'symbol':'1.0-0' }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6"><b>IVA:</b> </div>
+                                                <div class="col-6" style="text-align: end;"> {{ totalIVA |
+                                                    currency:'CLP':'symbol':'1.0-0' }}</div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-6" style="border-top: 1px solid ;font-weight : bold;">
+                                                    <b>Total:</b>
+                                                </div>
+                                                <div class="col-6"
+                                                    style="border-top: 1px solid ;font-weight : bold; text-align: end;">
+                                                    {{ total | currency:'CLP':'symbol':'1.0-0' }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card" style="margin-top: 0px;">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <mat-form-field>
+                                                <mat-label>Información adicional de la reversa</mat-label>
+                                                <textarea matInput placeholder="Información Adicional" rows="2"
+                                                    formControlName="additionalInformation"></textarea>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button (click)="volver()" mat-raised-button type="button" class="btn btn-fill btn-default">
+                Cancelar</button>
+
+            <button mat-raised-button type="submit" [disabled]="!reverseBillOfBuyForm.valid"
+                class="btn btn-fill btn-rose">Guardar</button>
+
+        </form>
+    </div>
+</div>

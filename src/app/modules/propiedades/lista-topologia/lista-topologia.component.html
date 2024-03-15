@@ -1,0 +1,97 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-rose card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">account_circle</i>
+                        </div>
+                        <h4 class="card-title">Tipología proyecto <strong>{{
+                                proyectoSeleccionado ? proyectoSeleccionado.proyectoDesc :
+                                ''
+                                }}</strong></h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="toolbar">
+                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                        </div>
+
+                        <div class="material-datatables">
+                            <!-- <app-empty-state *ngIf="tblData.length === 0" [icon]="'visibility_off'"
+                                        text="No hay registros para mostrar.">
+                                    </app-empty-state> -->
+                            <div class="table-responsive">
+                                <table datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions"
+                                    class="table table-striped  table-hover" id="tbl-proyecto" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Tipo</th>
+                                            <th>GComún</th>
+                                            <th>M2-Util</th>
+                                            <th>M2 Terr</th>
+                                            <th>M2 Total</th>
+                                            <th>Máx Ad</th>
+                                            <th>Máx Ni</th>
+                                            <th>Estado</th>
+                                            <th>
+                                                Acciones
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let row of tblData">
+                                            <td>{{ row.tipo }}</td>
+                                            <td>{{ row.gComun }}</td>
+                                            <td>{{ row.m2Util }}</td>
+                                            <td>{{ row.m2Terr }}</td>
+                                            <td>{{ row.m2Total }}</td>
+                                            <td>{{ row.maxAdulto }}</td>
+                                            <td>{{ row.maxNino }}</td>
+                                            <td>{{ row.estado === 1 ? 'Activa' : 'Inactiva' }}</td>
+                                            <td class="text-right">
+                                                <button mat-icon-button [matMenuTriggerFor]="menuTipologia"
+                                                    aria-label="Menu de propiedades">
+                                                    <mat-icon>more_vert</mat-icon>
+                                                </button>
+                                                <mat-menu #menuTipologia="matMenu">
+                                                    <button (click)="addEditTipologia(row, true)" mat-menu-item>
+                                                        <mat-icon>visibility</mat-icon>
+                                                        <span>Ver</span>
+                                                    </button>
+                                                    <button (click)="addEditTipologia(row)" mat-menu-item
+                                                        [disabled]="row.estado !== 1">
+                                                        <mat-icon>edit</mat-icon>
+                                                        <span>Editar</span>
+                                                    </button>
+                                                    <button mat-menu-item (click)="modalDocumentos(row)">
+                                                        <mat-icon>attach_file</mat-icon>
+                                                        <span>Documentos</span>
+                                                    </button>
+                                                    <button mat-menu-item (click)="onCambioEstado(row)">
+                                                        <mat-icon>delete</mat-icon>
+                                                        <span>Activar/Desactivar</span>
+                                                    </button>
+                                                </mat-menu>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                        <button mat-raised-button (click)="addEditTipologia()" type="button" class="btn btn-primary"
+                            title="Agregar avisos de vacancia">Agregar
+                            Tipología</button>
+                        <button mat-raised-button (click)="onVolver()" type="button" class="btn btn-success"
+                            title="Volver">Volver</button>
+                    </div>
+                    <!-- end content-->
+                </div>
+                <!--  end card  -->
+            </div>
+            <!-- end col-md-12 -->
+        </div>
+        <!-- end row -->
+    </div>
+</div>

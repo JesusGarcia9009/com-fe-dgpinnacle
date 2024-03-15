@@ -1,0 +1,65 @@
+<div class="card">
+    <div class="card-header card-header-rose card-header-icon">
+        <div class="card-icon">
+            <i class="material-icons">flag</i>
+        </div>
+        <h4 class="card-title">Lista de motivos de Ajuste</h4>
+    </div>
+    <div class="card-body">
+        <div class="toolbar">
+            <!--        Here you can write extra buttons/actions for the toolbar              -->
+        </div>
+
+        <div class="material-datatables">
+            <!-- <app-empty-state *ngIf="tblData.length === 0" [icon]="'visibility_off'"
+                text="No hay registros para mostrar.">
+            </app-empty-state> -->
+            <div class="table-responsive">
+                <table datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions"
+                    class="table table-striped  table-hover" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th style="min-width: 50px;">Descripción</th>
+                            <th style="min-width: 50px;" class="disabled-sorting text-right">
+                                Acciones
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of tblData">
+                            <td>{{ row.description }}</td>
+                            <td class="text-right">
+                                <button mat-icon-button [matMenuTriggerFor]="menuPropiedades"
+                                    aria-label="Menu de propiedades">
+                                    <mat-icon>more_vert</mat-icon>
+                                </button>
+                                <mat-menu #menuPropiedades="matMenu">
+                                    <button (click)="redirectToView(row)" mat-menu-item>
+                                        <mat-icon>visibility</mat-icon>
+                                        <span>Ver</span>
+                                    </button>
+                                    <button (click)="redirectToEdit(row)" mat-menu-item>
+                                        <!-- [disabled]="row.estadoProyecto !== 1"> -->
+                                        <mat-icon>edit</mat-icon>
+                                        <span>Editar</span>
+                                    </button>
+                                    <button mat-menu-item (click)="onDelete(row)">
+                                        <mat-icon>delete</mat-icon>
+                                        <span>Eliminar</span>
+                                    </button>
+                                </mat-menu>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <button mat-raised-button routerLink="/maintainer/add-upd-inventoryreason" type="button" class="btn btn-primary"
+            title="Agregar Usuario">Agregar
+            motivo de inventario</button>
+        <!-- <button mat-raised-button type="button" class="btn btn-success" (click)="downloadData()"
+            title="Generar reporte">
+            Generar reporte</button> -->
+    </div>
+    <!-- end content-->
+</div>

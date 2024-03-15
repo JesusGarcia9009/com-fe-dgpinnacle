@@ -1,0 +1,501 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <form [formGroup]="registerPropiedadesForm" (ngSubmit)="onRegisterSubmit()">
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div class="card ">
+                        <div class="card-header card-header-rose card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">apartment</i>
+                            </div>
+                            <h4 class="card-title">Datos básicos de la propiedad</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3" *ngIf="propiedadSel">
+                                    <mat-form-field>
+                                        <input matInput formControlName="proyectoCorrelativo" [disabled]="true"
+                                            placeholder="Código" type="input">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <mat-select placeholder="* Proyecto" formControlName="proyectoId"
+                                            (selectionChange)="onProyectoSelectChange($event.value)" name="proyectoId">
+                                            <mat-option *ngFor="let proyecto of listaProyectosPropiedad"
+                                                [value]="proyecto.proyectoId">
+                                                {{ proyecto.proyectoDesc }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="(propiedadesFormControls.proyectoId.dirty || propiedadesFormControls.proyectoId.touched) 
+                                    && propiedadesFormControls.proyectoId.errors?.required">
+                                            El proyecto al que pertenece la propiedad es <strong>requerido</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <mat-select placeholder="* Tipo Unidad" formControlName="tipoUnidadId"
+                                            name="tipoUnidadId">
+                                            <mat-option *ngFor="let tipoUnidad of listaTipoUnidad"
+                                                [value]="tipoUnidad.key">
+                                                {{ tipoUnidad.value }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="(propiedadesFormControls.proyectoId.dirty || propiedadesFormControls.proyectoId.touched) 
+                                    && propiedadesFormControls.proyectoId.errors?.required">
+                                            El tipo de unidad es <strong>requerido</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <input matInput formControlName="direccion" placeholder="* Dirección"
+                                            autocomplete="off" type="input">
+                                        <mat-error *ngIf="(propiedadesFormControls.direccion.dirty || propiedadesFormControls.direccion.touched) 
+                                        && propiedadesFormControls.direccion.errors?.required">
+                                            La dirección de la propiedad es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <mat-select placeholder="* Región" formControlName="regionId" name="regionId"
+                                            (selectionChange)="onRegionSelectChange($event.value)">
+                                            <mat-option *ngFor="let region of listaRegiones" [value]="region.key">
+                                                {{ region.value }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="(propiedadesFormControls.regionId.dirty || propiedadesFormControls.regionId.touched) 
+                                    && propiedadesFormControls.regionId.errors?.required">
+                                            La región de la propiedad es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <mat-form-field [floatLabel]="isLoadingComuna">
+                                        <mat-label *ngIf="isLoadingComuna">
+                                            <div class="select-placeholder-container">
+                                                <span>Cargando...</span>
+                                                <mat-spinner class="spinner" diameter="20"></mat-spinner>
+                                            </div>
+                                        </mat-label>
+                                        <!-- <mat-select [panelClass]="isLoadingComuna ? 'hide-dummy-option' : ''"
+                                            [disabled]="!listaComunas || isLoadingComuna" placeholder="* Comuna"
+                                            formControlName="comunaId" name="comunaId">
+                                            <mat-option *ngFor="let comuna of listaComunas" [value]="comuna.key">
+                                                {{ comuna.value }}
+                                            </mat-option>
+                                        </mat-select> -->
+
+
+                                        <mat-select placeholder="* Comuna" formControlName="comunaId" name="comunaId">
+                                            <mat-option>
+                                                <ngx-mat-select-search placeholderLabel="Buscar comunas..."
+                                                    noEntriesFoundLabel="No se encontraron resultados..."
+                                                    formControlName="comunaFilter">
+                                                </ngx-mat-select-search>
+                                            </mat-option>
+                                            <mat-option *ngFor="let comuna of listaComunasFilter" [value]="comuna.key">
+                                                {{ comuna.value }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="(propiedadesFormControls.comunaId.dirty || propiedadesFormControls.comunaId.touched) 
+                                    && propiedadesFormControls.comunaId.errors?.required">
+                                            La comuna de la propiedad es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <mat-select placeholder="* Tipo de propiedad" formControlName="tipoPropiedadId"
+                                            name="tipoPropiedadId" (selectionChange)="setDatoReferencia()">
+                                            <mat-option *ngFor="let tipoPropiedad of listaTipoPropiedad"
+                                                [value]="tipoPropiedad.key">
+                                                {{ tipoPropiedad.value }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="(propiedadesFormControls.tipoPropiedadId.dirty || propiedadesFormControls.tipoPropiedadId.touched) 
+                                    && propiedadesFormControls.tipoPropiedadId.errors?.required">
+                                            El tipo de propiedad es <strong>requerido</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <mat-select placeholder="* Clase" formControlName="claseId" name="claseId">
+                                            <mat-option *ngFor="let tipoClase of listaClasePropiedad"
+                                                [value]="tipoClase.key">
+                                                {{ tipoClase.value }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="(propiedadesFormControls.claseId.dirty || propiedadesFormControls.claseId.touched) 
+                                    && propiedadesFormControls.claseId.errors?.required">
+                                            La clase de propiedad es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <mat-form-field>
+                                        <input matInput formControlName="torre" placeholder="Torre" type="input"
+                                            autocomplete="off">
+                                        <mat-error *ngIf="(propiedadesFormControls.torre.dirty || propiedadesFormControls.torre.touched) 
+                                        && propiedadesFormControls.torre.errors?.required">
+                                            La torre de la propiedad es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <mat-form-field>
+                                        <input matInput formControlName="piso" placeholder="Piso" type="input"
+                                            autocomplete="off">
+                                        <mat-error *ngIf="(propiedadesFormControls.piso.dirty || propiedadesFormControls.piso.touched) 
+                                        && propiedadesFormControls.piso.errors?.required">
+                                            El piso de la propiedad es <strong>requerido</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-1">
+                                    <mat-form-field>
+                                        <input matInput formControlName="numeroDepto" placeholder="Num. Depto"
+                                            autocomplete="off" type="input">
+                                        <mat-error *ngIf="(propiedadesFormControls.numeroDepto.dirty || propiedadesFormControls.numeroDepto.touched) 
+                                        && propiedadesFormControls.numeroDepto.errors?.required">
+                                            El Número de departamento de la propiedad es <strong>requerido</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <input matInput formControlName="rolSii" placeholder="Rol SII" type="input"
+                                            autocomplete="off">
+                                        <mat-error *ngIf="(propiedadesFormControls.rolSii.dirty || propiedadesFormControls.rolSii.touched) 
+                                        && propiedadesFormControls.rolSii.errors?.required">
+                                            El Rol SII es <strong>requerido</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <input matInput formControlName="datosEscritura" placeholder="Datos Escritura"
+                                            autocomplete="off" type="input">
+                                        <mat-error *ngIf="(propiedadesFormControls.datosEscritura.dirty || propiedadesFormControls.datosEscritura.touched) 
+                                        && propiedadesFormControls.datosEscritura.errors?.required">
+                                            Los datos de escritura son <strong>requeridos</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div class="card ">
+                        <div class="card-header card-header-rose card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">meeting_room</i>
+                            </div>
+                            <h4 class="card-title">Tipología</h4>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <input matInput formControlName="cantEstacionamiento"
+                                            placeholder="Número Estac." autocomplete="off" type="text">
+                                        <mat-error *ngIf="(propiedadesFormControls.cantEstacionamiento.dirty || propiedadesFormControls.cantEstacionamiento.touched) 
+                                        && propiedadesFormControls.cantEstacionamiento.errors?.required">
+                                            La cantidad de estacionamientos de la propiedad es
+                                            <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <input matInput formControlName="cantBodega" placeholder="Número Bodega"
+                                            type="text" autocomplete="off">
+                                        <mat-error *ngIf="(propiedadesFormControls.cantBodega.dirty || propiedadesFormControls.cantBodega.touched) 
+                                        && propiedadesFormControls.cantBodega.errors?.required">
+                                            La cantidad de bodegas de la propiedad es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <input matInput mask="separator.0" thousandSeparator="." autocomplete="off"
+                                            formControlName="cantDormitorio" placeholder="Cantidad Dorm." type="text"
+                                            min="0">
+                                        <mat-error *ngIf="(propiedadesFormControls.cantDormitorio.dirty || propiedadesFormControls.cantDormitorio.touched) 
+                                        && propiedadesFormControls.cantDormitorio.errors?.required">
+                                            La cantidad de dormitorios de la propiedad es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <input matInput formControlName="cantBannos" placeholder="Cantidad Baños"
+                                            autocomplete="off" type="text" min="0" mask="separator.0"
+                                            thousandSeparator=".">
+                                        <mat-error *ngIf="(propiedadesFormControls.cantBannos.dirty || propiedadesFormControls.cantBannos.touched) 
+                                        && propiedadesFormControls.cantBannos.errors?.required">
+                                            La cantidad de baños de la propiedad es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <mat-select placeholder="Orientación" formControlName="orientacionId"
+                                            name="orientacionId">
+                                            <mat-option *ngFor="let orientacion of listaOrientaciones"
+                                                [value]="orientacion.key">
+                                                {{ orientacion.value }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="(propiedadesFormControls.orientacionId.dirty || propiedadesFormControls.orientacionId.touched) 
+                                    && propiedadesFormControls.orientacionId.errors?.required">
+                                            La orientación es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <input matInput formControlName="superficieUtil" (change)="updateM2Total()"
+                                            placeholder="Superficie M2 Util" type="text" min="0" mask="separator.2"
+                                            autocomplete="off" decimalMarker="," thousandSeparator=".">
+                                        <mat-error *ngIf="(propiedadesFormControls.superficieUtil.dirty || propiedadesFormControls.superficieUtil.touched) 
+                                            && propiedadesFormControls.superficieUtil.errors?.required">
+                                            La superficie M2 Util es
+                                            <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <input matInput formControlName="superficieTerraza" (change)="updateM2Total()"
+                                            autocomplete="off" placeholder="Superficie M2 Terraza/Patio" type="text"
+                                            min="0" mask="separator.2" decimalMarker="," thousandSeparator=".">
+                                        <mat-error *ngIf="(propiedadesFormControls.superficieTerraza.dirty || propiedadesFormControls.superficieTerraza.touched) 
+                                            && propiedadesFormControls.superficieTerraza.errors?.required">
+                                            La superficie M2 terraza es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <input matInput formControlName="superficieTotal" autocomplete="off"
+                                            placeholder="Superficie M2 Total" type="number" min="0" decimalNumber
+                                            numberOfDecimals="2">
+                                        <mat-error *ngIf="(propiedadesFormControls.superficieTotal.dirty || propiedadesFormControls.superficieTotal.touched) 
+                                            && propiedadesFormControls.superficieTotal.errors?.required">
+                                            La superficie M2 total es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div class="card ">
+                        <div class="card-header card-header-rose card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">attach_money</i>
+                            </div>
+                            <h4 class="card-title">Crédito Hipotecario</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <mat-form-field>
+                                        <mat-select placeholder="Tiene" formControlName="tieneHipotecario"
+                                            name="tieneCreditoHip">
+                                            <mat-option *ngFor="let tieneHip of listaTieneHip" [value]="tieneHip.key">
+                                                {{ tieneHip.value }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="(propiedadesFormControls.tieneHipotecario.dirty || propiedadesFormControls.tieneHipotecario.touched) 
+                                    && propiedadesFormControls.tieneHipotecario.errors?.required">
+                                            El campo tiene es <strong>requerido</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <mat-select placeholder="Banco" formControlName="bancoId" name="banco">
+                                            <mat-option [value]="null">--SELECCIONAR--</mat-option>
+                                            <mat-option *ngFor="let banco of listaBancos" [value]="banco.key">
+                                                {{ banco.value }}
+                                            </mat-option>
+
+                                        </mat-select>
+                                        <mat-error *ngIf="(propiedadesFormControls.bancoId.dirty || propiedadesFormControls.bancoId.touched) 
+                                    && propiedadesFormControls.bancoId.errors?.required">
+                                            El banco es <strong>requerido</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-1">
+                                    <mat-form-field>
+                                        <span matPrefix>% &nbsp;</span>
+                                        <input matInput mask="separator.2" thousandSeparator="." decimalMarker=","
+                                            formControlName="tasaHipotecario" autocomplete="off" type="text"
+                                            placeholder="Tasa">
+                                        <mat-error *ngIf="(propiedadesFormControls.tasaHipotecario.dirty || propiedadesFormControls.tasaHipotecario.touched) 
+                                    && propiedadesFormControls.tasaHipotecario.errors?.required">
+                                            La tasa es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-1">
+                                    <mat-form-field>
+                                        <input matInput formControlName="plazoAnosHipotecario" autocomplete="off"
+                                            type="number" min="0" decimalNumber numberOfDecimals="0"
+                                            placeholder="Plazo Años">
+                                        <mat-error *ngIf="(propiedadesFormControls.plazoAnosHipotecario.dirty || propiedadesFormControls.plazoAnosHipotecario.touched) 
+                                    && propiedadesFormControls.plazoAnosHipotecario.errors?.required">
+                                            La tasa es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-1">
+                                    <mat-form-field>
+                                        <input matInput formControlName="diasVctoHipotecario" autocomplete="off"
+                                            type="number" min="0" decimalNumber numberOfDecimals="0"
+                                            placeholder="Día Vcto">
+                                        <mat-error *ngIf="(propiedadesFormControls.diasVctoHipotecario.dirty || propiedadesFormControls.diasVctoHipotecario.touched) 
+                                    && propiedadesFormControls.diasVctoHipotecario.errors?.required">
+                                            La tasa es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <input matInput formControlName="pjeFinanciaHipotecario" autocomplete="off"
+                                            min="0" mask="separator.2" thousandSeparator="."
+                                            placeholder="Financiamiento">
+                                        <span matPrefix>% &nbsp;</span>
+                                        <mat-error *ngIf="(propiedadesFormControls.pjeFinanciaHipotecario.dirty || propiedadesFormControls.pjeFinanciaHipotecario.touched) 
+                                    && propiedadesFormControls.pjeFinanciaHipotecario.errors?.required">
+                                            La tasa es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <span matPrefix>$ &nbsp;</span>
+                                        <input matInput formControlName="valorCompraVenta" type="text"
+                                            autocomplete="off" mask="separator" thousandSeparator="."
+                                            placeholder="Valor Compra/Venta">
+                                        <mat-error *ngIf="(propiedadesFormControls.valorCompraVenta.dirty || propiedadesFormControls.valorCompraVenta.touched) 
+                                        && propiedadesFormControls.valorCompraVenta.errors?.required">
+                                            El valor Compra/Venta es <strong>requerido</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <input matInput formControlName="mesesGracia" type="text" autocomplete="off"
+                                            mask="separator.0" thousandSeparator="." placeholder="Meses de gracia">
+                                        <mat-error *ngIf="(propiedadesFormControls.mesesGracia.dirty || propiedadesFormControls.mesesGracia.touched) 
+                                        && propiedadesFormControls.mesesGracia.errors?.required">
+                                            Los meses de gracia son <strong>requeridos</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div class="card ">
+                        <div class="card-header card-header-rose card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">assignment</i>
+                            </div>
+                            <h4 class="card-title">Otros datos</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field>
+                                        <input matInput formControlName="propiedadesDesc" placeholder="* Descripción"
+                                            autocomplete="off" type="input">
+                                        <mat-error *ngIf="(propiedadesFormControls.propiedadesDesc.dirty || propiedadesFormControls.propiedadesDesc.touched) 
+                                        && propiedadesFormControls.propiedadesDesc.errors?.required">
+                                            La descripción de la propiedad es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <mat-form-field>
+                                        <input matInput formControlName="restriccion" autocomplete="off"
+                                            placeholder="Restricciones Propietario" type="input">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field>
+                                        <input matInput formControlName="referenciaPropiedad" appToUpperCase
+                                            autocomplete="off" (change)="toUpperRef()" placeholder="Referencia"
+                                            type="input">
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <mat-form-field>
+                                        <mat-select placeholder="FSRI" formControlName="propiedadFsri"
+                                            name="propiedadFsri">
+                                            <mat-option *ngFor="let tieneHip of listaTieneHip" [value]="tieneHip.key">
+                                                {{ tieneHip.value }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="(propiedadesFormControls.tieneHipotecario.dirty || propiedadesFormControls.tieneHipotecario.touched) 
+                                    && propiedadesFormControls.tieneHipotecario.errors?.required">
+                                            El campo tiene es <strong>requerido</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button *ngIf="!this.isReadOnly" (click)="volver()" mat-raised-button type="button"
+                class="btn btn-fill btn-default">
+                Cancelar</button>
+
+            <button *ngIf="!this.isReadOnly" mat-raised-button type="submit" [disabled]="!registerPropiedadesForm.valid"
+                class="btn btn-fill btn-rose">Guardar</button>
+
+
+            <button *ngIf="this.isReadOnly" (click)="volver()" mat-raised-button type="button"
+                class="btn btn-fill btn-default">
+                Volver</button>
+
+
+            <button *ngIf="!this.isReadOnly && propiedadSel" (click)="modalDocumento()" mat-raised-button type="button"
+                class="btn btn-fill btn-success">
+                Documentos</button>
+        </form>
+    </div>
+</div>

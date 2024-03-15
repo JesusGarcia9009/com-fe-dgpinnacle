@@ -1,0 +1,38 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12" >
+
+                <mat-tab-group mat-align-tabs="start" [selectedIndex]="tabIndex">
+                    <mat-tab label="Marca">
+                        <app-brand></app-brand>
+                    </mat-tab>
+                    <mat-tab label="Grupo">
+                        <app-universalgroups></app-universalgroups>
+                    </mat-tab>
+                    <mat-tab label="Modelo">
+                        <app-model></app-model>
+                    </mat-tab>
+                    <mat-tab label="Origen">
+                        <app-source></app-source>
+                    </mat-tab>
+                    <mat-tab label="Forma de entrega">
+                        <app-deliverytype></app-deliverytype>
+                    </mat-tab>
+                    <mat-tab label="Método de pago">
+                        <app-paymentmethod></app-paymentmethod>
+                    </mat-tab>
+                    <mat-tab label="Tipo de producto">
+                        <app-product-type></app-product-type>
+                    </mat-tab>
+                    <mat-tab label="Entrega">
+                        <app-quotationdelivery></app-quotationdelivery>
+                    </mat-tab>
+                    <mat-tab label="Motivos de Ajuste">
+                        <app-inventoryreason></app-inventoryreason>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,211 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <form [formGroup]="billOrderNoteForm" (ngSubmit)="onRegisterSubmit()">
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div class="card ">
+                        <div class="card-header card-header-rose card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">reorder</i>
+                            </div>
+                            <h4 class="card-title">Facturar nota de pedido</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="card" style="margin-top: 0px; margin-bottom: 0px;">
+                                <div class="card-body">
+                                    <h5 class="font-weight-bold mb-3">Datos del cliente {{
+                                        this.clientSelected.fantasyName }}.</h5>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Identificador de cliente:</b> </div>
+                                                <div class="col-6 t-l"> {{ this.clientSelected.rutOrId }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Dirección:</b> </div>
+                                                <div class="col-6"> {{
+                                                    this.clientSelected.address }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Región o estado:</b> </div>
+                                                <div class="col-6"> {{
+                                                    this.clientSelected.provinceOrStateDescription }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>País:</b></div>
+                                                <div class="col-6"> {{
+                                                    this.clientSelected.countryDescription }}</div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Contacto:</b> </div>
+                                                <div class="col-6"> {{ this.clientSelected.contactName }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Teléfono:</b> </div>
+                                                <div class="col-6"> {{clientSelected.contactphone }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Teléfono celular:</b> </div>
+                                                <div class="col-6"> {{clientSelected.contactcellPhone }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Mail comercial:</b> </div>
+                                                <div class="col-6"> {{ clientSelected.contactbusinessMail }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Forma de entrega:</b> </div>
+                                                <div class="col-6">{{
+                                                    this.clientSelected.deliveryTypeCode }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Método de pago:</b> </div>
+                                                <div class="col-6"> {{
+                                                    this.clientSelected.paymentMethodInitials }} - {{
+                                                    this.clientSelected.paymentMethodDescription }} - {{
+                                                    this.clientSelected.paymentMethodDays }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Transporte:</b> </div>
+                                                <div class="col-6"> {{ clientSelected.transport }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 t-r"><b>Obs de entrega:</b> </div>
+                                                <div class="col-6"> {{ clientSelected.deliveryObservation }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card" style="margin-top: 0px; margin-bottom: 0px;">
+                                <div class="card-body">
+                                    <h5 class="font-weight-bold mb-3">Productos de la nota de pedido.</h5>
+                                    <table datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions"
+                                        class="table table-striped  table-hover" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th style="min-width: 100px;">Producto</th>
+                                                <th style="min-width: 140px;">Codigo GIS</th>
+                                                <th style="min-width: 50px;">Cantidad</th>
+                                                <th style="min-width: 50px;">Precio de venta</th>
+                                                <th style="min-width: 50px;">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let row of tblData">
+                                                <td>{{ row.productDescription }}</td>
+                                                <td>{{ row.productGISCode }}</td>
+                                                <td>{{ row.amount }}</td>
+                                                <td>{{ row.salePrice }}</td>
+                                                <td>{{ doMultiply(row.salePrice, row.amount) }} </td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="row">
+                                        <div class="col"></div>
+                                        <div class="col"></div>
+                                        <div class="col"></div>
+                                        <div class="col"></div>
+                                        <div class="col" style="padding-right: 4%; margin-top: 0%;">
+
+                                            <div class="row">
+                                                <div class="col-6" style="font-weight : bold;"><b>Subtotal:</b>
+                                                </div>
+                                                <div class="col-6" style="text-align: end;">{{ totalExcludingIva
+                                                    | currency:'CLP':'symbol':'1.0-0' }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6" style="font-weight : bold;"><b>Descuento:</b>
+                                                </div>
+                                                <div class="col-6" style="text-align: end;"> {{ totalDiscount |
+                                                    currency:'CLP':'symbol':'1.0-0' }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6" style="border-top: 1px solid ;font-weight : bold;">
+                                                    <b>Neto:</b>
+                                                </div>
+                                                <div class="col-6" style="border-top: 1px solid ; text-align: end;"> {{
+                                                    totalNet | currency:'CLP':'symbol':'1.0-0' }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6" style="font-weight : bold;">
+                                                    <b>IVA:</b>
+                                                </div>
+                                                <div class="col-6" style="text-align: end;"> {{ totalIVA |
+                                                    currency:'CLP':'symbol':'1.0-0' }}</div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-6" style="border-top: 1px solid ;font-weight : bold;">
+                                                    <b>TOTAL:</b>
+                                                </div>
+                                                <div class="col-6"
+                                                    style="border-top: 1px solid ;font-weight : bold; text-align: end;">
+                                                    {{ total | currency:'CLP':'symbol':'1.0-0' }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="card" style="margin-top: 0px; margin-bottom: 0px;">
+                                <div class="card-body">
+                                    <h5 class="font-weight-bold mb-3">Datos de factura electrónica y orden de compra.</h5>
+                                    <div class="row">
+                                        <div class="col">
+                                            <mat-form-field>
+                                                <input matInput formControlName="numberOfBill"
+                                                    placeholder="* Número de factura" type="input">
+                                                <mat-error
+                                                    *ngIf="(billOrderNoteFormControls.numberOfBill.dirty || billOrderNoteFormControls.numberOfBill.touched) 
+                                                                && billOrderNoteFormControls.numberOfBill.errors?.required">
+                                                    El numero de factura es <strong>requerido</strong>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col">
+                                            <mat-form-field>
+                                                <input matInput formControlName="dateOfBill" readonly="readonly"
+                                                    [matDatepicker]="pickerDateOfBill" placeholder="* Fecha de factura"
+                                                    [value]="billOrderNoteForm.get('dateOfBill').value"
+                                                    (click)="pickerDateOfBill.open()" type="input">
+                                                <mat-datepicker-toggle matSuffix
+                                                    [for]="pickerDateOfBill"></mat-datepicker-toggle>
+                                                <mat-datepicker #pickerDateOfBill></mat-datepicker>
+                                                <mat-error
+                                                    *ngIf="(billOrderNoteFormControls.dateOfBill.dirty || billOrderNoteFormControls.dateOfBill.touched) 
+                                                                                    && billOrderNoteFormControls.dateOfBill.errors?.required">
+                                                    La fecha de aviso es <strong>requerida</strong>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+
+            <button (click)="volver()" mat-raised-button type="button" class="btn btn-fill btn-default">
+                Cancelar</button>
+
+            <button mat-raised-button type="submit" [disabled]="!billOrderNoteForm.valid"
+                class="btn btn-fill btn-rose">Guardar</button>
+
+        </form>
+    </div>
+</div>

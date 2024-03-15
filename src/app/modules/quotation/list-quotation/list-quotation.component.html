@@ -1,0 +1,92 @@
+<div class="main-content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+
+
+                <div class="card">
+                    <div class="card-header card-header-rose card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">border_color</i>
+                        </div>
+                        <h4 class="card-title">Lista de cotizaciones</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="toolbar">
+                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="material-datatables">
+                                    <div class="table-responsive">
+                                        <table datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions"
+                                            class="table table-striped  table-hover" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th style="min-width: 100px;">Identificador</th>
+                                                    <th style="min-width: 140px;">Rut</th>
+                                                    <th style="min-width: 140px;">Cliente</th>
+                                                    <th style="min-width: 50px;">Fecha generación</th>
+                                                    <th style="min-width: 50px;">Fecha actualización</th>
+                                                    <th style="min-width: 50px;">Estado</th>
+                                                    <th style="min-width: 50px;">Total</th>
+                                                    <th style="min-width: 50px;">Vendedor</th>
+                                                    <th style="min-width: 50px;" class="disabled-sorting text-right">
+                                                        Acciones
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let row of tblData">
+                                                    <td>{{ row.id }}</td>
+                                                    <td>{{ row.clientRutOrId }}</td>
+                                                    <td>{{ row.clientFantasyName }}</td>
+                                                    <td>{{ row.generationDate | date: "dd/MM/yyyy" }}</td>
+                                                    <td>{{ row.updateDate | date: "dd/MM/yyyy" }}</td>
+                                                    <td>{{ row.quotationStateName }}</td>
+                                                    <td>{{ row.total | currency:'CLP':'symbol':'1.0-0' }}</td>
+                                                    <td>{{ row.updateName }}</td>
+                                                    <td class="text-right">
+                                                        <button mat-icon-button [matMenuTriggerFor]="menuQuotation"
+                                                            aria-label="Menu de propiedades">
+                                                            <mat-icon>more_vert</mat-icon>
+                                                        </button>
+                                                        <mat-menu #menuQuotation="matMenu">
+                                                            <button (click)="redirectToView(row)" mat-menu-item>
+                                                                <mat-icon>visibility</mat-icon>
+                                                                <span>Ver</span>
+                                                            </button>
+                                                            <button (click)="download(row)" mat-menu-item>
+                                                                <mat-icon>cloud_download</mat-icon>
+                                                                <span *ngIf="row.quotationStateName == 'INGRESADA'">Emitir</span>
+                                                                <span *ngIf="row.quotationStateName != 'INGRESADA'">Descargar</span>
+                                                            </button>
+                                                            <button (click)="redirectToEdit(row)" mat-menu-item [disabled]="row.quotationStateName != 'INGRESADA'">
+                                                                <mat-icon>edit</mat-icon>
+                                                                <span>Editar</span>
+                                                            </button>
+                                                            <button mat-menu-item (click)="onDelete(row)" [disabled]="row.quotationStateName != 'INGRESADA'">
+                                                                <mat-icon>delete</mat-icon>
+                                                                <span>Eliminar</span>
+                                                            </button>
+                                                        </mat-menu>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button mat-raised-button routerLink="/quotation/add-quotation" type="button"
+                            class="btn btn-primary" title="Agregar Usuario">Agregar
+                            Cotización</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

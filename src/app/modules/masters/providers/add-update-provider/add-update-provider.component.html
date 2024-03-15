@@ -1,0 +1,230 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <form [formGroup]="providerForm" (ngSubmit)="onRegisterSubmit()">
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div class="card ">
+                        <div class="card-header card-header-rose card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">account_box</i>
+                            </div>
+                            <h4 class="card-title">Datos básicos del proveedor</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <input formControlName="id" placeholder="Identificador" type="hidden">
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <input matInput formControlName="rutOrId" placeholder="* Identificador or Rut"
+                                            type="input">
+                                        <mat-error *ngIf="(providerFormControls.rutOrId.dirty || providerFormControls.rutOrId.touched) 
+                                            && providerFormControls.rutOrId.errors?.required">
+                                            El identificador de la empresa providere es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <input matInput formControlName="fantasyName" placeholder="* Nombre de fantasía"
+                                            type="input">
+                                        <mat-error *ngIf="(providerFormControls.fantasyName.dirty || providerFormControls.fantasyName.touched) 
+                                            && providerFormControls.fantasyName.errors?.required">
+                                            La nombre de fantasía es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <input matInput formControlName="businessName" placeholder="* Razón Social"
+                                            type="input">
+                                        <mat-error *ngIf="(providerFormControls.businessName.dirty || providerFormControls.businessName.touched) 
+                                            && providerFormControls.businessName.errors?.required">
+                                            La razón social del proveedor es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <input matInput formControlName="transport" placeholder="MD. transporte"
+                                            type="input">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <input matInput formControlName="deliveryObservation" placeholder="Observaciones de entrega"
+                                            type="input">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <input matInput formControlName="attachedDocument" placeholder="Documentos"
+                                            type="input">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <input formControlName="contactid" placeholder="Identificador" type="hidden">
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <input matInput formControlName="contactName" placeholder="* Nombre de contacto"
+                                            type="input">
+                                        <mat-error *ngIf="(providerFormControls.contactName.dirty || providerFormControls.contactName.touched) 
+                                            && providerFormControls.contactName.errors?.required">
+                                            El identificador de la empresa proveedoa es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <input matInput formControlName="contactphone" placeholder="Teléfono de contacto"
+                                            type="input">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                            <input matInput formControlName="contactcellPhone" placeholder="Celular de contacto"
+                                                type="input">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                            <input matInput formControlName="contactbusinessMail" placeholder="Correo de contacto"
+                                                type="input">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <input matInput formControlName="address" placeholder="* Dirección"
+                                            autocomplete="off" type="input">
+                                        <mat-error *ngIf="(providerFormControls.address.dirty || providerFormControls.address.touched) 
+                                        && providerFormControls.address.errors?.required">
+                                            La dirección del proveedor es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <mat-select placeholder="* País" formControlName="countryId" name="countryId"
+                                            (selectionChange)="onCountrySelectChange($event.value)">
+                                            <mat-option *ngFor="let c of country" [value]="c.id">
+                                                {{ c.description }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="(providerFormControls.countryId.dirty || providerFormControls.countryId.touched) 
+                                    && providerFormControls.countryId.errors?.required">
+                                            El país del proveedor es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <mat-select placeholder="* Región" formControlName="regionOrCityId"
+                                            name="regionOrCityId"
+                                            (selectionChange)="onRegionSelectChange($event.value)">
+                                            <mat-option *ngFor="let region of regionOrCity" [value]="region.id">
+                                                {{ region.description }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="(providerFormControls.regionOrCityId.dirty || providerFormControls.regionOrCityId.touched) 
+                                    && providerFormControls.regionOrCityId.errors?.required">
+                                            La región del proveedor es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <mat-select placeholder="* Comuna" formControlName="provinceOrStateId"
+                                            name="provinceOrStateId">
+                                            <mat-option *ngFor="let c of provinceOrState" [value]="c.id">
+                                                {{ c.description }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="(providerFormControls.provinceOrStateId.dirty || providerFormControls.provinceOrStateId.touched) 
+                                    && providerFormControls.provinceOrStateId.errors?.required">
+                                            La comuna del proveedor es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <!-- <div class="col-md-4">
+                                    <mat-form-field [floatLabel]="isLoadingComuna">
+                                        <mat-label *ngIf="isLoadingComuna">
+                                            <div class="select-placeholder-container">
+                                                <span>Cargando...</span>
+                                                <mat-spinner class="spinner" diameter="20"></mat-spinner>
+                                            </div>
+                                        </mat-label>
+                                        <mat-select placeholder="* Comuna" formControlName="comunaId" name="comunaId">
+                                            <mat-option>
+                                                <ngx-mat-select-search placeholderLabel="Buscar comunas..."
+                                                    noEntriesFoundLabel="No se encontraron resultados..."
+                                                    formControlName="comunaFilter">
+                                                </ngx-mat-select-search>
+                                            </mat-option>
+                                            <mat-option *ngFor="let comuna of listaComunasFilter" [value]="comuna.key">
+                                                {{ comuna.value }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="(providerFormControls.comunaId.dirty || providerFormControls.comunaId.touched) 
+                                    && providerFormControls.comunaId.errors?.required">
+                                            La comuna de la propiedad es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div> -->
+                            </div>
+                            <!-- <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field>
+                                        <input matInput formControlName="proyectoAtributo" placeholder="Atributos"
+                                            type="input">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field>
+                                        <input matInput formControlName="proyectoRestricciones"
+                                            placeholder="Restricciones" type="input">
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <mat-form-field>
+                                        <input matInput formControlName="proyectoObservaciones"
+                                            placeholder="Observaciones" type="input">
+                                    </mat-form-field>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <mat-form-field>
+                                        <input matInput formControlName="proyectoContacto"
+                                            placeholder="Contacto Administración" type="input">
+                                    </mat-form-field>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <button *ngIf="!this.isReadOnly" (click)="volver()" mat-raised-button type="button"
+                class="btn btn-fill btn-default">
+                Cancelar</button>
+
+            <button *ngIf="!this.isReadOnly" mat-raised-button type="submit" [disabled]="!providerForm.valid"
+                class="btn btn-fill btn-rose">Guardar</button>
+
+
+            <button *ngIf="this.isReadOnly" (click)="volver()" mat-raised-button type="button"
+                class="btn btn-fill btn-default">
+                Volver</button>
+
+
+            
+        </form>
+    </div>
+</div>

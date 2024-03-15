@@ -1,0 +1,452 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <form [formGroup]="orderNoteForm" (ngSubmit)="onRegisterSubmit()">
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div class="card ">
+                        <div class="card-header card-header-rose card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">reorder</i>
+                            </div>
+                            <h4 class="card-title">Datos básicos de la nota de pedido</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="card" style="margin-top: 0px;">
+                                <div class="card-body">
+                                    <h5 class="font-weight-bold mb-3">Cargar cotización.</h5>
+                                    <div class="row">
+                                        <div class="col">
+                                            <mat-radio-group class="tp-radio-group" >
+                                                <mat-radio-button class="tp-radio-button"
+                                                    (change)="radioChange($event.value)"
+                                                    *ngFor="let option of optionsRadio" [value]="option.id"
+                                                    [checked]="option.selected" [disabled]="this.isReadOnly">
+                                                    {{option.name}}
+                                                </mat-radio-button>
+                                            </mat-radio-group>
+
+                                        </div>
+                                        <div class="col" *ngIf="optionSelected === 1">
+                                            <mat-form-field class="example-full-width">
+                                                <input type="text" 
+                                                    #autoCompleteQuotationInput matInput
+                                                    placeholder="Seleccione o escriba codigo de cotización.." 
+                                                    aria-label="Number"
+                                                    [formControl]="myControl"
+                                                    [matAutocomplete]="autoQuotation" 
+                                                    autocomplete="one-time-code">
+                                                <mat-autocomplete #autoQuotation="matAutocomplete"
+                                                    (optionSelected)="onQuotationSelectChange($event.option.value)">
+                                                    <mat-option *ngFor="let option of filteredOptions | async"
+                                                        [value]="option.id">
+                                                        {{option.id}} - {{option.clientRutOrId}} -
+                                                        {{option.clientFantasyName}}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col">
+                                            <!-- <mat-form-field>
+                                                <mat-select placeholder="* Cliente" formControlName="clientId"
+                                                    name="clientId" 
+                                                    (selectionChange)="onClientSelectChange($event.value)">
+                                                    <mat-option *ngFor="let c of clientList" [value]="c.id">
+                                                        {{ c.rutOrId }} - {{ c.fantasyName }}
+                                                    </mat-option>
+                                                </mat-select>
+                                                
+                                                <mat-error *ngIf="(orderNoteFormControls.clientId.dirty || orderNoteFormControls.clientId.touched) 
+                                            && orderNoteFormControls.clientId.errors?.required">
+                                                    La cliente es requerido<strong>requerida</strong>
+                                                </mat-error>
+                                            </mat-form-field> -->
+                                            <mat-form-field class="example-full-width">
+                                                <input type="text" #autoCompleteInput
+                                                    placeholder="Escriba nombre cliente.." aria-label="Number" matInput
+                                                    formControlName="clientFantasyName" [matAutocomplete]="autoClient"
+                                                    autocomplete="one-time-code">
+                                                <mat-autocomplete #autoClient="matAutocomplete" panelWidth="auto"
+                                                    (optionSelected)="onClientSelectChange($event.option.value)"
+                                                    panelClass="test">
+                                                    <mat-option *ngFor="let option of filteredClientsOptions | async"
+                                                        [ngClass]="test" [value]="option.id">
+                                                        {{option.desc}}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                                <mat-error *ngIf="(orderNoteFormControls.clientFantasyName.dirty || orderNoteFormControls.clientFantasyName.touched) 
+                                            && orderNoteFormControls.clientFantasyName.errors?.required">
+                                                    El cliente es <strong>requerido</strong>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col">
+                                            <mat-form-field>
+                                                <input matInput formControlName="deliveryDate" readonly="readonly"
+                                                    [matDatepicker]="picker" placeholder=" Fecha de despacho" [value]="orderNoteForm.get('deliveryDate').value"
+                                                    (click)="picker.open()" type="input" autocomplete="one-time-code">
+                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                                <mat-error
+                                                    *ngIf="(orderNoteFormControls.deliveryDate.dirty || orderNoteFormControls.deliveryDate.touched) 
+                                                                        && orderNoteFormControls.deliveryDate.errors?.required">
+                                                    La fecha de aviso es <strong>requerida</strong>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col" *ngIf="optionSelected === 2"></div>
+                                    </div>
+                                    <div class="card" style="margin-top: 0px;" *ngIf="this.clientSelected">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Identificador de cliente:</b> </div>
+                                                        <div class="col-6 t-l"> {{ this.clientSelected.rutOrId }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Dirección:</b> </div>
+                                                        <div class="col-6"> {{
+                                                            this.clientSelected.address }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Región o estado:</b> </div>
+                                                        <div class="col-6"> {{
+                                                            this.clientSelected.provinceOrStateDescription }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>País:</b></div>
+                                                        <div class="col-6"> {{
+                                                            this.clientSelected.countryDescription }}</div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Contacto:</b> </div>
+                                                        <div class="col-6"> {{ this.clientSelected.contactName }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Teléfono-Celular:</b> </div>
+                                                        <div class="col-6"> {{clientSelected.contactphone }}-{{clientSelected.contactcellPhone }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Mail comercial:</b> </div>
+                                                        <div class="col-6"> {{ clientSelected.contactbusinessMail }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Método de pago:</b> </div>
+                                                        <div class="col-6"> {{
+                                                            this.clientSelected.paymentMethodInitials }} - {{
+                                                            this.clientSelected.paymentMethodDescription }} - {{
+                                                            this.clientSelected.paymentMethodDays }}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Forma de entrega:</b> </div>
+                                                        <div class="col-6">{{
+                                                            this.clientSelected.deliveryTypeDescription }} </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Transporte:</b> </div>
+                                                        <div class="col-6"> {{ clientSelected.transport }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Documentos:</b> </div>
+                                                        <div class="col-6"> {{
+                                                            this.clientSelected.attachedDocument }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Obs de entrega:</b> </div>
+                                                        <div class="col-6"> {{ clientSelected.deliveryObservation }}
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="card" style="margin-top: 0px;" *ngIf="orderNote && orderNote.orderNoteStateName && orderNote.orderNoteStateName != 'INGRESADA'">
+                                        <div class="card-body">
+                                            <h5 class="font-weight-bold mb-3">Datos de la nota de pedido.</h5>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Número de nota de pedido:</b> </div>
+                                                        <div class="col-6"> {{ orderNote.id }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Fecha de entrega:</b> </div>
+                                                        <div class="col-6"> {{ orderNote.deliveryDate | date: "dd/MM/yyyy" }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Número de factura:</b> </div>
+                                                        <div class="col-6"> {{ orderNote.numberOfBill }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Fecha de factura:</b> </div>
+                                                        <div class="col-6"> {{ orderNote.dateOfBill | date: "dd/MM/yyyy" }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Número de orden de compra:</b> </div>
+                                                        <div class="col-6"> {{ orderNote.numberOfPurchaseOrder }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 t-r"><b>Fecha de orden de compra:</b> </div>
+                                                        <div class="col-6"> {{ orderNote.dateOfPurchaseOrder | date: "dd/MM/yyyy"  }}
+                                                        </div>
+                                                    </div>
+        
+                                                </div>  
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card" style="margin-top: 0px;">
+                                <div class="card-body">
+                                    <form [formGroup]="productForm" (ngSubmit)="onSubmitProduct()" *ngIf="!this.isReadOnly">
+                                        <h5 class="font-weight-bold mb-3">Productos</h5>
+
+                                        <div class="row">
+
+                                            <div class="col">
+                                                <!-- <mat-form-field>
+                                                    <mat-select placeholder="* Seleccione producto" name="producto"
+                                                        formControlName="productId"
+                                                        (selectionChange)="onProductSelectChange($event.value)">
+                                                        <mat-option *ngFor="let p of productList" [value]="p.id">
+                                                            {{ p.brandCode}}-{{ p.modelCode}}-{{
+                                                            p.universalGroupCode}}-{{p.sourceCode}} - {{p.description}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field> -->
+                                                <mat-form-field class="example-full-width">
+                                                    <input 
+                                                    type="text" 
+                                                    #autoCompleteProductInput
+                                                    placeholder="Escriba codigo de producto.." 
+                                                    aria-label="Number" 
+                                                    matInput
+                                                    formControlName="productDescription" 
+                                                    [matAutocomplete]="autoProduct"
+                                                    autocomplete="one-time-code">
+                                                    <mat-autocomplete #autoProduct="matAutocomplete" panelWidth="auto"
+                                                        (optionSelected)="onProductSelectChange($event.option.value)"
+                                                        panelClass="test">
+                                                        <mat-option *ngFor="let option of filteredProdutsOptions | async"
+                                                            [value]="option.id">
+                                                            {{option.desc}}
+                                                        </mat-option>
+                                                    </mat-autocomplete>
+                                                    <mat-error *ngIf="(productFormControls.productDescription.dirty || productFormControls.productDescription.touched) 
+                                                    && productFormControls.productDescription.errors?.required">
+                                                            Debe añadir un <strong>producto</strong>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col">
+                                                <mat-form-field>
+                                                    <input matInput formControlName="amount" placeholder="Cantidad"
+                                                        type="number">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col">
+                                                <mat-form-field>
+                                                    <input matInput formControlName="salePrice"
+                                                        placeholder="Precio de venta" type="text">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col">
+                                                <button mat-raised-button [disabled]="!productForm.valid" type="submit"
+                                                    class="btn btn-fill btn-rose">Agregar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="card" style="margin-top: 0px;" *ngIf="tblData.length >0">
+                                        <div class="card-body">
+                                            <table datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions"
+                                                class="table table-striped  table-hover" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="min-width: 50px;" class="disabled-sorting text-left" *ngIf="!this.isReadOnly">
+                                                            Acciones
+                                                        </th>
+                                                        <th style="min-width: 100px;">Producto</th>
+                                                        <th style="min-width: 140px;">Codigo GIS</th>
+                                                        <th style="min-width: 50px;">Cantidad</th>
+                                                        <th style="min-width: 50px;">Precio de venta</th>
+                                                        <th style="min-width: 50px;">Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let row of tblData">
+                                                        <td class="text-left" *ngIf="!this.isReadOnly">
+                                                            <button mat-raised-button type="button" (click)="deleteProduct(row)"
+                                                                class="btn btn-link btn-danger btn-just-icon remove-user icon-display"
+                                                                title="eliminar"><i
+                                                                    class="material-icons">close</i></button>
+                                                            <button mat-raised-button type="button" (click)="onProductUpdateChange(row)"
+                                                                class="btn btn-link btn-warning btn-just-icon edit-user icon-display"
+                                                                title="editar"><i
+                                                                    class="material-icons">edit</i></button>
+
+                                                        </td>
+                                                        <td>{{ row.productDescription }}</td>
+                                                        <td>{{ row.productGISCode }}</td>
+                                                        <td>{{ row.amount }}</td>
+                                                        <td>{{ row.salePrice }}</td>
+                                                        <td>{{ doMultiply(row.salePrice, row.amount) }} </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="row">
+                                                <div class="col"></div>
+                                                <div class="col"></div>
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <mat-form-field>
+                                                            <input matInput formControlName="discount"
+                                                                placeholder="Aplicar Descuento (%)" type="number"
+                                                                (keyup)="doFilter($event.target.value)">
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col"></div>
+
+                                                <div class="col" style="padding-right: 4%; margin-top: 0%;">
+
+                                                    <div class="row">
+                                                        <div class="col-6" style="font-weight : bold;"><b>Subtotal:</b>
+                                                        </div>
+                                                        <div class="col-6" style="text-align: end;">{{ totalExcludingIva
+                                                            | currency:'CLP':'symbol':'1.0-0' }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6" style="font-weight : bold;"><b>Descuento:</b>
+                                                        </div>
+                                                        <div class="col-6" style="text-align: end;"> {{ totalDiscount |
+                                                            currency:'CLP':'symbol':'1.0-0' }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6"
+                                                            style="border-top: 1px solid ;font-weight : bold;">
+                                                            <b>Neto:</b>
+                                                        </div>
+                                                        <div class="col-6"
+                                                            style="border-top: 1px solid ; text-align: end;"> {{
+                                                            totalNet | currency:'CLP':'symbol':'1.0-0' }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6" style="font-weight : bold;">
+                                                            <b>IVA:</b>
+                                                        </div>
+                                                        <div class="col-6" style="text-align: end;"> {{ totalIVA |
+                                                            currency:'CLP':'symbol':'1.0-0' }}</div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-6"
+                                                            style="border-top: 1px solid ;font-weight : bold;">
+                                                            <b>TOTAL:</b>
+                                                        </div>
+                                                        <div class="col-6"
+                                                            style="border-top: 1px solid ;font-weight : bold; text-align: end;">
+                                                            {{ total | currency:'CLP':'symbol':'1.0-0' }}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card" style="margin-top: 0px;">
+                                <div class="card-body">
+                                    <h5 class="font-weight-bold mb-3">Datos adicionales de nota de pedido.</h5>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <input matInput formControlName="numberOfPurchaseOrder"
+                                                    placeholder="Número de orden de compra" type="input">
+                                            </mat-form-field>
+                                            <mat-form-field>
+                                                <input matInput formControlName="dateOfPurchaseOrder"
+                                                    readonly="readonly" [matDatepicker]="pickerDateOfPurchaseOrder"
+                                                    [value]="orderNoteForm.get('dateOfPurchaseOrder').value"
+                                                    placeholder="Fecha de orden de compra"
+                                                    (click)="pickerDateOfPurchaseOrder.open()" type="input">
+                                                <mat-datepicker-toggle matSuffix
+                                                    [for]="pickerDateOfPurchaseOrder"></mat-datepicker-toggle>
+                                                <mat-datepicker #pickerDateOfPurchaseOrder></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                        
+                                        <div class="col-9">
+                                            <mat-form-field>
+                                                <mat-label>Información Adicional</mat-label>
+                                                <textarea matInput placeholder="Información Adicional" rows="4"
+                                                    formControlName="additionalInformation"></textarea>
+                                            </mat-form-field>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngIf="orderNote?.reverseId">
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <input matInput formControlName="reverseNumberOfCreditNote"
+                                                    placeholder="Número de nota de credito" type="input">
+                                            </mat-form-field>
+                                            <mat-form-field>
+                                                <input matInput formControlName="reverseDateOfCreditNote"
+                                                    readonly="readonly" [matDatepicker]="pickerreverseDateOfCreditNote"
+                                                    [value]="orderNoteForm.get('reverseDateOfCreditNote').value"
+                                                    placeholder="Fecha de nota de credito" type="input">
+                                            </mat-form-field>
+                                        </div>
+                                        
+                                        <div class="col-9">
+                                            <mat-form-field>
+                                                <mat-label>Información Adicional de reversa de nota de pedido</mat-label>
+                                                <textarea matInput placeholder="Información Adicional de reversa" rows="4"
+                                                    formControlName="reverseAdditionalInformation"></textarea>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button *ngIf="!this.isReadOnly" (click)="volver()" mat-raised-button type="button"
+                class="btn btn-fill btn-default">
+                Cancelar</button>
+
+            <button *ngIf="!this.isReadOnly" mat-raised-button type="submit" [disabled]="!orderNoteForm.valid"
+                class="btn btn-fill btn-rose">Guardar</button>
+
+
+            <button *ngIf="this.isReadOnly" (click)="volver()" mat-raised-button type="button"
+                class="btn btn-fill btn-default">
+                Volver</button>
+
+
+
+        </form>
+    </div>
+</div>

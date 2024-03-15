@@ -1,0 +1,41 @@
+<form  class="form" [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+    <div class="card card-login card-hidden" [ngClass]="{'card-hidden':!isShowForm}">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <img src="assets/img/brands/logo_new2.png" alt="asd" class="img-brand">
+                </div>
+                <div class="col-12 col-form">
+
+                    <mat-form-field class="pr-4 pl-4 has-label">
+                        <mat-icon matSuffix>username</mat-icon>
+                        <input matInput formControlName="username" placeholder="Email" type="username" >
+                        <mat-error
+                            *ngIf="(loginFormControls.username.dirty || loginFormControls.username.touched) && loginFormControls.username.errors?.username">
+                            Porfavor ingrese un username válido
+                        </mat-error>
+                        <mat-error
+                            *ngIf="(loginFormControls.username.dirty || loginFormControls.username.touched) && loginFormControls.username.errors?.required">
+                            El usuario es <strong>requerido</strong>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width pr-4 pl-4 mt-1">
+                        <mat-icon *ngIf="isShowPassword" (click)="turnOffPassword()" matSuffix>visibility</mat-icon>
+                        <mat-icon *ngIf="!isShowPassword" (click)="turnOffPassword()" matSuffix>visibility_off</mat-icon>
+                        <input matInput formControlName="password" placeholder="Password" [attr.type]="passwordType">
+                        <mat-error
+                            *ngIf="(loginFormControls.password.dirty || loginFormControls.password.touched) && loginFormControls.password.errors?.required">
+                            El password es <strong>requerido</strong>
+                        </mat-error>
+                    </mat-form-field>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="card-footer justify-content-center">
+            <button class="btn btn-info btn-login" type="submit" [disabled]="!loginForm.valid">Ingresar</button>
+        </div>
+    </div>
+</form>

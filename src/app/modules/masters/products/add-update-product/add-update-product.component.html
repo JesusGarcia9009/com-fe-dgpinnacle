@@ -1,0 +1,280 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <form [formGroup]="registerItemForm" (ngSubmit)="onRegisterSubmit()">
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div class="card ">
+                        <div class="card-header card-header-rose card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">subject</i>
+                            </div>
+                            <h4 class="card-title">{{ formTitle }}</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <input formControlName="id" placeholder="Identificador" type="hidden">
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <mat-select placeholder="Marca" formControlName="brandId" name="brandId"
+                                            (selectionChange)="onSelectChange($event.value)">
+                                            <mat-option *ngFor="let b of brandList" [value]="b.id">
+                                                {{ b.code }} - {{ b.description }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="(registerFormControls.brandId.dirty || registerFormControls.brandId.touched) 
+                                        && registerFormControls.brandId.errors?.required">
+                                            La marca es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <mat-select placeholder="Grupo universal" formControlName="universalGroupId"
+                                            name="universalGroupId">
+                                            <mat-option *ngFor="let g of groupList" [value]="g.id">
+                                                {{ g.code }} - {{ g.description }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="(registerFormControls.universalGroupId.dirty || registerFormControls.universalGroupId.touched) 
+                                        && registerFormControls.universalGroupId.errors?.required">
+                                            El grupo es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <mat-select placeholder="Model" formControlName="modelId" name="modelId">
+                                            <mat-option *ngFor="let m of modelList" [value]="m.id">
+                                                {{ m.code }} - {{ m.description }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="(registerFormControls.modelId.dirty || registerFormControls.modelId.touched) 
+                                        && registerFormControls.modelId.errors?.required">
+                                            El modelo es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <mat-select placeholder="Origen" formControlName="sourceId" name="sourceId">
+                                            <mat-option *ngFor="let s of sourceList" [value]="s.id">
+                                                {{ s.code }} - {{ s.description }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="(registerFormControls.sourceId.dirty || registerFormControls.sourceId.touched) 
+                                        && registerFormControls.sourceId.errors?.required">
+                                            El origen de producto es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <mat-label>Descripción</mat-label>
+                                        <textarea matInput formControlName="description" placeholder="Descripción"
+                                            type="input"></textarea>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <mat-label>Descripción de proveedor</mat-label>
+                                        <textarea matInput placeholder="Descripción de proveedor"
+                                            formControlName="providerDescription"></textarea>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <mat-select placeholder="Producto equivalente" formControlName="productReferenceId"
+                                            name="productReferenceId">
+                                            <mat-option *ngFor="let p of productList" [value]="p.id">
+                                                {{ p.brandCode}}-{{ p.universalGroupCode}}-{{ p.modelCode}}-{{p.sourceCode}} - {{p.description}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <input matInput formControlName="rowNumb" placeholder="Fila"
+                                            type="input">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <input matInput formControlName="colNumb" placeholder="Columna"
+                                            type="input">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <mat-select placeholder="Tipo de producto" formControlName="productTypeId"
+                                            name="productTypeId">
+                                            <mat-option *ngFor="let p of typeList" [value]="p.id">
+                                                {{ p.code }} - {{ p.description }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="(registerFormControls.productTypeId.dirty || registerFormControls.productTypeId.touched) 
+                                        && registerFormControls.productTypeId.errors?.required">
+                                            El tipo de producto es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <input matInput formControlName="salePrice" placeholder="Precio de Venta"
+                                            type="input">
+                                        <mat-error *ngIf="(registerFormControls.salePrice.dirty || registerFormControls.salePrice.touched) 
+                                        && registerFormControls.salePrice.errors?.required">
+                                            El precio de venta es <strong>requerido</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3" *ngIf="show">
+                                    <mat-form-field>
+                                        <input matInput formControlName="netCost" placeholder="Costo neto" type="input">
+                                        <mat-error *ngIf="(registerFormControls.netCost.dirty || registerFormControls.netCost.touched) 
+                                        && registerFormControls.netCost.errors?.required">
+                                            La costo neto es <strong>requerido</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    
+                                </div>
+                                <div class="col-md-3">
+                                    
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="row">
+                                        <mat-form-field class="col">
+                                            <input matInput formControlName="initialStock" placeholder="Stock de inicio"
+                                                type="input" disabled>
+                                        </mat-form-field>
+                                        <mat-form-field class="col">
+                                            <input matInput formControlName="stock" placeholder="Stock actual" type="input" disabled>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-md-3" *ngIf="!show">
+                                    <div class="row">
+                                        <mat-form-field class="col">
+                                            <input matInput formControlName="inStore" placeholder="Entrada Bodeba" type="input" disabled>
+                                        </mat-form-field>
+                                        <mat-form-field class="col">
+                                            <input matInput formControlName="outStore" placeholder="Salida Bodeba" type="input" disabled>
+                                        </mat-form-field>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <input matInput formControlName="minStock" placeholder="Stock Minimo"
+                                            type="input">
+                                        <mat-error *ngIf="(registerFormControls.minStock.dirty || registerFormControls.minStock.touched) 
+                                        && registerFormControls.minStock.errors?.required">
+                                            El stock minimo es <strong>requerido</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <input matInput formControlName="securityStock" placeholder="Stock de Seguridad"
+                                            type="input">
+                                        <mat-error *ngIf="(registerFormControls.securityStock.dirty || registerFormControls.securityStock.touched) 
+                                        && registerFormControls.securityStock.errors?.required">
+                                            El stock de seguridad es <strong>requerido</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="d-flex justify-content-center">
+                                        <mat-form-field>
+                                            <input matInput formControlName="originalCode" placeholder="Codigo Original"
+                                                type="input">
+
+                                        </mat-form-field>
+                                        <a target="_blank" class="plus-buton mt-3" (click)="addOriginalCode()"
+                                            data-toggle="tooltip" title="Agregar codigo original!">
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+
+                                    <div *ngFor="let item of originalCodeList">
+                                        <div class="d-flex justify-content-between">
+                                            <div>{{item}}</div>
+                                            <a target="_blank" class="color-link" (click)="deleteOriginalCode(item)"
+                                                data-toggle="tooltip" title="Eliminar codigo original!">
+                                                <i class="fa fa-trash "></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="d-flex justify-content-center">
+                                        <mat-form-field>
+                                            <input matInput formControlName="providerCode"
+                                                placeholder="Codigo Proveedor" type="input">
+
+                                        </mat-form-field>
+                                        <a target="_blank" class="plus-buton mt-3" (click)="addProviderCode()"
+                                            data-toggle="tooltip" title="Agregar codigo proveedor!">
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+
+                                    <div *ngFor="let item of providerCodeList">
+                                        <div class="d-flex justify-content-between">
+                                            <div>{{item}}</div>
+                                            <a target="_blank" class="color-link" (click)="deleteProviderCode(item)"
+                                                data-toggle="tooltip" title="Eliminar codigo proveedor!">
+                                                <i class="fa fa-trash "></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="d-flex justify-content-center">
+                                        <mat-form-field>
+                                            <input matInput formControlName="gloss" placeholder="Glosa" type="input">
+
+                                        </mat-form-field>
+                                        <a target="_blank" class="plus-buton mt-3" (click)="addGloss()"
+                                            data-toggle="tooltip" title="Agregar Glosa!">
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+
+                                    <div *ngFor="let item of glossList">
+                                        <div class="d-flex justify-content-between">
+                                            <div>{{item}}</div>
+                                            <a target="_blank" class="color-link" (click)="deleteGloss(item)"
+                                                data-toggle="tooltip" title="Eliminar glosa!">
+                                                <i class="fa fa-trash "></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-footer ">
+                            <button (click)="volver()" mat-raised-button type="button" class="btn btn-fill btn-default">
+                                Volver</button>
+
+                            <button mat-raised-button type="submit" *ngIf="!isReadOnly"
+                                [disabled]="!registerItemForm.valid" class="btn btn-fill btn-rose">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

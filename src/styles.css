@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+
+.swal2-popup {
+  font-size: 0.9em !important;
+}
+
+.logo {
+  padding: 15px 21px !important;
+}
+
+::ng-deep .mat-select-panel {
+  max-height: 80vh !important;
+}
+
+
+

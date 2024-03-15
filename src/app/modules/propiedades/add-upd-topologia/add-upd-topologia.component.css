@@ -1,0 +1,8 @@
+::ng-deep .cdk-global-overlay-wrapper {
+    z-index: 1000 !important;
+  }
+  
+  .cursor-hand {
+      cursor: pointer;
+  }
+  

@@ -1,0 +1,108 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <form [formGroup]="registerUserForm" (ngSubmit)="onRegisterSubmit()">
+            <div class="row">
+                <div class="col-md-12 col-lg-6">
+                    <div class="card ">
+                        <div class="card-header card-header-rose card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">perm_identity</i>
+                            </div>
+                            <h4 class="card-title">{{ formTitle }}</h4>
+                        </div>
+                        <div class="card-body">
+                            <mat-form-field>
+                                <input matInput formControlName="names" placeholder="Nombre" type="input">
+                                <mat-error *ngIf="(registerFormControls.names.dirty || registerFormControls.names.touched) 
+                                && registerFormControls.names.errors?.required">
+                                    Los nombres son <strong>requeridos</strong>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput formControlName="middleName" placeholder="Apellido paterno" type="input">
+                                <mat-error *ngIf="(registerFormControls.middleName.dirty || registerFormControls.middleName.touched) 
+                                && registerFormControls.middleName.errors?.required">
+                                    El apellido paterno es <strong>requerido</strong>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput formControlName="lastName" placeholder="Apellido materno" type="input">
+                                <mat-error *ngIf="(registerFormControls.lastName.dirty || registerFormControls.lastName.touched) 
+                                && registerFormControls.lastName.errors?.required">
+                                    El apellido materno es <strong>requerido</strong>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput formControlName="rut" placeholder="Rut" type="input" (focusout)="focusOutRut()">
+                                <mat-error *ngIf="(registerFormControls.rut.dirty || registerFormControls.rut.touched) 
+                                && registerFormControls.rut.errors?.required">
+                                    El rut es <strong>requerido</strong>
+                                </mat-error>
+                                <mat-error *ngIf="(registerFormControls.rut.dirty || registerFormControls.rut.touched) 
+                                && registerFormControls.rut.errors?.validRut">
+                                    El rut tiene que ser <strong>válido</strong>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput formControlName="mail" placeholder="Email" type="mail">
+                                <mat-error *ngIf="(registerFormControls.mail.dirty || registerFormControls.mail.touched) 
+                                && registerFormControls.mail.errors?.required">
+                                    El mail es <strong>requerido</strong>
+                                </mat-error>
+                                <mat-error
+                                    *ngIf="(registerFormControls.mail.dirty || registerFormControls.mail.touched) && registerFormControls.mail.errors?.mail">
+                                    Porfavor ingrese un mail válido
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput formControlName="businessPosition" placeholder="Cargo" type="input">
+                                <mat-error *ngIf="(registerFormControls.businessPosition.dirty || registerFormControls.businessPosition.touched) 
+                                && registerFormControls.businessPosition.errors?.required">
+                                    El cargo es <strong>requerido</strong>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-select placeholder="Rol de usuario" formControlName="profileId" name="profileId">
+                                    <mat-option *ngFor="let rol of profiles" [value]="rol.id">
+                                        {{ rol.name }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="(registerFormControls.profileId.dirty || registerFormControls.profileId.touched) 
+                                && registerFormControls.profileId.errors?.required">
+                                    El rol de usuario es <strong>requerido</strong>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput formControlName="password" placeholder="Password" type="password">
+                                <mat-error *ngIf="(registerFormControls.password.dirty || registerFormControls.password.touched) 
+                                && registerFormControls.password.errors?.required">
+                                    El password es <strong>requerido</strong>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput formControlName="confirmPassword" placeholder="Confirmar Password"
+                                    type="password">
+                                <mat-error *ngIf="(registerFormControls.confirmPassword.dirty || registerFormControls.confirmPassword.touched) 
+                                && registerFormControls.confirmPassword.errors?.required">
+                                    El campo confirmar password es <strong>requerido</strong>
+                                </mat-error>
+                                <mat-error
+                                    *ngIf="registerFormControls.confirmPassword.errors && registerFormControls.confirmPassword.errors.mustMatch">
+                                    Los password deben ser iguales
+
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="card-footer ">
+                            <button (click)="volver()" mat-raised-button type="button" class="btn btn-fill btn-default">
+                                Cancelar</button>
+
+                            <button mat-raised-button type="submit" [disabled]="!registerUserForm.valid"
+                                class="btn btn-fill btn-rose">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

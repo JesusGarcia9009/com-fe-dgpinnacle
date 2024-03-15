@@ -1,0 +1,84 @@
+<div class="d-flex justify-content-between">
+    <h2 mat-dialog-title>{{ title }}</h2>
+    <button mat-raised-button type="button" (click)="close()" class="btn btn-link btn-warning btn-just-icon"
+        title="Cerrar"><i class="material-icons">close</i></button>
+</div>
+
+<mat-dialog-content>
+    <div>
+        <div class="card" style="margin-top: 0px;">
+            <div class="card-body">
+                <h5>Datos de la operación</h5>
+                <div class="row">
+
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-6 t-r"><b>Tipo:</b> </div>
+                            <div class="col-6"> {{
+                                this.currentOperation.operationType }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 t-r"><b>Estado actual:</b> </div>
+                            <div class="col-6"> {{
+                                this.currentOperation.operationCurrentState }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 t-r"><b>Identificador:</b> </div>
+                            <div class="col-6"> {{ this.currentOperation.operationIdObject }}</div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-6 t-r"><b>Fecha de creación:</b> </div>
+                            <div class="col-6"> {{ this.currentOperation.operationDate | date: "dd/MM/yyyy hh:mm" }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 t-r"><b>Usuario:</b> </div>
+                            <div class="col-6"> {{
+                                this.currentOperation.operationUsername }} </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 t-r"><b>Nombre completo:</b> </div>
+                            <div class="col-6"> {{ this.currentOperation.operationFullName }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card" style="margin-top: 0px;">
+            <div class="card-body">
+                <h5>Productos de la operación</h5>
+                <div class="row" *ngFor="let item of this.currentOperation.operationLogProducts">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-2 t-r"><b>Producto:</b> </div>
+                            <div class="col-4"> {{ item.productGISCode }} - {{ item.productDescription }}</div>
+                            <div class="col-2 t-r"><b>Ubicacíon:</b> </div>
+                            <div class="col-1"> {{ item.rowNumb }} - {{ item.colNumb }} </div>
+                            <div class="col-2 t-r"><b>Cantidad:</b> </div>
+                            <div class="col-1"> {{ item.amount }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card" style="margin-top: 0px;">
+            <div class="card-body">
+                <h5>Estados de la operación</h5>
+                <div class="row" *ngFor="let item1 of this.currentOperation.operationLogStates">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-2 t-r"><b>Usuario:</b> </div>
+                            <div class="col-4"> {{ item1.operationFullName }}</div>
+                            <div class="col-2 t-r"><b>Estado - fecha:</b> </div>
+                            <div class="col-4"> {{ item1.operationState }} - {{ item1.operationDate | date: "dd/MM/yyyy hh:mm" }} </div>
+                            <!-- <div class="col-1 t-r"><b>Fecha:</b> </div>
+                            <div class="col-2"> {{ item1.operationDate | date: "dd/MM/yyyy hh:mm" }}</div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>

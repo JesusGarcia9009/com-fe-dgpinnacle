@@ -1,0 +1,95 @@
+<div class="main-content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+
+
+                <div class="card">
+                    <div class="card-header card-header-rose card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">local_atm</i>
+                        </div>
+                        <h4 class="card-title">Lista de notas de pedido.</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="toolbar">
+                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="material-datatables">
+                                    <div class="table-responsive">
+                                        <table datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions"
+                                            class="table table-striped  table-hover" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th style="min-width: 100px;">Id</th>
+                                                    <th style="min-width: 140px;">Rut</th>
+                                                    <th style="min-width: 140px;">Cliente</th>
+                                                    <th style="min-width: 50px;">Fecha</th>
+                                                    <th style="min-width: 50px;">Entrega</th>
+                                                    <th style="min-width: 90px;">Tipo</th>
+                                                    <th style="min-width: 90px;">Medio</th>
+                                                    <th style="min-width: 50px;">Estado</th>
+                                                    <th style="min-width: 50px;" class="disabled-sorting text-right">
+                                                        Acciones
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let row of tblData">
+                                                    <td>{{ row.id }}</td>
+                                                    <td>{{ row.clientRutOrId }}</td>
+                                                    <td>{{ row.clientFantasyName }}</td>
+                                                    <td>{{ row.generationDate | date: "dd/MM/yyyy" }}</td>
+                                                    <td>{{ row.deliveryDate | date: "dd/MM/yyyy" }}</td>
+                                                    <td>{{ row.deliveryType }}</td>
+                                                    <td>{{ row.transport }}</td>
+                                                    <td>{{ row.orderNoteStateName }}</td>
+                                                    <td class="text-right">
+                                                        <button mat-icon-button [matMenuTriggerFor]="menuQuotation"
+                                                            aria-label="Menu de propiedades">
+                                                            <mat-icon>more_vert</mat-icon>
+                                                        </button>
+                                                        <mat-menu #menuQuotation="matMenu">
+                                                            <button (click)="redirectToView(row)" mat-menu-item>
+                                                                <mat-icon>visibility</mat-icon>
+                                                                <span>Ver</span>
+                                                            </button>
+                                                            <button (click)="download(row)" mat-menu-item>
+                                                                <mat-icon>cloud_download</mat-icon>
+                                                                <span *ngIf="row.orderNoteStateName == 'INGRESADA'">Emitir</span>
+                                                                <span *ngIf="row.orderNoteStateName != 'INGRESADA'">Descargar</span>
+                                                            </button>
+                                                            <button (click)="redirectToEdit(row)" mat-menu-item [disabled]="row.orderNoteStateName != 'INGRESADA'">
+                                                                <mat-icon>edit</mat-icon>
+                                                                <span>Editar</span>
+                                                            </button>
+                                                            <button (click)="redirectToBill(row)" mat-menu-item [disabled]="row.orderNoteStateName == 'INGRESADA' || row.orderNoteStateName == 'FACTURADA'">
+                                                                <mat-icon>aspect_ratio</mat-icon>
+                                                                <span>Facturar</span>
+                                                            </button>
+                                                            <button mat-menu-item (click)="onDelete(row)" [disabled]="row.orderNoteStateName == 'REVERSADA'">
+                                                                <mat-icon>not_interested</mat-icon>
+                                                                <span>Reversa de Nota de Pedido</span>
+                                                            </button>
+                                                        </mat-menu>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button mat-raised-button routerLink="/order/add-order" type="button"
+                            class="btn btn-primary" title="Agregar Usuario">Agregar nota de pedido</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

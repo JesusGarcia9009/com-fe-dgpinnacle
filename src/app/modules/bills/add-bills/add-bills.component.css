@@ -1,0 +1,14 @@
+.t-r {
+    text-align: right;
+    font-weight: 600;
+}
+
+.t-l {
+    text-align: left;
+}
+
+.table > thead > tr > th
+{
+  font-weight: 600;
+  font-size: 0.875rem;
+}

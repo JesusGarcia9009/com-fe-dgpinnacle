@@ -1,0 +1,18 @@
+.img-brand {
+    margin-top: 20px;
+    margin-bottom: 35px;
+}
+
+.card-login .card-body {
+  padding: 0 !important;
+
+}
+
+.card-login {
+  padding: 10px;
+}
+
+
+.btn-login {
+  width: 100%;
+}

@@ -1,0 +1,43 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <form [formGroup]="registerItemForm" (ngSubmit)="onRegisterSubmit()">
+            <div class="row">
+                <div class="col-md-12 col-lg-6">
+                    <div class="card ">
+                        <div class="card-header card-header-rose card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">group_work</i>
+                            </div>
+                            <h4 class="card-title">{{ formTitle }}</h4>
+                        </div>
+                        <div class="card-body">
+                            <input formControlName="id" placeholder="Identificador" type="hidden">
+                            <mat-form-field>
+                                <input matInput formControlName="code" placeholder="Código" type="input">
+                                <mat-error *ngIf="(registerFormControls.code.dirty || registerFormControls.code.touched) 
+                                && registerFormControls.code.errors?.required">
+                                    El código es <strong>requerido</strong>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput formControlName="description" placeholder="Descripción" type="input">
+                                <mat-error *ngIf="(registerFormControls.description.dirty || registerFormControls.description.touched) 
+                                && registerFormControls.description.errors?.required">
+                                    La descripción es <strong>requerido</strong>
+                                </mat-error>
+                            </mat-form-field>
+                            
+                        </div>
+                        <div class="card-footer ">
+                            <button (click)="volver()" mat-raised-button type="button" class="btn btn-fill btn-default">
+                                Volver</button>
+
+                            <button mat-raised-button type="submit" *ngIf="!isReadOnly" [disabled]="!registerItemForm.valid"
+                                class="btn btn-fill btn-rose">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

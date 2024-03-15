@@ -1,0 +1,101 @@
+@import "../core/variables/brand";
+
+// .sidebar {
+//   background: $brand-primary !important;
+// }
+
+.card .card-header-rose .card-icon,
+.card .card-header-rose .card-text,
+.card .card-header-rose:not(.card-header-icon):not(.card-header-text),
+.card.bg-rose,
+.card.card-rotate.bg-rose .front,
+.card.card-rotate.bg-rose .back {
+  background: $brand-info;
+}
+
+.mat-button.btn.btn-rose,
+.mat-raised-button.btn.btn-rose,
+.mat-raised-button.btn:not([class*="mat-elevation-z"]).btn-rose,
+.btn.btn-rose {
+  color: #fff;
+  background-color: $brand-primary;
+  border-color: $brand-primary;
+  box-shadow: 0 2px 2px 0 rgba(104, 104, 104, 0.4),
+    0 3px 1px -2px rgba(104, 104, 104, 0.4),
+    0 1px 5px 0 rgba(104, 104, 104, 0.4);
+}
+
+.card .card-header-rose .card-icon,
+.card .card-header-rose:not(.card-header-icon):not(.card-header-text),
+.card .card-header-rose .card-text {
+  box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14),
+    0 7px 10px -5px rgba(104, 104, 104, 0.4);
+}
+
+.mat-option.mat-selected:not(.mat-option-multiple) {
+  background-color: $brand-primary !important;
+  color: #fff !important;
+}
+
+.mat-option.mat-active {
+  background: $brand-primary !important;
+  color: #fff !important;
+}
+
+.mat-option:hover:not(.mat-option-disabled) {
+  background: $brand-primary !important;
+}
+
+.mat-focused .mat-form-field-underline .mat-form-field-ripple {
+  background-color: $brand-rose !important;
+}
+
+.mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float
+  .mat-form-field-label:not(.mat-empty):not(.mat-form-field-empty) {
+  color: $brand-labels;
+  // scale or font-size
+}
+
+.active-list-item {
+  color: $brand-primary !important; /* Note: You could also use a custom theme */
+}
+
+.mat-list-option {
+  background: $brand-primary !important;
+}
+
+.navbar .btn-group .dropdown-menu a:hover {
+  color: $brand-primary !important;
+}
+
+.mat-button.btn.btn-rose.btn-link,
+.mat-raised-button.btn.btn-rose.btn-link,
+.mat-raised-button.btn:not([class*="mat-elevation-z"]).btn-rose.btn-link,
+.btn.btn-rose.btn-link {
+  background-color: transparent;
+  color: $brand-primary;
+  box-shadow: none;
+}
+
+.btn-rose:hover {
+  color: $brand-info;
+}
+.header-filter::before {
+  background: rgb(222 222 222 / 50%) !important;
+}
+
+@media (max-width: 991px) {
+  .sidebar::before {
+    background-color: #fff;
+  }
+}
+
+.mat-form-field-infix input {
+  height: 20.45px;
+}
+
+
+
+.dynamic-form {
+  margin:0 0 !important;
+}

@@ -1,0 +1,178 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <form [formGroup]="registerProyectoForm" (ngSubmit)="onRegisterSubmit()">
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div class="card ">
+                        <div class="card-header card-header-rose card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">apartment</i>
+                            </div>
+                            <h4 class="card-title">Datos básicos del proyecto</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <input matInput formControlName="proyectoCorrelativoId" placeholder="Código"
+                                            type="input">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field>
+                                        <input matInput formControlName="proyectoDesc" placeholder="Descripción"
+                                            type="input">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field>
+                                        <input matInput formControlName="proyectoInmobiliaria"
+                                            placeholder="Inmobiliaria" type="input">
+                                    </mat-form-field>
+                                </div>
+                                <!-- <div class="col-md-3">
+                                    <mat-form-field>
+                                        <mat-select placeholder="* Proyecto" formControlName="proyectoId"
+                                            (selectionChange)="onProyectoSelectChange($event.value)" name="proyectoId">
+                                            <mat-option *ngFor="let proyecto of listaProyectosPropiedad"
+                                                [value]="proyecto.key">
+                                                {{ proyecto.value }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="(propiedadesFormControls.proyectoId.dirty || propiedadesFormControls.proyectoId.touched) 
+                                    && propiedadesFormControls.proyectoId.errors?.required">
+                                            El proyecto al que pertenece la propiedad es <strong>requerido</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <mat-select placeholder="* Tipo Unidad" formControlName="tipoUnidadId"
+                                            name="tipoUnidadId">
+                                            <mat-option *ngFor="let tipoUnidad of listaTipoUnidad"
+                                                [value]="tipoUnidad.key">
+                                                {{ tipoUnidad.value }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="(propiedadesFormControls.proyectoId.dirty || propiedadesFormControls.proyectoId.touched) 
+                                    && propiedadesFormControls.proyectoId.errors?.required">
+                                            El tipo de unidad es <strong>requerido</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div> -->
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field>
+                                        <input matInput formControlName="proyectoDireccion" placeholder="Dirección"
+                                            autocomplete="off" type="input">
+                                        <mat-error *ngIf="(proyectoFormControls.proyectoDireccion.dirty || proyectoFormControls.proyectoDireccion.touched) 
+                                        && proyectoFormControls.proyectoDireccion.errors?.required">
+                                            La dirección de la propiedad es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field>
+                                        <mat-select placeholder="* Región" formControlName="regionId" name="regionId"
+                                            (selectionChange)="onRegionSelectChange($event.value)">
+                                            <mat-option *ngFor="let region of listaRegiones" [value]="region.key">
+                                                {{ region.value }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="(proyectoFormControls.regionId.dirty || proyectoFormControls.regionId.touched) 
+                                    && proyectoFormControls.regionId.errors?.required">
+                                            La región del proyecto es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <mat-form-field [floatLabel]="isLoadingComuna">
+                                        <mat-label *ngIf="isLoadingComuna">
+                                            <div class="select-placeholder-container">
+                                                <span>Cargando...</span>
+                                                <mat-spinner class="spinner" diameter="20"></mat-spinner>
+                                            </div>
+                                        </mat-label>
+                                        <!-- <mat-select [panelClass]="isLoadingComuna ? 'hide-dummy-option' : ''"
+                                            [disabled]="!listaComunas || isLoadingComuna" placeholder="* Comuna"
+                                            formControlName="comunaId" name="comunaId">
+                                            <mat-option *ngFor="let comuna of listaComunas" [value]="comuna.key">
+                                                {{ comuna.value }}
+                                            </mat-option>
+                                        </mat-select> -->
+
+
+                                        <mat-select placeholder="* Comuna" formControlName="comunaId" name="comunaId">
+                                            <mat-option>
+                                                <ngx-mat-select-search placeholderLabel="Buscar comunas..."
+                                                    noEntriesFoundLabel="No se encontraron resultados..."
+                                                    formControlName="comunaFilter">
+                                                </ngx-mat-select-search>
+                                            </mat-option>
+                                            <mat-option *ngFor="let comuna of listaComunasFilter" [value]="comuna.key">
+                                                {{ comuna.value }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="(proyectoFormControls.comunaId.dirty || proyectoFormControls.comunaId.touched) 
+                                    && proyectoFormControls.comunaId.errors?.required">
+                                            La comuna de la propiedad es <strong>requerida</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field>
+                                        <input matInput formControlName="proyectoAtributo" placeholder="Atributos"
+                                            type="input">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field>
+                                        <input matInput formControlName="proyectoRestricciones"
+                                            placeholder="Restricciones" type="input">
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <mat-form-field>
+                                        <input matInput formControlName="proyectoObservaciones"
+                                            placeholder="Observaciones" type="input">
+                                    </mat-form-field>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <mat-form-field>
+                                        <input matInput formControlName="proyectoContacto"
+                                            placeholder="Contacto Administración" type="input">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <button *ngIf="!this.isReadOnly" (click)="volver()" mat-raised-button type="button"
+                class="btn btn-fill btn-default">
+                Cancelar</button>
+
+            <button *ngIf="!this.isReadOnly" mat-raised-button type="submit" [disabled]="!registerProyectoForm.valid"
+                class="btn btn-fill btn-rose">Guardar</button>
+
+
+            <button *ngIf="this.isReadOnly" (click)="volver()" mat-raised-button type="button"
+                class="btn btn-fill btn-default">
+                Volver</button>
+
+
+            <button *ngIf="!this.isReadOnly && proyectoSel" (click)="modalDocumento()" mat-raised-button type="button"
+                class="btn btn-fill btn-success">
+                Documentos</button>
+        </form>
+    </div>
+</div>

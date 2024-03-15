@@ -1,0 +1,110 @@
+<h4 mat-dialog-title>{{ formTitle }}</h4>
+
+<mat-dialog-content>
+
+    <form [formGroup]="registerTipologiaForm" (ngSubmit)="onRegisterSubmit()">
+        <div class="row">
+            <div class="col-md-4">
+                <mat-form-field>
+                    <input matInput formControlName="tipo" placeholder="Tipo" type="input">
+                    <mat-error *ngIf="(formTipologiaControls.tipo.dirty || formTipologiaControls.tipo.touched) 
+                    && formTipologiaControls.tipo.errors?.required">
+                        La tipologiìa <strong>es requerida</strong>
+                    </mat-error>
+                </mat-form-field>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <mat-form-field>
+                    <span matPrefix>$ &nbsp;</span>
+                    <input matInput formControlName="gComun" autocomplete="off" min="0" mask="separator.0"
+                        thousandSeparator="." placeholder="Gasto Común Prom">
+                    <mat-error *ngIf="(formTipologiaControls.gComun.dirty || formTipologiaControls.gComun.touched) 
+                && formTipologiaControls.gComun.errors?.required">
+                        El gasto común es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-3">
+                <mat-form-field>
+                    <input matInput formControlName="m2Util" autocomplete="off" min="0" mask="separator.2"
+                        thousandSeparator="." placeholder="M2 Útil">
+                    <mat-error *ngIf="(formTipologiaControls.m2Util.dirty || formTipologiaControls.m2Util.touched) 
+                && formTipologiaControls.m2Util.errors?.required">
+                        M2 Útiles es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-3">
+                <mat-form-field>
+                    <input matInput formControlName="m2Terr" autocomplete="off" min="0" mask="separator.2"
+                        thousandSeparator="." placeholder="M2 Terrazas">
+                    <mat-error *ngIf="(formTipologiaControls.m2Terr.dirty || formTipologiaControls.m2Terr.touched) 
+                && formTipologiaControls.m2Terr.errors?.required">
+                        M2 Terrazas es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-3">
+                <mat-form-field>
+                    <input matInput formControlName="m2Total" autocomplete="off" min="0" mask="separator.2"
+                        thousandSeparator="." placeholder="M2 Totales">
+                    <mat-error *ngIf="(formTipologiaControls.m2Total.dirty || formTipologiaControls.m2Total.touched) 
+                && formTipologiaControls.m2Total.errors?.required">
+                        M2 Terrazas es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <mat-form-field>
+                    <input matInput formControlName="maxAdulto" autocomplete="off" min="0" type="number" min="0"
+                        decimalNumber numberOfDecimals="0" placeholder="Max Cant Adultos">
+                    <mat-error *ngIf="(formTipologiaControls.maxAdulto.dirty || formTipologiaControls.maxAdulto.touched) 
+                && formTipologiaControls.maxAdulto.errors?.required">
+                        Max cantidad adultos es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+                <mat-form-field>
+                    <input matInput formControlName="maxNino" autocomplete="off" type="number" min="0" decimalNumber
+                        numberOfDecimals="0" placeholder="Max Cant Niños">
+                    <mat-error *ngIf="(formTipologiaControls.maxNino.dirty || formTipologiaControls.maxNino.touched) 
+                && formTipologiaControls.maxNino.errors?.required">
+                        Max cantidad Niños es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <mat-form-field>
+                    <input matInput formControlName="observaciones" autocomplete="off" placeholder="Observaciones">
+                    <mat-error *ngIf="(formTipologiaControls.observaciones.dirty || formTipologiaControls.observaciones.touched) 
+                && formTipologiaControls.observaciones.errors?.required">
+                        Las Observaciones son <strong>requeridas</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <button (click)="onCerrar(true)" mat-raised-button type="button" class="btn btn-fill btn-default">
+            Cancelar</button>
+
+        <button *ngIf="!this.isReadOnly" mat-raised-button type="submit" [disabled]="!registerTipologiaForm.valid"
+            class="btn btn-fill btn-rose">Guardar</button>
+
+    </form>
+</mat-dialog-content>
