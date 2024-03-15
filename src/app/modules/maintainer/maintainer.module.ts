@@ -23,15 +23,12 @@ import { ModelComponent } from './model/model/model.component';
 import { AddUpdateModelComponent } from './model/add-update-model/add-update-model.component';
 import { ProductTypeComponent } from './productType/product-type/product-type.component';
 import { AddUpdateProductTypeComponent } from './productType/add-update-product-type/add-update-product-type.component';
-import { QuotationdeliveryComponent } from './quotationdelivery/quotationdelivery/quotationdelivery.component';
-import { AddUpdateQuotationdeliveryComponent } from './quotationdelivery/add-update-quotationdelivery/add-update-quotationdelivery.component';
-import { InventoryreasonComponent } from './inventoryreason/inventoryreason/inventoryreason.component';
-import { AddUpdateInventoryreasonComponent } from './inventoryreason/add-update-inventoryreason/add-update-inventoryreason.component';
+
 
 
 
 @NgModule({
-  declarations: [PrincipalComponent, BrandComponent, AddUpdateBrandComponent, SourceComponent, AddUpdateSourceComponent, UniversalgroupsComponent, AddUpdateUniversalgroupsComponent, DeliverytypeComponent, AddUpdateDeliverytypeComponent, PaymentmethodComponent, AddUpdatePaymentmethodComponent, ModelComponent, AddUpdateModelComponent, ProductTypeComponent, AddUpdateProductTypeComponent, QuotationdeliveryComponent, AddUpdateQuotationdeliveryComponent, InventoryreasonComponent, AddUpdateInventoryreasonComponent],
+  declarations: [PrincipalComponent, BrandComponent, AddUpdateBrandComponent, SourceComponent, AddUpdateSourceComponent, UniversalgroupsComponent, AddUpdateUniversalgroupsComponent, DeliverytypeComponent, AddUpdateDeliverytypeComponent, PaymentmethodComponent, AddUpdatePaymentmethodComponent, ModelComponent, AddUpdateModelComponent, ProductTypeComponent, AddUpdateProductTypeComponent],
   providers: [ DatePipe ],
   imports: [
     CommonModule,

@@ -1,0 +1,83 @@
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
+  DOCKER_HOST: tcp://docker:2375
+  PROJECT_NAME: $CI_PROJECT_NAME
+  NAMESPACE: cobranza
+  CI_REGISTRY: registry.gitlab.com
+  IMAGE_CODE: "node:16"
+
+stages:
+  - cleanup_job
+  # - node_test_build
+  - docker_build
+  # - docker_deploy
+
+
+cleanup_job:
+  image: $IMAGE_CODE
+  stage: cleanup_job
+  only:
+    - develop
+  before_script:
+    - echo "$(head -1 Dockerfile|awk '{print $2}')"
+    - VAR="$(head -1 Dockerfile|awk '{print $2}')"
+    - echo "Cleaning up"
+  script:
+    - echo $CI_PROJECT_REPOSITORY_LANGUAGES
+    - echo $CI_PROJECT_NAME
+    - |
+      if [ ! "$(cat Dockerfile|grep alpine)" ]; then 
+          echo "No se encuentra Alpine como imagen "
+          exit 1; 
+          fi
+
+# node_test_build:
+#   stage: node_test_build
+#   image: $IMAGE_CODE
+#   only:
+#     - develop
+#   script:
+#     - npm install --force
+#     - npm run build      
+
+docker_build:
+  image: docker:dind
+  services:
+    - docker:19.03.0-dind
+  only:
+    - develop
+  stage: docker_build
+  dependencies:
+    - cleanup_job
+  before_script:
+  - export BUILD_DATE=$(date '+%Y%m%d%H%M')
+  - docker login -u jesusmanuelgarcia9009@gmail.com --password-stdin Jesus.9009 registry.fly.io/gacituacompany
+  script:
+  - docker build -t registry.fly.io/gacituacompany .
+  - docker push registry.fly.io/gacituacompany
+  after_script:
+  - rm -rf dist/
+
+
+docker_deploy:
+  image: docker:dind
+  services:
+    - docker:19.03.0-dind
+  only:
+    - develop
+  stage: docker_deploy
+  variables:
+    FLY_API_TOKEN: $FLY_API_TOKEN
+  dependencies:
+    - docker_build
+  before_script:
+    - apk add --update curl && rm -rf /var/cache/apk/*
+    - curl -L https://fly.io/install.sh | sh
+  script:
+  script:
+    - echo "Deploying application..."
+    - /root/.fly/bin/flyctl auth docker -t gsUVC6sfU4X-_TO3Ftd8osIe5d7aLoOKi81ePolPExA
+    - /root/.fly/bin/flyctl deploy . -t gsUVC6sfU4X-_TO3Ftd8osIe5d7aLoOKi81ePolPExA
+    - echo "Application successfully deployed."
+    

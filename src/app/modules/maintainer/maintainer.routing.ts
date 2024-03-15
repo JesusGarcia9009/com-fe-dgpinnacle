@@ -7,8 +7,6 @@ import { PrincipalComponent } from './principal/principal.component';
 import { Routes } from "@angular/router";
 import { AddUpdatePaymentmethodComponent } from './paymentmethod/add-update-paymentmethod/add-update-paymentmethod.component';
 import { AddUpdateProductTypeComponent } from './productType/add-update-product-type/add-update-product-type.component';
-import { AddUpdateQuotationdeliveryComponent } from './quotationdelivery/add-update-quotationdelivery/add-update-quotationdelivery.component';
-import { AddUpdateInventoryreasonComponent } from './inventoryreason/add-update-inventoryreason/add-update-inventoryreason.component';
 
 export const MaintainerPagesRoutes: Routes = [
 
@@ -31,20 +29,6 @@ export const MaintainerPagesRoutes: Routes = [
         }, {
             path: 'add-upd-source/:ver',
             component: AddUpdateSourceComponent
-        },
-        {
-            path: 'add-upd-quotationdelivery',
-            component: AddUpdateQuotationdeliveryComponent
-        }, {
-            path: 'add-upd-quotationdelivery/:ver',
-            component: AddUpdateQuotationdeliveryComponent
-        },
-        {
-            path: 'add-upd-inventoryreason',
-            component: AddUpdateInventoryreasonComponent
-        }, {
-            path: 'add-upd-inventoryreason/:ver',
-            component: AddUpdateInventoryreasonComponent
         },
         {
             path: 'add-upd-universalgroups',

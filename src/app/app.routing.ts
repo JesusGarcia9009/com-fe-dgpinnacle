@@ -28,30 +28,6 @@ export const AppRoutes: Routes = [
 	        {
                 path: '',
                 loadChildren: './modules/masters/masters.module#MastersModule'
-            },
-            {
-                path: '',
-                loadChildren: './modules/quotation/quotation.module#QuotationModule'
-            },
-            {
-                path: '',
-                loadChildren: './modules/order-note/order-note.module#OrderNoteModule'
-            },
-            {
-                path: '',
-                loadChildren: './modules/maintainer/maintainer.module#MaintainerModule'
-            },
-            {
-                path: '',
-                loadChildren: './modules/bills/bills.module#BillsModule'
-            },
-            {
-                path: '',
-                loadChildren: './modules/inventory/inventory.module#InventoryModule'
-            },
-            {
-                path: '',
-                loadChildren: './modules/record/record.module#RecordModule'
             }
         ]
     }, {
