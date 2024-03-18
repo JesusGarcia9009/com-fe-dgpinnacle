@@ -19,7 +19,11 @@ export const AppRoutes: Routes = [
             },
             {
                 path: '',
-                loadChildren: './modules/usuarios/usuarios.module#UsuariosModule'
+                loadChildren: './modules/letter/letter.module#LetterModule'
+            },
+            {
+                path: '',
+                loadChildren: './modules/users/users.module#UsersModule'
             },
 	        {
                 path: '',

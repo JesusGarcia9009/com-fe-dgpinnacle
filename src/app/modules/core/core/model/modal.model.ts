@@ -1,12 +1,13 @@
 export interface ModalModel {
-    titulo?: string;
-    texto?: string;
-    icono?: string;
-    textoAceptar?: string;
-    textoCancelar?: string;
-    mostrarBotonCancelar?: boolean;
-    identificadorConfirmar?: string;
-    identificadorCancelar?: string;
-    tipoGenerico?: string;
-  }
+  title?: string;
+  text?: string;
+  icon?: string;
+  acceptText?: string;
+  cancelText?: string;
+  showCancelButton?: boolean;
+  confirmIdentifier?: string;
+  cancelIdentifier?: string;
+  genericType?: string;
+}
+
   

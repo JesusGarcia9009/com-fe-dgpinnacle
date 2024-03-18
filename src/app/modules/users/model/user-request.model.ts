@@ -1,4 +1,4 @@
-export interface UsuarioRequestModel {
+export interface UserRequestModel {
     names: string;
     middleName: string;
     lastName: string;

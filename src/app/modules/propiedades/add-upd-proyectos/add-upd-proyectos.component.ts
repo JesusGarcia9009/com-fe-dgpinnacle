@@ -174,12 +174,12 @@ export class AddUpdProyectosComponent implements OnInit {
 
       await this.modalService.open(
         {
-          titulo: `Proyecto ${textRegistro}`,
-          texto: `El proyecto fue ${textRegistro} correctamente.`,
-          icono: 'success',
-          mostrarBotonCancelar: false,
-          textoAceptar: 'Aceptar',
-          identificadorConfirmar: 'btn-GuardarPropiedad'
+          title: `Proyecto ${textRegistro}`,
+          text: `El proyecto fue ${textRegistro} correctamente.`,
+          icon: 'success',
+          showCancelButton: false,
+          acceptText: 'Aceptar',
+          confirmIdentifier: 'btn-GuardarPropiedad'
         }
       );
       this.registerProyectoForm.reset();
@@ -190,13 +190,13 @@ export class AddUpdProyectosComponent implements OnInit {
 
       if (err.error === 'MSG_REF_DUPL') {
         this.modalService.open({
-          icono: 'error',
-          texto: 'El código ya se encuentra ingresado en otro proyecto.',
-          titulo: 'Código duplicado',
-          textoAceptar: 'Aceptar'
+          icon: 'error',
+          text: 'El código ya se encuentra ingresado en otro proyecto.',
+          title: 'Código duplicado',
+          acceptText: 'Aceptar'
         })
       } else {
-        const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+        const modalResult = await this.modalService.open({ genericType: 'error-gen' });
         if (modalResult) {
           this.onRegisterSubmit();
         }

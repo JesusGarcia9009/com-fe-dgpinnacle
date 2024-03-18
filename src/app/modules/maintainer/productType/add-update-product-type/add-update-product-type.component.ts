@@ -81,12 +81,12 @@ export class AddUpdateProductTypeComponent implements OnInit, OnDestroy {
       const textRegistro = this.elementSelected ? 'editado' : 'registrado';
       await this.modalService.open(
         {
-          titulo: `Tipo de producto ${textRegistro}`,
-          texto: `El tipo de producto fue ${textRegistro} correctamente.`,
-          icono: 'success',
-          mostrarBotonCancelar: false,
-          textoAceptar: 'Aceptar',
-          identificadorConfirmar: 'btn-GuardarUser'
+          title: `Tipo de producto ${textRegistro}`,
+          text: `El tipo de producto fue ${textRegistro} correctamente.`,
+          icon: 'success',
+          showCancelButton: false,
+          acceptText: 'Aceptar',
+          confirmIdentifier: 'btn-GuardarUser'
         }
       );
       this.registerItemForm.reset();
@@ -97,16 +97,16 @@ export class AddUpdateProductTypeComponent implements OnInit, OnDestroy {
       if (err.error === MaintainerProperties.PRODUCT_TYPE_DUPL_MSG) {
         await this.modalService.open(
           {
-            titulo: 'Tipo de producto duplicado',
-            texto: 'El código que desea agregar ya se encuentra registrado.',
-            icono: 'info',
-            mostrarBotonCancelar: false,
-            textoAceptar: 'Aceptar',
-            identificadorConfirmar: 'btn-GuardarUser'
+            title: 'Tipo de producto duplicado',
+            text: 'El código que desea agregar ya se encuentra registrado.',
+            icon: 'info',
+            showCancelButton: false,
+            acceptText: 'Aceptar',
+            confirmIdentifier: 'btn-GuardarUser'
           }
         );
       } else {
-        const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+        const modalResult = await this.modalService.open({ genericType: 'error-gen' });
         if (modalResult) {
           this.onRegisterSubmit();
         }

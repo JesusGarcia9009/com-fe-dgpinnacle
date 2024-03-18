@@ -56,7 +56,7 @@ export class ModelComponent implements OnInit, OnDestroy {
       this.dtTrigger.next();
     }, async err => {
 
-      const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+      const modalResult = await this.modalService.open({ genericType: 'error-gen' });
       if (modalResult) {
         this.initTable();
       }
@@ -104,14 +104,14 @@ export class ModelComponent implements OnInit, OnDestroy {
 
     const resultModal = await this.modalService.open(
       {
-        titulo: 'Eliminar un modelo',
-        texto: `¿Esta seguro que desea eliminar el modelo "${elementSelected.description}"?`,
-        icono: 'warning',
-        mostrarBotonCancelar: true,
-        textoAceptar: 'Confirmar',
-        identificadorConfirmar: 'btn-AceptarCambioEstadoPropiedad',
-        textoCancelar: 'Cancelar',
-        identificadorCancelar: 'cancel',
+        title: 'Eliminar un modelo',
+        text: `¿Esta seguro que desea eliminar el modelo "${elementSelected.description}"?`,
+        icon: 'warning',
+        showCancelButton: true,
+        acceptText: 'Confirmar',
+        confirmIdentifier: 'btn-AceptarCambioEstadoPropiedad',
+        cancelText: 'Cancelar',
+        cancelIdentifier: 'cancel',
       }
     );
     if (resultModal) {
@@ -121,12 +121,12 @@ export class ModelComponent implements OnInit, OnDestroy {
         this.loadingService.hide();
         const resultModal = await this.modalService.open(
           {
-            titulo: 'Eliminado',
-            texto: `El modelo "${elementSelected.description}" se ha eliminado correctamente.`,
-            icono: 'success',
-            mostrarBotonCancelar: false,
-            textoAceptar: 'Confirmar',
-            identificadorConfirmar: 'btn-AceptarCambioEstadoPropiedad',
+            title: 'Eliminado',
+            text: `El modelo "${elementSelected.description}" se ha eliminado correctamente.`,
+            icon: 'success',
+            showCancelButton: false,
+            acceptText: 'Confirmar',
+            confirmIdentifier: 'btn-AceptarCambioEstadoPropiedad',
           }
         );
         this.initTable();
@@ -135,16 +135,16 @@ export class ModelComponent implements OnInit, OnDestroy {
         if (err.error === MaintainerProperties.DEPENDENCY) {
           await this.modalService.open(
             {
-              titulo: 'El modelo tiene dependencias',
-              texto: 'Ya existen productos asociados a este modelo, debe eliminar los productos para poder eliminar el modelo.',
-              icono: 'info',
-              mostrarBotonCancelar: false,
-              textoAceptar: 'Aceptar',
-              identificadorConfirmar: 'btn-GuardarUser'
+              title: 'El modelo tiene dependencias',
+              text: 'Ya existen productos asociados a este modelo, debe eliminar los productos para poder eliminar el modelo.',
+              icon: 'info',
+              showCancelButton: false,
+              acceptText: 'Aceptar',
+              confirmIdentifier: 'btn-GuardarUser'
             }
           );
         } else {
-          const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+          const modalResult = await this.modalService.open({ genericType: 'error-gen' });
           if (modalResult) {
             this.onDelete(elementSelected);
           }
@@ -166,7 +166,7 @@ export class ModelComponent implements OnInit, OnDestroy {
     //   importedSaveAs(blob, 'PROYECTOS_' + fullYear + month + day + '.xlsx');
     // }, async err => {
     //   this.loadingService.hide();
-    //   const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+    //   const modalResult = await this.modalService.open({ genericType: 'error-gen' });
     //   if (modalResult) {
     //     this.descargarReporteProyecto();
     //   }

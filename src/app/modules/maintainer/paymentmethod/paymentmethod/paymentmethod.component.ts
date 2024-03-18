@@ -55,7 +55,7 @@ export class PaymentmethodComponent implements OnInit, OnDestroy {
       this.dtTrigger.next();
     }, async err => {
 
-      const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+      const modalResult = await this.modalService.open({ genericType: 'error-gen' });
       if (modalResult) {
         this.initTable();
       }
@@ -98,14 +98,14 @@ export class PaymentmethodComponent implements OnInit, OnDestroy {
 
     const resultModal = await this.modalService.open(
       {
-        titulo: 'Eliminar la forma de pago',
-        texto: `¿Esta seguro que desea eliminar la forma de pago "${elementSelected.description}"?`,
-        icono: 'warning',
-        mostrarBotonCancelar: true,
-        textoAceptar: 'Confirmar',
-        identificadorConfirmar: 'btn-AceptarCambioEstadoPropiedad',
-        textoCancelar: 'Cancelar',
-        identificadorCancelar: 'cancel',
+        title: 'Eliminar la forma de pago',
+        text: `¿Esta seguro que desea eliminar la forma de pago "${elementSelected.description}"?`,
+        icon: 'warning',
+        showCancelButton: true,
+        acceptText: 'Confirmar',
+        confirmIdentifier: 'btn-AceptarCambioEstadoPropiedad',
+        cancelText: 'Cancelar',
+        cancelIdentifier: 'cancel',
       }
     );
     if (resultModal) {
@@ -115,18 +115,18 @@ export class PaymentmethodComponent implements OnInit, OnDestroy {
         this.loadingService.hide();
         const resultModal = await this.modalService.open(
           {
-            titulo: 'Eliminada',
-            texto: `La forma de pago "${elementSelected.description}" se ha eliminado correctamente.`,
-            icono: 'success',
-            mostrarBotonCancelar: false,
-            textoAceptar: 'Confirmar',
-            identificadorConfirmar: 'btn-AceptarCambioEstadoPropiedad',
+            title: 'Eliminada',
+            text: `La forma de pago "${elementSelected.description}" se ha eliminado correctamente.`,
+            icon: 'success',
+            showCancelButton: false,
+            acceptText: 'Confirmar',
+            confirmIdentifier: 'btn-AceptarCambioEstadoPropiedad',
           }
         );
         this.initTable();
       }, async err => {
         this.loadingService.hide();
-        const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+        const modalResult = await this.modalService.open({ genericType: 'error-gen' });
         if (modalResult) {
           this.onDelete(elementSelected);
         }
@@ -147,7 +147,7 @@ export class PaymentmethodComponent implements OnInit, OnDestroy {
     //   importedSaveAs(blob, 'PROYECTOS_' + fullYear + month + day + '.xlsx');
     // }, async err => {
     //   this.loadingService.hide();
-    //   const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+    //   const modalResult = await this.modalService.open({ genericType: 'error-gen' });
     //   if (modalResult) {
     //     this.descargarReporteProyecto();
     //   }

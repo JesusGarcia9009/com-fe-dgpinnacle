@@ -59,7 +59,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       this.loadingService.hide();
     }, async err => {
       this.loadingService.hide();
-      const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+      const modalResult = await this.modalService.open({ genericType: 'error-gen' });
       if (modalResult) {
         this.iniciarTabla();
       }
@@ -95,7 +95,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       this.productService.elementSelected = data;
       this.router.navigate(['/masters/add-upd-product']);
     }, async err => {
-      const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+      const modalResult = await this.modalService.open({ genericType: 'error-gen' });
       if (modalResult) {
         this.iniciarTabla();
       }
@@ -108,7 +108,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       this.router.navigate(['/masters/add-upd-product/ver']);
     }, async err => {
 
-      const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+      const modalResult = await this.modalService.open({ genericType: 'error-gen' });
       if (modalResult) {
         this.iniciarTabla();
       }
@@ -121,7 +121,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       this.router.navigate(['/masters/add-upd-product/ver']);
     }, async err => {
 
-      const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+      const modalResult = await this.modalService.open({ genericType: 'error-gen' });
       if (modalResult) {
         this.iniciarTabla();
       }
@@ -136,14 +136,14 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
     const resultModal = await this.modalService.open(
       {
-        titulo: 'Eliminar',
-        texto: `¿Esta seguro que desea eliminar al product "${productSelected.gisCode}"?`,
-        icono: 'warning',
-        mostrarBotonCancelar: true,
-        textoAceptar: 'Confirmar',
-        identificadorConfirmar: 'btn-AceptarCambioEstadoPropiedad',
-        textoCancelar: 'Cancelar',
-        identificadorCancelar: 'cancel',
+        title: 'Eliminar',
+        text: `¿Esta seguro que desea eliminar al product "${productSelected.gisCode}"?`,
+        icon: 'warning',
+        showCancelButton: true,
+        acceptText: 'Confirmar',
+        confirmIdentifier: 'btn-AceptarCambioEstadoPropiedad',
+        cancelText: 'Cancelar',
+        cancelIdentifier: 'cancel',
       }
     );
     if (resultModal) {
@@ -155,12 +155,12 @@ export class ProductsComponent implements OnInit, OnDestroy {
         this.loadingService.hide();
         const resultModal = await this.modalService.open(
           {
-            titulo: 'Eliminacion de producto',
-            texto: `El producto "${productSelected.gisCode}" se ha eliminado correctamente.`,
-            icono: 'success',
-            mostrarBotonCancelar: false,
-            textoAceptar: 'Confirmar',
-            identificadorConfirmar: 'btn-AceptarCambioEstadoPropiedad',
+            title: 'Eliminacion de producto',
+            text: `El producto "${productSelected.gisCode}" se ha eliminado correctamente.`,
+            icon: 'success',
+            showCancelButton: false,
+            acceptText: 'Confirmar',
+            confirmIdentifier: 'btn-AceptarCambioEstadoPropiedad',
           }
         );
 
@@ -168,7 +168,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
       }, async err => {
         this.loadingService.hide();
-        const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+        const modalResult = await this.modalService.open({ genericType: 'error-gen' });
         if (modalResult) {
           this.onDelete(productSelected);
         }
@@ -189,7 +189,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     //   importedSaveAs(blob, 'PROYECTOS_' + fullYear + month + day + '.xlsx');
     // }, async err => {
     //   this.loadingService.hide();
-    //   const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+    //   const modalResult = await this.modalService.open({ genericType: 'error-gen' });
     //   if (modalResult) {
     //     this.descargarReporteProduct();
     //   }

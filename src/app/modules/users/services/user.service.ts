@@ -1,40 +1,35 @@
-import { ProfileModel } from './../../auth/models/profile.model';
+import { ProfileModel } from '../../auth/models/profile.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment as env } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ItemModel } from '../../shared/models/item.model';
-import { UsuarioRequestModel } from '../model/usuario-request.model';
-import { UsuarioModel } from '../model/usuario.model';
+import { UserRequestModel } from '../model/user-request.model';
+import { UserModel } from '../model/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsuarioService {
+export class UserService {
 
-  public userSelected: UsuarioModel;
+  public userSelected: UserModel;
 
 
   constructor(private httpClient: HttpClient) { }
 
 
-  getUsuarioList(): Observable<Array<UsuarioModel>> {
-
-    return this.httpClient.get<Array<UsuarioModel>>(`${env.url_ms_base}/${env.gestion_confg.DOMAIN_ROUTE}${env.gestion_confg.USER_LIST_ENDPOINT}`)
+  getUserList(): Observable<Array<UserModel>> {
+    return this.httpClient.get<Array<UserModel>>(`${env.url_ms_base}/${env.gestion_confg.DOMAIN_ROUTE}${env.gestion_confg.USER_LIST_ENDPOINT}`)
       .pipe();
-    // return of(this.userArr)
-
   }
 
-  guardarUsuario(usuarioFormValue: any) {
-    const cleanedRutPre = this.rutCleaner(this.rutFormater(usuarioFormValue.rut));
-    const rutDv = usuarioFormValue.rut.slice(-1);
-    const request: UsuarioRequestModel = {
+  saveUser(usuarioFormValue: any) {
+    const request: UserRequestModel = {
       names: usuarioFormValue.names,
       middleName: usuarioFormValue.middleName,
       lastName: usuarioFormValue.lastName,
-      rut: cleanedRutPre + '-' + rutDv,
+      rut: usuarioFormValue.rut,
       mail: usuarioFormValue.mail,
       businessPosition: usuarioFormValue.businessPosition,
       profileId: usuarioFormValue.profileId,
@@ -45,7 +40,7 @@ export class UsuarioService {
   }
 
 
-  eliminarUsuario(usuario: UsuarioModel) {
+  deleteUser(usuario: UserModel) {
 
 
     return this.httpClient.post<boolean>(`${env.url_ms_base}/${env.gestion_confg.DOMAIN_ROUTE}${env.gestion_confg.USER_DELETE_ENDPOINT}`, usuario)
@@ -57,20 +52,5 @@ export class UsuarioService {
     return this.httpClient.get<Array<ProfileModel>>(`${env.url_ms_base}/${env.gestion_confg.DOMAIN_ROUTE}${env.gestion_confg.ROLES_ENDPOINT}`).pipe();
   }
 
-  rutFormater(rut: string) {
-    if (!rut) { return ''; }
-
-    rut = rut.match(/[0-9Kk]+/g).join('');
-
-    const rutFormated = rut.slice(0, -1).replace((/[0-9](?=(?:[0-9]{3})+(?![0-9]))/g), '$&.') + '-' + rut.slice(-1).toLowerCase();
-
-    return rutFormated;
-  }
-
-  rutCleaner(rutFormated: string) {
-
-    const cleanedRut = rutFormated.replace(/\./g, '').split('-')[0];
-
-    return cleanedRut;
-  }
+  
 }

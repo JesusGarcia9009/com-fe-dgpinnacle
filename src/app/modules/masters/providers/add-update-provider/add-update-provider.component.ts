@@ -146,12 +146,12 @@ export class AddUpdateProviderComponent implements OnInit, OnDestroy {
 
       await this.modalService.open(
         {
-          titulo: `Proveedor ${textRegistro}`,
-          texto: `El proveedor fue ${textRegistro} correctamente.`,
-          icono: 'success',
-          mostrarBotonCancelar: false,
-          textoAceptar: 'Aceptar',
-          identificadorConfirmar: 'btn-GuardarPropiedad'
+          title: `Proveedor ${textRegistro}`,
+          text: `El proveedor fue ${textRegistro} correctamente.`,
+          icon: 'success',
+          showCancelButton: false,
+          acceptText: 'Aceptar',
+          confirmIdentifier: 'btn-GuardarPropiedad'
         }
       );
       this.providerForm.reset();
@@ -162,13 +162,13 @@ export class AddUpdateProviderComponent implements OnInit, OnDestroy {
 
       if (err.error === 'PROVIDER_DUPL') {
         this.modalService.open({
-          icono: 'error',
-          texto: 'El rut o id ya se encuentra ingresado en otro proveedor.',
-          titulo: 'Código duplicado',
-          textoAceptar: 'Aceptar'
+          icon: 'error',
+          text: 'El rut o id ya se encuentra ingresado en otro proveedor.',
+          title: 'Código duplicado',
+          acceptText: 'Aceptar'
         })
       } else {
-        const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+        const modalResult = await this.modalService.open({ genericType: 'error-gen' });
         if (modalResult) {
           this.onRegisterSubmit();
         }

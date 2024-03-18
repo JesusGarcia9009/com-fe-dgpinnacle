@@ -84,12 +84,12 @@ export class AddUpdatePaymentmethodComponent implements OnInit, OnDestroy {
       const textRegistro = this.elementSelected ? 'editada' : 'registrada';
       await this.modalService.open(
         {
-          titulo: `Forma de pago ${textRegistro}`,
-          texto: `La forma de pago fue ${textRegistro} correctamente.`,
-          icono: 'success',
-          mostrarBotonCancelar: false,
-          textoAceptar: 'Aceptar',
-          identificadorConfirmar: 'btn-GuardarUser'
+          title: `Forma de pago ${textRegistro}`,
+          text: `La forma de pago fue ${textRegistro} correctamente.`,
+          icon: 'success',
+          showCancelButton: false,
+          acceptText: 'Aceptar',
+          confirmIdentifier: 'btn-GuardarUser'
         }
       );
       this.registerItemForm.reset();
@@ -100,16 +100,16 @@ export class AddUpdatePaymentmethodComponent implements OnInit, OnDestroy {
       if (err.error === MaintainerProperties.PAYMENT_METHOD_DUPL_MSG) {
         await this.modalService.open(
           {
-            titulo: 'Forma de pago duplicada',
-            texto: 'El código que desea agregar ya se encuentra registrado.',
-            icono: 'info',
-            mostrarBotonCancelar: false,
-            textoAceptar: 'Aceptar',
-            identificadorConfirmar: 'btn-GuardarUser'
+            title: 'Forma de pago duplicada',
+            text: 'El código que desea agregar ya se encuentra registrado.',
+            icon: 'info',
+            showCancelButton: false,
+            acceptText: 'Aceptar',
+            confirmIdentifier: 'btn-GuardarUser'
           }
         );
       } else {
-        const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+        const modalResult = await this.modalService.open({ genericType: 'error-gen' });
         if (modalResult) {
           this.onRegisterSubmit();
         }

@@ -55,7 +55,7 @@ export class ClientsComponent implements OnInit, OnDestroy {
       this.dtTrigger.next();
     }, async err => {
 
-      const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+      const modalResult = await this.modalService.open({ genericType: 'error-gen' });
       if (modalResult) {
         this.iniciarTabla();
       }
@@ -100,14 +100,14 @@ export class ClientsComponent implements OnInit, OnDestroy {
 
     const resultModal = await this.modalService.open(
       {
-        titulo: 'Eliminar',
-        texto: `¿Esta seguro que desea eliminar al cliente "${itemSelected.businessName}"?`,
-        icono: 'warning',
-        mostrarBotonCancelar: true,
-        textoAceptar: 'Confirmar',
-        identificadorConfirmar: 'btn-AceptarCambioEstadoPropiedad',
-        textoCancelar: 'Cancelar',
-        identificadorCancelar: 'cancel',
+        title: 'Eliminar',
+        text: `¿Esta seguro que desea eliminar al cliente "${itemSelected.businessName}"?`,
+        icon: 'warning',
+        showCancelButton: true,
+        acceptText: 'Confirmar',
+        confirmIdentifier: 'btn-AceptarCambioEstadoPropiedad',
+        cancelText: 'Cancelar',
+        cancelIdentifier: 'cancel',
       }
     );
     if (resultModal) {
@@ -116,12 +116,12 @@ export class ClientsComponent implements OnInit, OnDestroy {
         this.loadingService.hide();
         const resultModal = await this.modalService.open(
           {
-            titulo: 'Cliente eliminado',
-            texto: `El cliente "${itemSelected.businessName}" se ha eliminado correctamente.`,
-            icono: 'success',
-            mostrarBotonCancelar: false,
-            textoAceptar: 'Confirmar',
-            identificadorConfirmar: 'btn-AceptarCambioEstadoPropiedad',
+            title: 'Cliente eliminado',
+            text: `El cliente "${itemSelected.businessName}" se ha eliminado correctamente.`,
+            icon: 'success',
+            showCancelButton: false,
+            acceptText: 'Confirmar',
+            confirmIdentifier: 'btn-AceptarCambioEstadoPropiedad',
           }
         );
 
@@ -129,7 +129,7 @@ export class ClientsComponent implements OnInit, OnDestroy {
 
       }, async err => {
         this.loadingService.hide();
-        const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+        const modalResult = await this.modalService.open({ genericType: 'error-gen' });
         if (modalResult) {
           this.onDelete(itemSelected);
         }
@@ -150,7 +150,7 @@ export class ClientsComponent implements OnInit, OnDestroy {
     //   importedSaveAs(blob, 'PROYECTOS_' + fullYear + month + day + '.xlsx');
     // }, async err => {
     //   this.loadingService.hide();
-    //   const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+    //   const modalResult = await this.modalService.open({ genericType: 'error-gen' });
     //   if (modalResult) {
     //     this.descargarReporteProyecto();
     //   }

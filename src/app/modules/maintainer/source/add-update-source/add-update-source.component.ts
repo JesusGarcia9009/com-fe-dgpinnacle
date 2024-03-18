@@ -81,12 +81,12 @@ export class AddUpdateSourceComponent implements OnInit, OnDestroy {
       const textRegistro = this.elementSelected ? 'editado' : 'registrado';
       await this.modalService.open(
         {
-          titulo: `Origen ${textRegistro}`,
-          texto: `El origen fue ${textRegistro} correctamente.`,
-          icono: 'success',
-          mostrarBotonCancelar: false,
-          textoAceptar: 'Aceptar',
-          identificadorConfirmar: 'btn-GuardarUser'
+          title: `Origen ${textRegistro}`,
+          text: `El origen fue ${textRegistro} correctamente.`,
+          icon: 'success',
+          showCancelButton: false,
+          acceptText: 'Aceptar',
+          confirmIdentifier: 'btn-GuardarUser'
         }
       );
       this.registerItemForm.reset();
@@ -97,16 +97,16 @@ export class AddUpdateSourceComponent implements OnInit, OnDestroy {
       if (err.error === MaintainerProperties.SOURCE_DUPL_MSG) {
         await this.modalService.open(
           {
-            titulo: 'Origen duplicado',
-            texto: 'El código que desea agregar ya se encuentra registrado.',
-            icono: 'info',
-            mostrarBotonCancelar: false,
-            textoAceptar: 'Aceptar',
-            identificadorConfirmar: 'btn-GuardarUser'
+            title: 'Origen duplicado',
+            text: 'El código que desea agregar ya se encuentra registrado.',
+            icon: 'info',
+            showCancelButton: false,
+            acceptText: 'Aceptar',
+            confirmIdentifier: 'btn-GuardarUser'
           }
         );
       } else {
-        const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+        const modalResult = await this.modalService.open({ genericType: 'error-gen' });
         if (modalResult) {
           this.onRegisterSubmit();
         }

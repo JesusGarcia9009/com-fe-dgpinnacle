@@ -58,7 +58,7 @@ export class ListarProyectosComponent implements OnInit {
       this.dtTrigger.next();
     }, async err => {
 
-      const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+      const modalResult = await this.modalService.open({ genericType: 'error-gen' });
       if (modalResult) {
         this.iniciarTabla();
       }
@@ -106,14 +106,14 @@ export class ListarProyectosComponent implements OnInit {
 
     const resultModal = await this.modalService.open(
       {
-        titulo: 'Cambiar Estado',
-        texto: `¿Esta seguro que desea ${estadoPropiedadCondition ? 'Desactivar' : 'Activar'} al proyecto "${proyectoSelected.proyectoCorrelativoId}"?`,
-        icono: 'warning',
-        mostrarBotonCancelar: true,
-        textoAceptar: 'Confirmar',
-        identificadorConfirmar: 'btn-AceptarCambioEstadoPropiedad',
-        textoCancelar: 'Cancelar',
-        identificadorCancelar: 'cancel',
+        title: 'Cambiar Estado',
+        text: `¿Esta seguro que desea ${estadoPropiedadCondition ? 'Desactivar' : 'Activar'} al proyecto "${proyectoSelected.proyectoCorrelativoId}"?`,
+        icon: 'warning',
+        showCancelButton: true,
+        acceptText: 'Confirmar',
+        confirmIdentifier: 'btn-AceptarCambioEstadoPropiedad',
+        cancelText: 'Cancelar',
+        cancelIdentifier: 'cancel',
       }
     );
     if (resultModal) {
@@ -125,12 +125,12 @@ export class ListarProyectosComponent implements OnInit {
         this.loadingService.hide();
         const resultModal = await this.modalService.open(
           {
-            titulo: 'Cambio de estado realizado',
-            texto: `El proyecto "${proyectoSelected.proyectoCorrelativoId}" cambió su estado a ${estadoPropiedadCondition ? 'Inactivo' : 'Activo'}.`,
-            icono: 'success',
-            mostrarBotonCancelar: false,
-            textoAceptar: 'Confirmar',
-            identificadorConfirmar: 'btn-AceptarCambioEstadoPropiedad',
+            title: 'Cambio de estado realizado',
+            text: `El proyecto "${proyectoSelected.proyectoCorrelativoId}" cambió su estado a ${estadoPropiedadCondition ? 'Inactivo' : 'Activo'}.`,
+            icon: 'success',
+            showCancelButton: false,
+            acceptText: 'Confirmar',
+            confirmIdentifier: 'btn-AceptarCambioEstadoPropiedad',
           }
         );
 
@@ -138,7 +138,7 @@ export class ListarProyectosComponent implements OnInit {
 
       }, async err => {
         this.loadingService.hide();
-        const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+        const modalResult = await this.modalService.open({ genericType: 'error-gen' });
         if (modalResult) {
           this.onCambioEstado(proyectoSelected);
         }
@@ -170,7 +170,7 @@ export class ListarProyectosComponent implements OnInit {
       importedSaveAs(blob, 'PROYECTOS_' + fullYear + month + day + '.xlsx');
     }, async err => {
       this.loadingService.hide();
-      const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+      const modalResult = await this.modalService.open({ genericType: 'error-gen' });
       if (modalResult) {
         this.descargarReporteProyecto();
       }

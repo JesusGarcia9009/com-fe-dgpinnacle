@@ -1,15 +1,16 @@
 import { Routes } from "@angular/router";
 import { AuthGuardService } from "../auth/services/auth-guard.service";
-import { UsuariosAddUpdateComponent } from "./usuarios-add-update/usuarios-add-update.component";
-import { UsuariosMainComponent } from "./usuarios-main/usuarios-main.component";
+import { UsersMainComponent } from "./usuarios-main/users-main.component";
+import { UsersAddUpdateComponent } from "./usuarios-add-update/users-add-update.component";
 
-export const usuarioPagesRoutes: Routes = [
+
+export const usersPagesRoutes: Routes = [
 
     {
-        path: 'usuarios',
+        path: 'users',
         children: [ {
             path: '',
-            component: UsuariosMainComponent,
+            component: UsersMainComponent,
             canActivate: [AuthGuardService],
             children: [
                 
@@ -17,7 +18,7 @@ export const usuarioPagesRoutes: Routes = [
         },
         {
             path: 'add-upd-user',
-            component: UsuariosAddUpdateComponent,
+            component: UsersAddUpdateComponent,
             canActivate: [AuthGuardService]
         }]
     }

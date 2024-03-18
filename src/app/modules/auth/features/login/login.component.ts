@@ -106,12 +106,12 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
             //   err.error && err.error.message.toString().toUpperCase() === LoginProperties.NO_AUTH) {
             //   this.modalService.open(
             //     {
-            //       titulo: 'Error de autenticación',
-            //       texto: 'Usuario o contraseña erroneo, vuelva a intentarlo',
-            //       icono: 'error',
-            //       mostrarBotonCancelar: false,
-            //       textoAceptar: 'Aceptar',
-            //       identificadorConfirmar: 'btn-AceptarBadUserOrPass'
+            //       title: 'Error de autenticación',
+            //       text: 'Usuario o contraseña erroneo, vuelva a intentarlo',
+            //       icon: 'error',
+            //       showCancelButton: false,
+            //       acceptText: 'Aceptar',
+            //       confirmIdentifier: 'btn-AceptarBadUserOrPass'
             //     }
             //   );
             // } else {
@@ -119,15 +119,15 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
             if (err.error === LoginProperties.LOGIN_ERRONEO) {
                 this.modalService.open(
                     {
-                        titulo: 'Error de autenticación',
-                        texto: 'Usuario o contraseña erroneo, vuelva a intentarlo',
-                        icono: 'error',
-                        mostrarBotonCancelar: false,
-                        textoAceptar: 'Aceptar',
-                        identificadorConfirmar: 'btn-AceptarBadUserOrPass'
+                        title: 'Error de autenticación',
+                        text: 'Usuario o contraseña erroneo, vuelva a intentarlo',
+                        icon: 'error',
+                        showCancelButton: false,
+                        acceptText: 'Aceptar',
+                        confirmIdentifier: 'btn-AceptarBadUserOrPass'
                     });
             } else {
-                const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+                const modalResult = await this.modalService.open({ genericType: 'error-gen' });
                 if (modalResult) {
                     this.onLoginSubmit();
                 }

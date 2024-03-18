@@ -81,12 +81,12 @@ export class AddUpdateDeliverytypeComponent implements OnInit, OnDestroy {
       const textRegistro = this.elementSelected ? 'editada' : 'registrada';
       await this.modalService.open(
         {
-          titulo: `Forma de despacho ${textRegistro}`,
-          texto: `La forma de despacho fue ${textRegistro} correctamente.`,
-          icono: 'success',
-          mostrarBotonCancelar: false,
-          textoAceptar: 'Aceptar',
-          identificadorConfirmar: 'btn-GuardarUser'
+          title: `Forma de despacho ${textRegistro}`,
+          text: `La forma de despacho fue ${textRegistro} correctamente.`,
+          icon: 'success',
+          showCancelButton: false,
+          acceptText: 'Aceptar',
+          confirmIdentifier: 'btn-GuardarUser'
         }
       );
       this.registerItemForm.reset();
@@ -97,16 +97,16 @@ export class AddUpdateDeliverytypeComponent implements OnInit, OnDestroy {
       if (err.error === MaintainerProperties.DELIVERY_TYPE_DUPL_MSG) {
         await this.modalService.open(
           {
-            titulo: 'Forma de despacho duplicada',
-            texto: 'El código que desea agregar ya se encuentra registrado.',
-            icono: 'info',
-            mostrarBotonCancelar: false,
-            textoAceptar: 'Aceptar',
-            identificadorConfirmar: 'btn-GuardarUser'
+            title: 'Forma de despacho duplicada',
+            text: 'El código que desea agregar ya se encuentra registrado.',
+            icon: 'info',
+            showCancelButton: false,
+            acceptText: 'Aceptar',
+            confirmIdentifier: 'btn-GuardarUser'
           }
         );
       } else {
-        const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+        const modalResult = await this.modalService.open({ genericType: 'error-gen' });
         if (modalResult) {
           this.onRegisterSubmit();
         }

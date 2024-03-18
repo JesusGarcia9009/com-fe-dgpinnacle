@@ -56,7 +56,7 @@ export class BrandComponent implements OnInit , OnDestroy {
       this.dtTrigger.next();
     }, async err => {
 
-      const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+      const modalResult = await this.modalService.open({ genericType: 'error-gen' });
       if (modalResult) {
         this.initTable();
       }
@@ -96,14 +96,14 @@ export class BrandComponent implements OnInit , OnDestroy {
 
     const resultModal = await this.modalService.open(
       {
-        titulo: 'Eliminar marca',
-        texto: `¿Esta seguro que desea eliminar la marca "${elementSelected.description}"?`,
-        icono: 'warning',
-        mostrarBotonCancelar: true,
-        textoAceptar: 'Confirmar',
-        identificadorConfirmar: 'btn-AceptarCambioEstadoPropiedad',
-        textoCancelar: 'Cancelar',
-        identificadorCancelar: 'cancel',
+        title: 'Eliminar marca',
+        text: `¿Esta seguro que desea eliminar la marca "${elementSelected.description}"?`,
+        icon: 'warning',
+        showCancelButton: true,
+        acceptText: 'Confirmar',
+        confirmIdentifier: 'btn-AceptarCambioEstadoPropiedad',
+        cancelText: 'Cancelar',
+        cancelIdentifier: 'cancel',
       }
     );
     if (resultModal) {
@@ -113,12 +113,12 @@ export class BrandComponent implements OnInit , OnDestroy {
         this.loadingService.hide();
         const resultModal = await this.modalService.open(
           {
-            titulo: 'Eliminada',
-            texto: `La marca "${elementSelected.description}" se ha eliminado correctamente.`,
-            icono: 'success',
-            mostrarBotonCancelar: false,
-            textoAceptar: 'Confirmar',
-            identificadorConfirmar: 'btn-AceptarCambioEstadoPropiedad',
+            title: 'Eliminada',
+            text: `La marca "${elementSelected.description}" se ha eliminado correctamente.`,
+            icon: 'success',
+            showCancelButton: false,
+            acceptText: 'Confirmar',
+            confirmIdentifier: 'btn-AceptarCambioEstadoPropiedad',
           }
         );
         this.initTable();
@@ -127,16 +127,16 @@ export class BrandComponent implements OnInit , OnDestroy {
         if (err.error === MaintainerProperties.DEPENDENCY) {
           await this.modalService.open(
             {
-              titulo: 'Marca tiene dependencias',
-              texto: 'La marca tiene asociado modelos, debe eliminar los modelos para poder eliminar la marca.',
-              icono: 'info',
-              mostrarBotonCancelar: false,
-              textoAceptar: 'Aceptar',
-              identificadorConfirmar: 'btn-GuardarUser'
+              title: 'Marca tiene dependencias',
+              text: 'La marca tiene asociado modelos, debe eliminar los modelos para poder eliminar la marca.',
+              icon: 'info',
+              showCancelButton: false,
+              acceptText: 'Aceptar',
+              confirmIdentifier: 'btn-GuardarUser'
             }
           );
         } else {
-          const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+          const modalResult = await this.modalService.open({ genericType: 'error-gen' });
           if (modalResult) {
             this.onDelete(elementSelected);
           }
@@ -158,7 +158,7 @@ export class BrandComponent implements OnInit , OnDestroy {
     //   importedSaveAs(blob, 'PROYECTOS_' + fullYear + month + day + '.xlsx');
     // }, async err => {
     //   this.loadingService.hide();
-    //   const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+    //   const modalResult = await this.modalService.open({ genericType: 'error-gen' });
     //   if (modalResult) {
     //     this.descargarReporteProyecto();
     //   }

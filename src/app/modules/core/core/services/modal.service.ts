@@ -13,7 +13,7 @@ export class ModalService {
     try {
       let internalModalConfig = null;
 
-      if (modalConfig.tipoGenerico === 'error-gen') {
+      if (modalConfig.genericType === 'error-gen') {
         internalModalConfig = {
           title: 'Ha ocurrido un error',
           text: "¿Desea reintentar esta operación?",
@@ -26,14 +26,14 @@ export class ModalService {
         };
       } else {
         internalModalConfig = {
-          title: modalConfig.titulo,
-          text: modalConfig.texto,
-          icon: modalConfig.icono,
-          showCancelButton: modalConfig.mostrarBotonCancelar,
-          confirmButtonText: modalConfig.textoAceptar,
-          cancelButtonText: modalConfig.textoCancelar,
-          confirmButtonAriaLabel: modalConfig.identificadorConfirmar,
-          cancelButtonAriaLabel: modalConfig.identificadorCancelar
+          title: modalConfig.title,
+          text: modalConfig.text,
+          icon: modalConfig.icon,
+          showCancelButton: modalConfig.showCancelButton,
+          confirmButtonText: modalConfig.acceptText,
+          cancelButtonText: modalConfig.cancelText,
+          confirmButtonAriaLabel: modalConfig.confirmIdentifier,
+          cancelButtonAriaLabel: modalConfig.cancelIdentifier
         };
       }
 

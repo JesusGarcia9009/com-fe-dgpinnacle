@@ -28,8 +28,8 @@ export interface ChildrenItems {
 //Menu Items
 export const ROUTES: RouteInfo[] = [
     {
-        path: '/masters/index/0',
-        title: 'Maestros',
+        path: '/letters/index/0',
+        title: 'Letter',
         type: 'link',
         icontype: 'data_usage',
         roles: [SharedProperties.ROL_ADMIN, 
@@ -39,10 +39,10 @@ export const ROUTES: RouteInfo[] = [
             SharedProperties.ROL_GERENTE]
     },
     {
-        path: '/maintainer/index/0',
-        title: 'Tablas de apoyo',
+        path: '/masters/index/0',
+        title: 'TEST',
         type: 'link',
-        icontype: 'build',
+        icontype: 'data_usage',
         roles: [SharedProperties.ROL_ADMIN, 
             SharedProperties.ROL_JEFE, 
             SharedProperties.ROL_SECRETARIA, 
@@ -50,61 +50,8 @@ export const ROUTES: RouteInfo[] = [
             SharedProperties.ROL_GERENTE]
     },
     {
-        path: '/quotation/list-quotation',
-        title: 'Cotizaciones',
-        type: 'link',
-        icontype: 'create',
-        roles: [SharedProperties.ROL_ADMIN, 
-            SharedProperties.ROL_JEFE, 
-            SharedProperties.ROL_SECRETARIA, 
-            SharedProperties.ROL_VENDEDOR, 
-            SharedProperties.ROL_GERENTE]
-    },
-    {
-        path: '/order/list-order',
-        title: 'Notas de pedido',
-        type: 'link',
-        icontype: 'local_atm',
-        roles: [SharedProperties.ROL_ADMIN, 
-            SharedProperties.ROL_JEFE, 
-            SharedProperties.ROL_SECRETARIA, 
-            SharedProperties.ROL_VENDEDOR, 
-            SharedProperties.ROL_GERENTE]
-    },
-    {
-        path: '/bill/list-bills',
-        title: 'Factura de compra',
-        type: 'link',
-        icontype: 'article',
-        roles: [SharedProperties.ROL_ADMIN, 
-            SharedProperties.ROL_JEFE, 
-            SharedProperties.ROL_SECRETARIA, 
-            SharedProperties.ROL_VENDEDOR, 
-            SharedProperties.ROL_GERENTE]
-    },
-    {
-        path: '/inventory/list-inventory',
-        title: 'Ajustes de inventario',
-        type: 'link',
-        icontype: 'account_balance_wallet',
-        roles: [SharedProperties.ROL_ADMIN, 
-            SharedProperties.ROL_JEFE, 
-            SharedProperties.ROL_SECRETARIA, 
-            SharedProperties.ROL_VENDEDOR, 
-            SharedProperties.ROL_GERENTE]
-    },
-    {
-        path: '/record/list',
-        title: 'Registro de operaciones',
-        type: 'link',
-        icontype: 'list_alt',
-        roles: [SharedProperties.ROL_ADMIN, 
-            SharedProperties.ROL_JEFE, 
-            SharedProperties.ROL_GERENTE]
-    },
-    {
-        path: '/usuarios',
-        title: 'Usuarios',
+        path: '/users',
+        title: 'Users',
         type: 'link',
         icontype: 'supervised_user_circle',
         roles: [SharedProperties.ROL_ADMIN, 
@@ -112,22 +59,6 @@ export const ROUTES: RouteInfo[] = [
             SharedProperties.ROL_GERENTE]
     }
 
-    // {
-    //     path: '/components',
-    //     title: 'Components',
-    //     type: 'sub',
-    //     icontype: 'apps',
-    //     collapse: 'components',
-    //     children: [
-    //         {path: 'buttons', title: 'Buttons', ab:'B'},
-    //         {path: 'grid', title: 'Grid System', ab:'GS'},
-    //         {path: 'panels', title: 'Panels', ab:'P'},
-    //         {path: 'sweet-alert', title: 'Sweet Alert', ab:'SA'},
-    //         {path: 'notifications', title: 'Notifications', ab:'N'},
-    //         {path: 'icons', title: 'Icons', ab:'I'},
-    //         {path: 'typography', title: 'Typography', ab:'T'}
-    //     ]
-    // },
 ];
 @Component({
     selector: 'app-sidebar-cmp',

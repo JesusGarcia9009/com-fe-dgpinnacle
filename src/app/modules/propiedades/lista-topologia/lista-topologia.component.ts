@@ -70,7 +70,7 @@ export class ListaTopologiaComponent implements OnInit, AfterViewInit {
         this.dtTrigger.next();
       }, async err => {
         this.loadingService.hide();
-        const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+        const modalResult = await this.modalService.open({ genericType: 'error-gen' });
         if (modalResult) {
           this.iniciarTabla();
         }
@@ -110,14 +110,14 @@ export class ListaTopologiaComponent implements OnInit, AfterViewInit {
 
     const resultModal = await this.modalService.open(
       {
-        titulo: 'Cambiar Estado',
-        texto: `¿Esta seguro que desea ${estadoTipologiaCondition ? 'Desactivar' : 'Activar'} la tipología ?`,
-        icono: 'warning',
-        mostrarBotonCancelar: true,
-        textoAceptar: 'Confirmar',
-        identificadorConfirmar: 'btn-AceptarCambioEstadoPropiedad',
-        textoCancelar: 'Cancelar',
-        identificadorCancelar: 'cancel',
+        title: 'Cambiar Estado',
+        text: `¿Esta seguro que desea ${estadoTipologiaCondition ? 'Desactivar' : 'Activar'} la tipología ?`,
+        icon: 'warning',
+        showCancelButton: true,
+        acceptText: 'Confirmar',
+        confirmIdentifier: 'btn-AceptarCambioEstadoPropiedad',
+        cancelText: 'Cancelar',
+        cancelIdentifier: 'cancel',
       }
     );
     if (resultModal) {
@@ -147,18 +147,18 @@ export class ListaTopologiaComponent implements OnInit, AfterViewInit {
         this.loadingService.hide();
         await this.modalService.open(
           {
-            titulo: 'Cambio de estado realizado',
-            texto: `La tipología  cambió su estado a ${tipologiaSelected.estado ? 'Activa' : 'Inactiva'}.`,
-            icono: 'success',
-            mostrarBotonCancelar: false,
-            textoAceptar: 'Confirmar',
-            identificadorConfirmar: 'btn-AceptarCambioEstadoPropiedad',
+            title: 'Cambio de estado realizado',
+            text: `La tipología  cambió su estado a ${tipologiaSelected.estado ? 'Activa' : 'Inactiva'}.`,
+            icon: 'success',
+            showCancelButton: false,
+            acceptText: 'Confirmar',
+            confirmIdentifier: 'btn-AceptarCambioEstadoPropiedad',
           }
         );
         this.iniciarTabla();
       }, async err => {
         this.loadingService.hide();
-        const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+        const modalResult = await this.modalService.open({ genericType: 'error-gen' });
         if (modalResult) {
           this.onCambioEstado(tipologiaSelected);
         }

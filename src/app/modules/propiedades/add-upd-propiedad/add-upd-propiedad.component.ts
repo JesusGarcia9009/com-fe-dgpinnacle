@@ -240,12 +240,12 @@ export class AddUpdPropiedadComponent implements OnInit, OnDestroy {
 
       await this.modalService.open(
         {
-          titulo: `Propiedad ${textRegistro}`,
-          texto: `La propiedad fue ${textRegistro} correctamente.`,
-          icono: 'success',
-          mostrarBotonCancelar: false,
-          textoAceptar: 'Aceptar',
-          identificadorConfirmar: 'btn-GuardarPropiedad'
+          title: `Propiedad ${textRegistro}`,
+          text: `La propiedad fue ${textRegistro} correctamente.`,
+          icon: 'success',
+          showCancelButton: false,
+          acceptText: 'Aceptar',
+          confirmIdentifier: 'btn-GuardarPropiedad'
         }
       );
       this.registerPropiedadesForm.reset();
@@ -254,13 +254,13 @@ export class AddUpdPropiedadComponent implements OnInit, OnDestroy {
     }, async err => {
       if (err.error === 'MSG_REF_DUPL') {
         this.modalService.open({
-          icono: 'error',
-          texto: 'El código de referencia ya se encuentra ingresado en otra propiedad.',
-          titulo: 'Código de referencia duplicado',
-          textoAceptar: 'Aceptar'
+          icon: 'error',
+          text: 'El código de referencia ya se encuentra ingresado en otra propiedad.',
+          title: 'Código de referencia duplicado',
+          acceptText: 'Aceptar'
         })
       } else {
-        const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+        const modalResult = await this.modalService.open({ genericType: 'error-gen' });
         if (modalResult) {
           this.onRegisterSubmit();
         }

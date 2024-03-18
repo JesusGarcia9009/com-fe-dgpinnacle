@@ -189,12 +189,12 @@ export class AddUpdateClientComponent implements OnInit, OnDestroy {
 
       await this.modalService.open(
         {
-          titulo: `Cliente ${textRegistro}`,
-          texto: `El cliente fue ${textRegistro} correctamente.`,
-          icono: 'success',
-          mostrarBotonCancelar: false,
-          textoAceptar: 'Aceptar',
-          identificadorConfirmar: 'btn-GuardarPropiedad'
+          title: `Cliente ${textRegistro}`,
+          text: `El cliente fue ${textRegistro} correctamente.`,
+          icon: 'success',
+          showCancelButton: false,
+          acceptText: 'Aceptar',
+          confirmIdentifier: 'btn-GuardarPropiedad'
         }
       );
       this.clientForm.reset();
@@ -205,13 +205,13 @@ export class AddUpdateClientComponent implements OnInit, OnDestroy {
 
       if (err.error === 'MSG_REF_DUPL') {
         this.modalService.open({
-          icono: 'error',
-          texto: 'El Id o rut ya se encuentra ingresado.',
-          titulo: 'Código duplicado',
-          textoAceptar: 'Aceptar'
+          icon: 'error',
+          text: 'El Id o rut ya se encuentra ingresado.',
+          title: 'Código duplicado',
+          acceptText: 'Aceptar'
         })
       } else {
-        const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+        const modalResult = await this.modalService.open({ genericType: 'error-gen' });
         if (modalResult) {
           this.onRegisterSubmit();
         }

@@ -151,12 +151,12 @@ export class AddUpdTopologiaComponent implements OnInit {
 
       await this.modalService.open(
         {
-          titulo: `Tipología ${textRegistro}`,
-          texto: `La tipologìa fue ${textRegistro} correctamente.`,
-          icono: 'success',
-          mostrarBotonCancelar: false,
-          textoAceptar: 'Aceptar',
-          identificadorConfirmar: 'btn-GuardarPropiedad'
+          title: `Tipología ${textRegistro}`,
+          text: `La tipologìa fue ${textRegistro} correctamente.`,
+          icon: 'success',
+          showCancelButton: false,
+          acceptText: 'Aceptar',
+          confirmIdentifier: 'btn-GuardarPropiedad'
         }
       );
       this.registerTipologiaForm.reset();
@@ -166,13 +166,13 @@ export class AddUpdTopologiaComponent implements OnInit {
 
       if (err.error === 'MSG_REF_DUPL') {
         this.modalService.open({
-          icono: 'error',
-          texto: 'El tipo ya se encuentra ingresado en otra tipología.',
-          titulo: 'Tipo duplicado',
-          textoAceptar: 'Aceptar'
+          icon: 'error',
+          text: 'El tipo ya se encuentra ingresado en otra tipología.',
+          title: 'Tipo duplicado',
+          acceptText: 'Aceptar'
         })
       } else {
-        const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+        const modalResult = await this.modalService.open({ genericType: 'error-gen' });
         if (modalResult) {
           this.onRegisterSubmit();
         }

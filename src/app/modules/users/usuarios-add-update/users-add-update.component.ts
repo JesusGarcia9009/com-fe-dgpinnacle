@@ -1,58 +1,54 @@
-import { ProfileModel } from './../../auth/models/profile.model';
+import { ProfileModel } from '../../auth/models/profile.model';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormGroupDirective, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ModalService } from '../../core/core/services/modal.service';
-import { ItemModel } from '../../shared/models/item.model';
 import { SharedService } from '../../shared/shared.service';
 import { MustMatch } from '../../shared/validators/must-match.validator';
-import { ValidateRut } from '../../shared/validators/rut.validator';
-import { UsuarioModel } from '../model/usuario.model';
-import { UsuariosProperties } from '../properties/usuarios.properties';
-import { UsuarioService } from '../services/usuario.service';
+import { UserModel } from '../model/user.model';
+import { UsersProperties } from '../properties/users.properties';
+import { UserService } from '../services/user.service';
 
 @Component({
-  selector: 'app-usuarios-add-update',
-  templateUrl: './usuarios-add-update.component.html',
-  styleUrls: ['./usuarios-add-update.component.css']
+  selector: 'app-users-add-update',
+  templateUrl: './users-add-update.component.html',
+  styleUrls: ['./users-add-update.component.css']
 })
-export class UsuariosAddUpdateComponent implements OnInit, OnDestroy {
+export class UsersAddUpdateComponent implements OnInit, OnDestroy {
 
   public registerUserForm: FormGroup;
   public profiles: Array<ProfileModel>;
   public subscriptions: Array<Subscription> = [];
-  public userSel: UsuarioModel;
-  public formTitle: string = 'Registro de Usuario';
+  public userSel: UserModel;
+  public formTitle: string = 'Add user';
 
   @ViewChild(FormGroupDirective) formDirective: FormGroupDirective;
 
   constructor(
     private fb: FormBuilder,
-    private usuarioService: UsuarioService,
+    private userService: UserService,
     private modalService: ModalService,
     private router: Router,
     private sharedService: SharedService
   ) { }
 
   ngOnInit(): void {
-    this.userSel = this.usuarioService.userSelected;
-    sessionStorage.setItem('title', 'Usuarios');
+    this.userSel = this.userService.userSelected;
+    sessionStorage.setItem('title', 'Users');
 
     if (this.userSel) {
-      this.formTitle = 'Edición de Usuario';
+      this.formTitle = 'Edit user';
     }
-    this.iniciarFormulario();
+    this.initializeForm();
   }
 
-  iniciarFormulario() {
-
-
+  initializeForm() {
     this.registerUserForm = this.fb.group({
       names: ['', [Validators.required]],
       middleName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      rut: ['', [Validators.required, ValidateRut]],
+      rut: ['', [Validators.required]],
       mail: ['', [Validators.required, Validators.email]],
       businessPosition: ['', [Validators.required]],
       profileId: ['', [Validators.required]],
@@ -63,7 +59,7 @@ export class UsuariosAddUpdateComponent implements OnInit, OnDestroy {
         validator: MustMatch('password', 'confirmPassword')
       }
     );
-      
+
     if (this.userSel) {
       this.registerFormControls.names.setValue(this.userSel.names);
       this.registerFormControls.middleName.setValue(this.userSel.middleName);
@@ -74,7 +70,7 @@ export class UsuariosAddUpdateComponent implements OnInit, OnDestroy {
       this.registerFormControls.profileId.setValue(this.userSel.profileId);
     }
 
-    this.subscriptions.push(this.usuarioService.getRoles().subscribe(result => {
+    this.subscriptions.push(this.userService.getRoles().subscribe(result => {
       if(result){
         this.profiles = result;
       }
@@ -92,36 +88,36 @@ export class UsuariosAddUpdateComponent implements OnInit, OnDestroy {
 
     formValue.rut = this.sharedService.rutSetValidFormat(formValue.rut);
 
-    this.subscriptions.push(this.usuarioService.guardarUsuario(formValue).subscribe(async value => {
-      const textRegistro = this.userSel ? 'editado' : 'registrado';
+    this.subscriptions.push(this.userService.saveUser(formValue).subscribe(async value => {
+      const textRegistro = this.userSel ? 'edited' : 'registered';
       await this.modalService.open(
         {
-          titulo: `Usuario ${textRegistro}`,
-          texto: `El usuario fue ${textRegistro} correctamente.`,
-          icono: 'success',
-          mostrarBotonCancelar: false,
-          textoAceptar: 'Aceptar',
-          identificadorConfirmar: 'btn-GuardarUser'
+          title: `User ${textRegistro}`,
+          text: `The user was ${textRegistro} successfully.`,
+          icon: 'success',
+          showCancelButton: false,
+          acceptText: 'Accept',
+          confirmIdentifier: 'btn-SaveUser'
         }
       );
       this.registerUserForm.reset();
       this.formDirective.resetForm();
-      this.volver();
+      this.goBack();
     }, async err => {
 
-      if (err.error === UsuariosProperties.MAIL_DUPL_MSG) {
+      if (err.error === UsersProperties.MAIL_DUPL_MSG) {
         await this.modalService.open(
           {
-            titulo: 'Usuario duplicado',
-            texto: 'El mail o el rut que desea agregar ya se encuentra registrado.',
-            icono: 'info',
-            mostrarBotonCancelar: false,
-            textoAceptar: 'Aceptar',
-            identificadorConfirmar: 'btn-GuardarUser'
+            title: 'Duplicate User',
+            text: 'The email or RUT you are trying to add is already registered.',
+            icon: 'info',
+            showCancelButton: false,
+            acceptText: 'Accept',
+            confirmIdentifier: 'btn-SaveUser'
           }
         );
       } else {
-        const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+        const modalResult = await this.modalService.open({ genericType: 'error-gen' });
         if (modalResult) {
           this.onRegisterSubmit();
         }
@@ -130,23 +126,16 @@ export class UsuariosAddUpdateComponent implements OnInit, OnDestroy {
 
   }
 
-  focusOutRut() {
-    if (this.registerFormControls.rut.valid) {
-      this.registerFormControls
-        .rut
-        .setValue(this.sharedService.rutFormater(this.registerFormControls.rut.value));
-    }
-  }
-
-  volver() {
-    this.router.navigate(['usuarios']);
+  goBack() {
+    this.router.navigate(['users']);
   }
 
   ngOnDestroy() {
-    this.usuarioService.userSelected = null;
+    this.userService.userSelected = null;
     this.subscriptions.forEach(
       (subscription) => subscription.unsubscribe());
 
   }
 
 }
+

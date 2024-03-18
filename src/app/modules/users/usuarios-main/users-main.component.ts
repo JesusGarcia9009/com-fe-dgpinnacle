@@ -6,29 +6,28 @@ import { Subscription, Subject } from 'rxjs';
 import { LoadingService } from '../../core/core/services/loading.service';
 import { ModalService } from '../../core/core/services/modal.service';
 import { SharedService } from '../../shared/shared.service';
-import { UsuarioModel } from '../model/usuario.model';
-import { UsuarioService } from '../services/usuario.service';
+import { UserModel } from '../model/user.model';
+import { UserService } from '../services/user.service';
 
 @Component({
-  selector: 'app-usuarios-main',
-  templateUrl: './usuarios-main.component.html',
-  styleUrls: ['./usuarios-main.component.css']
+  selector: 'app-users-main',
+  templateUrl: './users-main.component.html',
+  styleUrls: ['./users-main.component.css']
 })
-export class UsuariosMainComponent implements OnInit, OnDestroy {
+export class UsersMainComponent implements OnInit, OnDestroy {
 
   public subscriptions: Array<Subscription> = [];
   public dataTable: DataTableModel;
-  public userListData: Array<UsuarioModel> = [];
+  public userListData: Array<UserModel> = [];
   dtOptions: DataTables.Settings = {};
-  public tblData: UsuarioModel[] = [];
+  public tblData: UserModel[] = [];
   public dtTrigger: Subject<any> = new Subject();
 
   @ViewChild(FormGroupDirective) formDirective: FormGroupDirective;
   @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
 
-
   constructor(
-    private usuarioService: UsuarioService,
+    private userService: UserService,
     private sharedService: SharedService,
     private router: Router,
     private modalService: ModalService,
@@ -36,15 +35,15 @@ export class UsuariosMainComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    sessionStorage.setItem('title', 'Usuarios');
-    this.iniciarTabla();
+    sessionStorage.setItem('title', 'Users');
+    this.initializeTable();
   }
 
-  iniciarTabla() {
+  initializeTable() {
     this.loadingService.show();
     this.dtOptions = this.getDtOptions();
 
-    this.subscriptions.push(this.usuarioService.getUsuarioList().subscribe(async data => {
+    this.subscriptions.push(this.userService.getUserList().subscribe(async data => {
       this.loadingService.hide();
       this.tblData = data;
       this.userListData = data;
@@ -56,58 +55,56 @@ export class UsuariosMainComponent implements OnInit, OnDestroy {
       this.dtTrigger.next();
     }, async err => {
       this.loadingService.hide();
-      const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+      const modalResult = await this.modalService.open({ genericType: 'error-gen' });
       if (modalResult) {
-        this.iniciarTabla();
+        this.initializeTable();
       }
     }));
 
   }
 
-
-  redirectToEdit(user: UsuarioModel) {
-    this.usuarioService.userSelected = user;
-    this.router.navigate(['/usuarios/add-upd-user']);
+  redirectToEdit(user: UserModel) {
+    this.userService.userSelected = user;
+    this.router.navigate(['/users/add-upd-user']);
   }
 
-  async onEliminar(userSel: UsuarioModel) {
+  async onDelete(userSel: UserModel) {
 
     const resultModal = await this.modalService.open(
       {
-        titulo: 'Eliminar Usuario',
-        texto: `¿Esta seguro que desea eliminar al usuario "${userSel.names} ${userSel.middleName} ${userSel.lastName}"?`,
-        icono: 'warning',
-        mostrarBotonCancelar: true,
-        textoAceptar: 'Confirmar',
-        identificadorConfirmar: 'btn-AceptarEliminarUser',
-        textoCancelar: 'Cancelar',
-        identificadorCancelar: 'cancel',
-
+        title: 'Delete User',
+        text: `Are you sure you want to delete the user "${userSel.names} ${userSel.middleName} ${userSel.lastName}"?`,
+        icon: 'warning',
+        showCancelButton: true,
+        acceptText: 'Confirm',
+        confirmIdentifier: 'btn-AcceptDeleteUser',
+        cancelText: 'Cancel',
+        cancelIdentifier: 'cancel',
       }
     );
     if (resultModal) {
       this.loadingService.show();
 
-      this.subscriptions.push(this.usuarioService.eliminarUsuario(userSel).subscribe(async result => {
+      this.subscriptions.push(this.userService.deleteUser(userSel).subscribe(async result => {
         this.loadingService.hide();
         const resultModal = await this.modalService.open(
           {
-            titulo: 'Usuario Eliminado',
-            texto: `El usuario "${userSel.names} ${userSel.middleName} ${userSel.lastName}" fue eliminado con éxito.`,
-            icono: 'success',
-            mostrarBotonCancelar: false,
-            textoAceptar: 'Confirmar',
-            identificadorConfirmar: 'btn-AceptarEliminarUser',
+            title: 'User Deleted',
+            text: `The user "${userSel.names} ${userSel.middleName} ${userSel.lastName}" was successfully deleted.`,
+            icon: 'success',
+            showCancelButton: false,
+            acceptText: 'Confirm',
+            confirmIdentifier: 'btn-AcceptDeleteUser',
           }
         );
 
-        this.iniciarTabla();
+        this.initializeTable();
 
       }, async err => {
         this.loadingService.hide();
-        const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+        const modalResult = await this.modalService.open({ genericType: 'error-gen' });
         if (modalResult) {
-          this.onEliminar(userSel);
+          this.onDelete(userSel);
         }
       }));
 

@@ -52,7 +52,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
       this.dtTrigger.next();
     }, async err => {
 
-      const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+      const modalResult = await this.modalService.open({ genericType: 'error-gen' });
       if (modalResult) {
         this.iniciarTabla();
       }
@@ -98,14 +98,14 @@ export class ProvidersComponent implements OnInit, OnDestroy {
 
     const resultModal = await this.modalService.open(
       {
-        titulo: 'Eliminar',
-        texto: `¿Esta seguro que desea eliminar el proveedor "${itemSelected.businessName}"?`,
-        icono: 'warning',
-        mostrarBotonCancelar: true,
-        textoAceptar: 'Confirmar',
-        identificadorConfirmar: 'btn-AceptarCambioEstadoPropiedad',
-        textoCancelar: 'Cancelar',
-        identificadorCancelar: 'cancel',
+        title: 'Eliminar',
+        text: `¿Esta seguro que desea eliminar el proveedor "${itemSelected.businessName}"?`,
+        icon: 'warning',
+        showCancelButton: true,
+        acceptText: 'Confirmar',
+        confirmIdentifier: 'btn-AceptarCambioEstadoPropiedad',
+        cancelText: 'Cancelar',
+        cancelIdentifier: 'cancel',
       }
     );
     if (resultModal) {
@@ -114,12 +114,12 @@ export class ProvidersComponent implements OnInit, OnDestroy {
         this.loadingService.hide();
         const resultModal = await this.modalService.open(
           {
-            titulo: 'Proveedor eliminado',
-            texto: `El proveedor "${itemSelected.businessName}" se ha eliminado correctamente.`,
-            icono: 'success',
-            mostrarBotonCancelar: false,
-            textoAceptar: 'Confirmar',
-            identificadorConfirmar: 'btn-AceptarCambioEstadoPropiedad',
+            title: 'Proveedor eliminado',
+            text: `El proveedor "${itemSelected.businessName}" se ha eliminado correctamente.`,
+            icon: 'success',
+            showCancelButton: false,
+            acceptText: 'Confirmar',
+            confirmIdentifier: 'btn-AceptarCambioEstadoPropiedad',
           }
         );
 
@@ -127,7 +127,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
 
       }, async err => {
         this.loadingService.hide();
-        const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+        const modalResult = await this.modalService.open({ genericType: 'error-gen' });
         if (modalResult) {
           this.onDelete(itemSelected);
         }
@@ -148,7 +148,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
     //   importedSaveAs(blob, 'PROYECTOS_' + fullYear + month + day + '.xlsx');
     // }, async err => {
     //   this.loadingService.hide();
-    //   const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+    //   const modalResult = await this.modalService.open({ genericType: 'error-gen' });
     //   if (modalResult) {
     //     this.descargarReporteProyecto();
     //   }

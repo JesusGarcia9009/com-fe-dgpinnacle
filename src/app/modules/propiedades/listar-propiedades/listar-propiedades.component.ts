@@ -62,7 +62,7 @@ export class ListarPropiedadesComponent implements OnInit {
       this.dtTrigger.next();
     }, async err => {
       this.loadingService.hide();
-      const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+      const modalResult = await this.modalService.open({ genericType: 'error-gen' });
       if (modalResult) {
         this.iniciarTabla();
       }
@@ -109,14 +109,14 @@ export class ListarPropiedadesComponent implements OnInit {
 
     const resultModal = await this.modalService.open(
       {
-        titulo: 'Eliminar Propiedad',
-        texto: `¿Esta seguro que desea eliminar la propiedad "${propiedadSelected.propiedadesDesc}"?`,
-        icono: 'warning',
-        mostrarBotonCancelar: true,
-        textoAceptar: 'Confirmar',
-        identificadorConfirmar: 'btn-AceptarEliminarUPropiedad',
-        textoCancelar: 'Cancelar',
-        identificadorCancelar: 'cancel',
+        title: 'Eliminar Propiedad',
+        text: `¿Esta seguro que desea eliminar la propiedad "${propiedadSelected.propiedadesDesc}"?`,
+        icon: 'warning',
+        showCancelButton: true,
+        acceptText: 'Confirmar',
+        confirmIdentifier: 'btn-AceptarEliminarUPropiedad',
+        cancelText: 'Cancelar',
+        cancelIdentifier: 'cancel',
 
       }
     );
@@ -127,12 +127,12 @@ export class ListarPropiedadesComponent implements OnInit {
         this.loadingService.hide();
         const resultModal = await this.modalService.open(
           {
-            titulo: 'Propiedad Eliminada',
-            texto: `La propiedad "${propiedadSelected.propiedadesDesc}" fue eliminada con éxito.`,
-            icono: 'success',
-            mostrarBotonCancelar: false,
-            textoAceptar: 'Confirmar',
-            identificadorConfirmar: 'btn-AceptarEliminarPropiedad',
+            title: 'Propiedad Eliminada',
+            text: `La propiedad "${propiedadSelected.propiedadesDesc}" fue eliminada con éxito.`,
+            icon: 'success',
+            showCancelButton: false,
+            acceptText: 'Confirmar',
+            confirmIdentifier: 'btn-AceptarEliminarPropiedad',
           }
         );
 
@@ -140,7 +140,7 @@ export class ListarPropiedadesComponent implements OnInit {
 
       }, async err => {
         this.loadingService.hide();
-        const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+        const modalResult = await this.modalService.open({ genericType: 'error-gen' });
         if (modalResult) {
           this.onEliminar(propiedadSelected);
         }
@@ -155,14 +155,14 @@ export class ListarPropiedadesComponent implements OnInit {
 
     const resultModal = await this.modalService.open(
       {
-        titulo: 'Cambiar Estado',
-        texto: `¿Esta seguro que desea ${estadoPropiedadCondition ? 'Desactivar' : 'Activar'} la propiedad "${propiedadSelected.referenciaPropiedad}"?`,
-        icono: 'warning',
-        mostrarBotonCancelar: true,
-        textoAceptar: 'Confirmar',
-        identificadorConfirmar: 'btn-AceptarCambioEstadoPropiedad',
-        textoCancelar: 'Cancelar',
-        identificadorCancelar: 'cancel',
+        title: 'Cambiar Estado',
+        text: `¿Esta seguro que desea ${estadoPropiedadCondition ? 'Desactivar' : 'Activar'} la propiedad "${propiedadSelected.referenciaPropiedad}"?`,
+        icon: 'warning',
+        showCancelButton: true,
+        acceptText: 'Confirmar',
+        confirmIdentifier: 'btn-AceptarCambioEstadoPropiedad',
+        cancelText: 'Cancelar',
+        cancelIdentifier: 'cancel',
       }
     );
     if (resultModal) {
@@ -174,12 +174,12 @@ export class ListarPropiedadesComponent implements OnInit {
         this.loadingService.hide();
         const resultModal = await this.modalService.open(
           {
-            titulo: 'Cambio de estado realizado',
-            texto: `La propiedad "${propiedadSelected.referenciaPropiedad}" cambió su estado a ${estadoPropiedadCondition ? 'Inactiva' : 'Activa'}.`,
-            icono: 'success',
-            mostrarBotonCancelar: false,
-            textoAceptar: 'Confirmar',
-            identificadorConfirmar: 'btn-AceptarCambioEstadoPropiedad',
+            title: 'Cambio de estado realizado',
+            text: `La propiedad "${propiedadSelected.referenciaPropiedad}" cambió su estado a ${estadoPropiedadCondition ? 'Inactiva' : 'Activa'}.`,
+            icon: 'success',
+            showCancelButton: false,
+            acceptText: 'Confirmar',
+            confirmIdentifier: 'btn-AceptarCambioEstadoPropiedad',
           }
         );
 
@@ -187,7 +187,7 @@ export class ListarPropiedadesComponent implements OnInit {
 
       }, async err => {
         this.loadingService.hide();
-        const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+        const modalResult = await this.modalService.open({ genericType: 'error-gen' });
         if (modalResult) {
           this.onCambioEstado(propiedadSelected);
         }
@@ -213,7 +213,7 @@ export class ListarPropiedadesComponent implements OnInit {
       importedSaveAs(blob, 'PROPIEDADES_' + fullYear + month + day + '.xlsx');
     }, async err => {
       this.loadingService.hide();
-      const modalResult = await this.modalService.open({ tipoGenerico: 'error-gen' });
+      const modalResult = await this.modalService.open({ genericType: 'error-gen' });
       if (modalResult) {
         this.descargarReportePropiedad();
       }
