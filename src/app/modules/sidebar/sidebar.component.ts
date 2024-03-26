@@ -28,15 +28,25 @@ export interface ChildrenItems {
 //Menu Items
 export const ROUTES: RouteInfo[] = [
     {
-        path: '/letters/index/0',
-        title: 'Letter',
+        path: '/letters/list',
+        title: 'Letter Manager',
         type: 'link',
         icontype: 'data_usage',
-        roles: [SharedProperties.ROL_ADMIN, 
-            SharedProperties.ROL_JEFE, 
-            SharedProperties.ROL_SECRETARIA, 
-            SharedProperties.ROL_VENDEDOR, 
-            SharedProperties.ROL_GERENTE]
+        roles: [SharedProperties.ROL_ADMIN]
+    },
+    {
+        path: '/letters/add-upd-letter',
+        title: 'Create letter',
+        type: 'link',
+        icontype: 'data_usage',
+        roles: [SharedProperties.ROL_ADMIN]
+    },
+    {
+        path: '/letters/add-letter-enc',
+        title: 'Create letter Encompass',
+        type: 'link',
+        icontype: 'data_usage',
+        roles: [SharedProperties.ROL_ADMIN]
     },
     {
         path: '/masters/index/0',

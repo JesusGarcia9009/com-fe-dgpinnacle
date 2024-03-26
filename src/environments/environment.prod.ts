@@ -3,7 +3,7 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
-const URL_MS_BASE = 'https://gacituarespuestosms.fly.dev';
+const URL_MS_BASE = 'https://com-ms-dgpinnacle.fly.dev';
 
 const LOGIN_CONFIG = {
   DOMAIN_ROUTE: 'api/dgpinnacle/',
@@ -17,10 +17,24 @@ const GESTION_CONFIG = {
   USER_REGISTER_ENDPOINT: 'user/save',
   USER_DELETE_ENDPOINT: 'user/delete',
   USER_LIST_ENDPOINT: 'user/list',
-  CLIENT_AUTOCOMPLETE_ENDPOINT: 'client/complete',
+
+  //new endpoints
+  LETTER_LIST_ENDPOINT: 'letter/list',
+  LETTER_ENCO_ENDPOINT: 'letter/details',
+  LETTER_ENCO_SAVE_ENDPOINT: 'letter/save-encompass',
+  LETTER_SAVE_ENDPOINT: 'letter/save',
+  LETTER_DELETE_ENDPOINT: 'letter/delete',
+  LETTER_DOWNLOAD_ENDPOINT: 'letter/export/',
   CLIENT_LIST_ENDPOINT: 'client/list',
   CLIENT_SAVE_ENDPOINT: 'client/save',
   CLIENT_DELETE_ENDPOINT: 'client/delete',
+  REALTOR_LIST_ENDPOINT: 'realtor/list',
+  REALTOR_SAVE_ENDPOINT: 'realtor/save',
+  REALTOR_DELETE_ENDPOINT: 'realtor/delete',
+  
+  
+  
+  CLIENT_AUTOCOMPLETE_ENDPOINT: 'client/complete',
   QUOTATION_LIST_ENDPOINT: 'quotation/list',
   QUOTATION_FIND_ID_ENDPOINT: 'quotation/find/',
   QUOTATION_SAVE_ENDPOINT: 'quotation/save',
@@ -96,3 +110,4 @@ export const environment = {
   gestion_confg: GESTION_CONFIG,
   url_ms_base: URL_MS_BASE
 };
+

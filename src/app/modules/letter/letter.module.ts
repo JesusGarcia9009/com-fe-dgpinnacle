@@ -1,9 +1,6 @@
 import { NgxMaskModule } from 'ngx-mask';
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { PrincipalComponent } from './principal/principal.component';
-import { LetterComponent } from './letter/letter.component';
-import { LetterByLoanComponent } from './letter-by-loan/letter-by-loan.component';
 import { RouterModule } from '@angular/router';
 import { MastersPagesRoutes } from './letter.routing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -12,11 +9,13 @@ import { CoreModule } from '../core/core/core.module';
 import { DataTablesModule } from 'angular-datatables';
 import { SharedModule } from '../shared/shared.module';
 import { LetterListComponent } from './letter-list/letter-list.component';
+import { AddUpdateLetterComponent } from './add-update-letter/add-update-letter.component';
+import { AddLetterEncompassComponent } from './add-letter-encompass/add-letter-encompass.component';
 
 
 
 @NgModule({
-  declarations: [ PrincipalComponent, LetterComponent, LetterByLoanComponent, LetterListComponent ],
+  declarations: [ LetterListComponent, AddUpdateLetterComponent, AddLetterEncompassComponent ],
   providers: [ DatePipe ],
   imports: [
     CommonModule,

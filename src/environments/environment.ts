@@ -17,10 +17,24 @@ const GESTION_CONFIG = {
   USER_REGISTER_ENDPOINT: 'user/save',
   USER_DELETE_ENDPOINT: 'user/delete',
   USER_LIST_ENDPOINT: 'user/list',
-  CLIENT_AUTOCOMPLETE_ENDPOINT: 'client/complete',
+
+  //new endpoints
+  LETTER_LIST_ENDPOINT: 'letter/list',
+  LETTER_ENCO_ENDPOINT: 'letter/details',
+  LETTER_ENCO_SAVE_ENDPOINT: 'letter/save-encompass',
+  LETTER_SAVE_ENDPOINT: 'letter/save',
+  LETTER_DELETE_ENDPOINT: 'letter/delete',
+  LETTER_DOWNLOAD_ENDPOINT: 'letter/export/',
   CLIENT_LIST_ENDPOINT: 'client/list',
   CLIENT_SAVE_ENDPOINT: 'client/save',
   CLIENT_DELETE_ENDPOINT: 'client/delete',
+  REALTOR_LIST_ENDPOINT: 'realtor/list',
+  REALTOR_SAVE_ENDPOINT: 'realtor/save',
+  REALTOR_DELETE_ENDPOINT: 'realtor/delete',
+  
+  
+  
+  CLIENT_AUTOCOMPLETE_ENDPOINT: 'client/complete',
   QUOTATION_LIST_ENDPOINT: 'quotation/list',
   QUOTATION_FIND_ID_ENDPOINT: 'quotation/find/',
   QUOTATION_SAVE_ENDPOINT: 'quotation/save',

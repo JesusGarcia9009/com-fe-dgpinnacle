@@ -1,1 +1,89 @@
-<p>letter-list works!</p>
+<div class="main-content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-rose card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">subject</i>
+                        </div>
+                        <h4 class="card-title">Letter List</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="toolbar">
+                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                        </div>
+                        <div class="material-datatables">
+                            <div class="table-responsive">
+                                <table datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions"
+                                    class="table table-striped  table-hover" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th style="min-width: 50px;">Clients</th>
+                                            <th style="min-width: 50px;">Realtors</th>
+                                            <th style="min-width: 50px;">Loan</th>
+                                            <th style="min-width: 50px;">Location</th>
+                                            <th style="min-width: 50px;">Sales Price</th>
+                                            <th style="min-width: 120px;">Interest</th>
+                                            <th style="min-width: 120px;">Loan Type</th>
+                                            <th style="min-width: 50px;" class="disabled-sorting text-right">
+                                                Actions
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let row of tblData">
+                                            <td>
+                                                <div *ngFor="let c of row.clients">
+                                                    {{ c.name }} {{ c.lastName }}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div *ngFor="let c of row.realtors">
+                                                    {{ c.name }} {{ c.lastName }}
+                                                </div>
+                                            </td>
+                                            <td>{{ row.loanName }} {{ row.loanLastName }}</td>
+                                            <td>{{ row.location }}</td>
+                                            <td>{{ row.price }}</td>
+                                            <td>{{ row.interest }} %</td>
+                                            <td>{{ row.loanType }}</td>
+                                            <td class="text-right">
+                                                <button mat-icon-button [matMenuTriggerFor]="letterMenu"
+                                                    aria-label="Card Actions">
+                                                    <mat-icon>more_vert</mat-icon>
+                                                </button>
+                                                <mat-menu #letterMenu="matMenu">
+                                                    <button (click)="redirectToView(row)" mat-menu-item>
+                                                        <mat-icon>visibility</mat-icon>
+                                                        <span>Details</span>
+                                                    </button>
+                                                    <button (click)="redirectToEdit(row)" mat-menu-item>
+                                                        <mat-icon>edit</mat-icon>
+                                                        <span>Edit</span>
+                                                    </button>
+                                                    <button (click)="download(row)" mat-menu-item>
+                                                        <mat-icon>cloud_download</mat-icon>
+                                                        <span>Descargar</span>
+                                                    </button>
+                                                    <button mat-menu-item (click)="onDelete(row)">
+                                                        <mat-icon>delete</mat-icon>
+                                                        <span>Delete</span>
+                                                    </button>
+                                                </mat-menu>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <button mat-raised-button routerLink="/letters/add-upd-letter" type="button"
+                            class="btn btn-primary" title="Create new letter">Create new letter</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
