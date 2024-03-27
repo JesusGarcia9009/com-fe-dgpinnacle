@@ -28,6 +28,13 @@ export interface ChildrenItems {
 //Menu Items
 export const ROUTES: RouteInfo[] = [
     {
+        path: '/start',
+        title: 'Home',
+        type: 'link',
+        icontype: 'home',
+        roles: [SharedProperties.ROL_ADMIN]
+    },
+    {
         path: '/letters/list',
         title: 'Letter Manager',
         type: 'link',
@@ -38,26 +45,29 @@ export const ROUTES: RouteInfo[] = [
         path: '/letters/add-upd-letter',
         title: 'Create letter',
         type: 'link',
-        icontype: 'data_usage',
+        icontype: 'build',
         roles: [SharedProperties.ROL_ADMIN]
     },
     {
         path: '/letters/add-letter-enc',
         title: 'Create letter Encompass',
         type: 'link',
-        icontype: 'data_usage',
+        icontype: 'create',
         roles: [SharedProperties.ROL_ADMIN]
     },
     {
-        path: '/masters/index/0',
-        title: 'TEST',
+        path: '/client/list',
+        title: 'Client Manager',
         type: 'link',
-        icontype: 'data_usage',
-        roles: [SharedProperties.ROL_ADMIN, 
-            SharedProperties.ROL_JEFE, 
-            SharedProperties.ROL_SECRETARIA, 
-            SharedProperties.ROL_VENDEDOR, 
-            SharedProperties.ROL_GERENTE]
+        icontype: 'local_atm',
+        roles: [SharedProperties.ROL_ADMIN]
+    },
+    {
+        path: '/realtor/list',
+        title: 'Realtor Manager',
+        type: 'link',
+        icontype: 'article',
+        roles: [SharedProperties.ROL_ADMIN]
     },
     {
         path: '/users',

@@ -21,9 +21,6 @@
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>ID</th>
                                             <th>Email</th>
                                             <th>Profile</th>
                                             <th class="disabled-sorting text-right">Actions
@@ -32,17 +29,14 @@
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let row of tblData">
-                                            <td>{{ row.names }}</td>
-                                            <td>{{ row.middleName }}</td>
-                                            <td>{{ row.lastName }}</td>
-                                            <td>{{ row.rut }}</td>
+                                            <td>{{ row.fullName }}</td>
                                             <td>{{ row.mail }}</td>
-                                            <td>{{ row.businessPosition }}</td>
+                                            <td>{{ row.profileName }}</td>
                                             <td class="text-right">
                                                 <button mat-raised-button type="button" (click)="redirectToEdit(row)"
                                                     class="btn btn-link btn-warning btn-just-icon edit-user"
                                                     title="editar"><i class="material-icons">edit</i></button>
-                                                <button mat-raised-button type="button" (click)="onEliminar(row)"
+                                                <button mat-raised-button type="button" (click)="onDelete(row)"
                                                     class="btn btn-link btn-danger btn-just-icon remove-user"
                                                     title="eliminar"><i class="material-icons">close</i></button>
                                             </td>

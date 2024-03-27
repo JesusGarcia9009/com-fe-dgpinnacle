@@ -45,12 +45,10 @@ export class UsersAddUpdateComponent implements OnInit, OnDestroy {
 
   initializeForm() {
     this.registerUserForm = this.fb.group({
-      names: ['', [Validators.required]],
-      middleName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      rut: ['', [Validators.required]],
+      fullName: ['', [Validators.required]],
+      socialSecurityNumber: ['', []],
       mail: ['', [Validators.required, Validators.email]],
-      businessPosition: ['', [Validators.required]],
+      businessPosition: ['', []],
       profileId: ['', [Validators.required]],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]
@@ -61,13 +59,7 @@ export class UsersAddUpdateComponent implements OnInit, OnDestroy {
     );
 
     if (this.userSel) {
-      this.registerFormControls.names.setValue(this.userSel.names);
-      this.registerFormControls.middleName.setValue(this.userSel.middleName);
-      this.registerFormControls.lastName.setValue(this.userSel.lastName);
-      this.registerFormControls.rut.setValue(this.sharedService.rutFormater(this.userSel.rut));
-      this.registerFormControls.mail.setValue(this.userSel.mail);
-      this.registerFormControls.businessPosition.setValue(this.userSel.businessPosition);
-      this.registerFormControls.profileId.setValue(this.userSel.profileId);
+      this.registerUserForm.patchValue(this.userSel);
     }
 
     this.subscriptions.push(this.userService.getRoles().subscribe(result => {
@@ -80,13 +72,11 @@ export class UsersAddUpdateComponent implements OnInit, OnDestroy {
   get registerFormControls() { return this.registerUserForm.controls; }
 
   onRegisterSubmit() {
-    const formValue = this.registerUserForm.value;
+    const formValue: UserModel = this.registerUserForm.value;
 
     if (this.userSel) {
       formValue.id = this.userSel.id;
     }
-
-    formValue.rut = this.sharedService.rutSetValidFormat(formValue.rut);
 
     this.subscriptions.push(this.userService.saveUser(formValue).subscribe(async value => {
       const textRegistro = this.userSel ? 'edited' : 'registered';

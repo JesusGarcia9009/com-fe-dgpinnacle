@@ -18,7 +18,7 @@
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-8">
                                                     <p>e1c75b0f-4251-4971-a433-5aee0b7d93c6</p>
                                                     <div class="row">
                                                         <div class="col">
@@ -34,16 +34,18 @@
                                                             </mat-form-field>
                                                         </div>
                                                         <div class="col">
-                                                            <button mat-raised-button type="submit"
-                                                                [disabled]="!searchForm.valid"
-                                                                class="btn btn-fill btn-rose">Search</button>
-                                                            <button (click)="cancel()" mat-raised-button type="button"
-                                                                class="btn btn-fill btn-default ml-2">
-                                                                Cancel</button>
+                                                            <div class="d-flex flex-row">
+                                                                <button mat-raised-button type="submit"
+                                                                    [disabled]="!searchForm.valid"
+                                                                    class="btn btn-fill btn-rose">Search</button>
+                                                                <button (click)="cancel()" mat-raised-button
+                                                                    type="button" class="btn btn-fill btn-default ml-2">
+                                                                    Cancel</button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div class="row" *ngIf="loanOfficer">
                                                         <h5>Loan Officer</h5>
                                                     </div>

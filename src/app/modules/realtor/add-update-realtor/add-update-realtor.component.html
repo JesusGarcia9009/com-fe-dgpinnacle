@@ -1,0 +1,75 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <form [formGroup]="realtorForm" (ngSubmit)="onRegisterSubmit()">
+            <div class="row">
+                <div class="col-md-12 col-lg-6">
+                    <div class="card ">
+                        <div class="card-header card-header-rose card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">perm_identity</i>
+                            </div>
+                            <h4 class="card-title">{{ formTitle }}</h4>
+                        </div>
+                        <div class="card-body">
+                            <input formControlName="id" placeholder="Identificador" type="hidden">
+                            <mat-form-field>
+                                <input matInput formControlName="name" placeholder="* Name" type="input">
+                                <mat-error *ngIf="(realtorFormControls.name.dirty || realtorFormControls.name.touched) 
+                                        && realtorFormControls.name.errors?.required">
+                                    The "name" field is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput formControlName="lastName" placeholder="* LastName" type="input">
+                                <mat-error *ngIf="(realtorFormControls.lastName.dirty || realtorFormControls.lastName.touched) 
+                                        && realtorFormControls.lastName.errors?.required">
+                                    The "lastName" field is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput formControlName="email" placeholder="* Email" type="input">
+                                <mat-error *ngIf="(realtorFormControls.email.dirty || realtorFormControls.email.touched) 
+                                        && realtorFormControls.email.errors?.required">
+                                    The "email" field is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput formControlName="licenseNumber" placeholder="* License Number"
+                                    type="input">
+                                <mat-error *ngIf="(realtorFormControls.licenseNumber.dirty || realtorFormControls.licenseNumber.touched) 
+                                        && realtorFormControls.licenseNumber.errors?.required">
+                                    The "licenseNumber" field is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-select placeholder="Broker Company" formControlName="brokerCompanyId"
+                                    name="brokerCompanyId">
+                                    <mat-option *ngFor="let item of brockerCompanyList" [value]="item.id">
+                                        {{ item.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput formControlName="cellphone" placeholder="Cellphone" type="input">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput formControlName="mailingAdd" placeholder="Mailing Address" type="input">
+                            </mat-form-field>
+                            <button *ngIf="!this.isReadOnly" (click)="goBack()" mat-raised-button type="button"
+                                class="btn btn-fill btn-default">
+                                Cancelar</button>
+
+                            <button *ngIf="!this.isReadOnly" mat-raised-button type="submit"
+                                [disabled]="!realtorForm.valid" class="btn btn-fill btn-rose">Guardar</button>
+
+
+                            <button *ngIf="this.isReadOnly" (click)="goBack()" mat-raised-button type="button"
+                                class="btn btn-fill btn-default">
+                                Volver</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

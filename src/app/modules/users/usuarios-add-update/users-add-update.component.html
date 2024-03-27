@@ -12,35 +12,17 @@
                         </div>
                         <div class="card-body">
                             <mat-form-field>
-                                <input matInput formControlName="names" placeholder="First Name" type="input">
-                                <mat-error *ngIf="(registerFormControls.names.dirty || registerFormControls.names.touched) 
-                                && registerFormControls.names.errors?.required">
-                                    First name is <strong>required</strong>
+                                <input matInput formControlName="fullName" placeholder="First Name" type="input">
+                                <mat-error *ngIf="(registerFormControls.fullName.dirty || registerFormControls.fullName.touched) 
+                                && registerFormControls.fullName.errors?.required">
+                                FullName is <strong>required</strong>
                                 </mat-error>
                             </mat-form-field>
                             <mat-form-field>
-                                <input matInput formControlName="middleName" placeholder="Middle Name" type="input">
-                                <mat-error *ngIf="(registerFormControls.middleName.dirty || registerFormControls.middleName.touched) 
-                                && registerFormControls.middleName.errors?.required">
-                                    Middle name is <strong>required</strong>
-                                </mat-error>
-                            </mat-form-field>
-                            <mat-form-field>
-                                <input matInput formControlName="lastName" placeholder="Last Name" type="input">
-                                <mat-error *ngIf="(registerFormControls.lastName.dirty || registerFormControls.lastName.touched) 
-                                && registerFormControls.lastName.errors?.required">
-                                    Last name is <strong>required</strong>
-                                </mat-error>
-                            </mat-form-field>
-                            <mat-form-field>
-                                <input matInput formControlName="rut" placeholder="Id" type="input" >
-                                <mat-error *ngIf="(registerFormControls.rut.dirty || registerFormControls.rut.touched) 
-                                && registerFormControls.rut.errors?.required">
-                                    Rut is <strong>required</strong>
-                                </mat-error>
-                                <mat-error *ngIf="(registerFormControls.rut.dirty || registerFormControls.rut.touched) 
-                                && registerFormControls.rut.errors?.validRut">
-                                    Rut must be <strong>valid</strong>
+                                <input matInput formControlName="socialSecurityNumber" placeholder="Id" type="input" >
+                                <mat-error *ngIf="(registerFormControls.socialSecurityNumber.dirty || registerFormControls.socialSecurityNumber.touched) 
+                                && registerFormControls.socialSecurityNumber.errors?.required">
+                                 Social Security Number is <strong>required</strong>
                                 </mat-error>
                             </mat-form-field>
                             <mat-form-field>
@@ -56,10 +38,6 @@
                             </mat-form-field>
                             <mat-form-field>
                                 <input matInput formControlName="businessPosition" placeholder="Business Position" type="input">
-                                <mat-error *ngIf="(registerFormControls.businessPosition.dirty || registerFormControls.businessPosition.touched) 
-                                && registerFormControls.businessPosition.errors?.required">
-                                    Business position is <strong>required</strong>
-                                </mat-error>
                             </mat-form-field>
                             <mat-form-field>
                                 <mat-select placeholder="User Role" formControlName="profileId" name="profileId">

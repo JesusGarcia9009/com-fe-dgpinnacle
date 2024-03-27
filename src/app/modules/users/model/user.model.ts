@@ -1,13 +1,10 @@
 export interface UserModel {
     id: number;
-    names: string;
-    middleName: string;
-    lastName: string;
-    rut: string;
+    socialSecurityNumber: string;
+    fullName: string;
     mail: string;
     businessPosition: string;
-    username: string;
     pass: string;
-    profileId: string;
+    profileId: number;
     profileName: string;
 }

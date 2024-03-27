@@ -92,7 +92,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
             const sst = sessionStorage;
             const logedRol = sst.rolClave;
 
-            this.router.navigate(['/inicio']);
+            this.router.navigate(['/start']);
             // if (logedRol === SharedProperties.ROL_INV) {
             //     this.router.navigate(['/inversionista/dashboard']);
             // } else {

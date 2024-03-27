@@ -89,7 +89,6 @@ export class AddUpdateLetterComponent implements OnInit, OnDestroy {
         if (element)
           this.initClientList(element);
           this.registerForm.patchValue(element);
-          debugger
           this.registerFormControls.realtors.setValue(element.realtors);
           this.realtorFormList = element.realtors
       })
@@ -163,7 +162,6 @@ export class AddUpdateLetterComponent implements OnInit, OnDestroy {
   }
 
   onCheckChangeSelected(id: number, isChecked: boolean) {
-    debugger
     let x = this.clientFormList.find((row) => row.id === id);
 
     let index = this.clientFormList.indexOf(x);

@@ -28,9 +28,11 @@ const GESTION_CONFIG = {
   CLIENT_LIST_ENDPOINT: 'client/list',
   CLIENT_SAVE_ENDPOINT: 'client/save',
   CLIENT_DELETE_ENDPOINT: 'client/delete',
+  REALTOR_LIST_OP_ENDPOINT: 'realtor/list-operation',
   REALTOR_LIST_ENDPOINT: 'realtor/list',
   REALTOR_SAVE_ENDPOINT: 'realtor/save',
   REALTOR_DELETE_ENDPOINT: 'realtor/delete',
+  BROKER_LIST_ENDPOINT: 'broker/list',
   
   
   

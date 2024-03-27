@@ -7,7 +7,7 @@ export const DashboardRoutes: Routes = [
 
       path: '',
       children: [ {
-        path: 'inicio',
+        path: 'start',
         component: DashboardComponent
     }]
 }

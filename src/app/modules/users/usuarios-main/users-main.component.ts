@@ -73,7 +73,7 @@ export class UsersMainComponent implements OnInit, OnDestroy {
     const resultModal = await this.modalService.open(
       {
         title: 'Delete User',
-        text: `Are you sure you want to delete the user "${userSel.names} ${userSel.middleName} ${userSel.lastName}"?`,
+        text: `Are you sure you want to delete the user "${userSel.fullName}"?`,
         icon: 'warning',
         showCancelButton: true,
         acceptText: 'Confirm',
@@ -90,7 +90,7 @@ export class UsersMainComponent implements OnInit, OnDestroy {
         const resultModal = await this.modalService.open(
           {
             title: 'User Deleted',
-            text: `The user "${userSel.names} ${userSel.middleName} ${userSel.lastName}" was successfully deleted.`,
+            text: `The user "${userSel.fullName}" was successfully deleted.`,
             icon: 'success',
             showCancelButton: false,
             acceptText: 'Confirm',

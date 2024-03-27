@@ -32,6 +32,14 @@ export const AppRoutes: Routes = [
 	        {
                 path: '',
                 loadChildren: './modules/masters/masters.module#MastersModule'
+            },
+            {
+                path: '',
+                loadChildren: './modules/client/client.module#ClientModule'
+            },
+	        {
+                path: '',
+                loadChildren: './modules/realtor/realtor.module#RealtorModule'
             }
         ]
     }, {

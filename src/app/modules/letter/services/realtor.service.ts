@@ -14,15 +14,7 @@ export class RealtorService {
   constructor(private httpClient: HttpClient) { }
 
   getAll(): Observable<Array<RealtorModel>> {
-    return this.httpClient.get<any>(`${env.url_ms_base}/${env.gestion_confg.DOMAIN_ROUTE}${env.gestion_confg.REALTOR_LIST_ENDPOINT}`).pipe();
+    return this.httpClient.get<any>(`${env.url_ms_base}/${env.gestion_confg.DOMAIN_ROUTE}${env.gestion_confg.REALTOR_LIST_OP_ENDPOINT}`).pipe();
   }
 
-  // delete(item: LetterModel) {
-  //   return this.httpClient.post<boolean>(`${env.url_ms_base}/${env.gestion_confg.DOMAIN_ROUTE}${env.gestion_confg.LETTER_DELETE_ENDPOINT}`, item).pipe();
-  // }
-
-  // save(item: LetterModel) {
-  //   return this.httpClient.post<boolean>(`${env.url_ms_base}/${env.gestion_confg.DOMAIN_ROUTE}${env.gestion_confg.PRODUCT_SAVE_ENDPOINT}`, item)
-  //     .pipe();
-  // }
 }
