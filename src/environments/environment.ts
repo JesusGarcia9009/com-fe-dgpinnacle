@@ -23,7 +23,7 @@ const GESTION_CONFIG = {
   LETTER_ENCO_ENDPOINT: 'letter/details',
   LETTER_ENCO_SAVE_ENDPOINT: 'letter/save-encompass',
   LETTER_SAVE_ENDPOINT: 'letter/save',
-  LETTER_DELETE_ENDPOINT: 'letter/delete',
+  LETTER_DELETE_ENDPOINT: 'letter/delete/',
   LETTER_DOWNLOAD_ENDPOINT: 'letter/export/',
   CLIENT_LIST_ENDPOINT: 'client/list',
   CLIENT_SAVE_ENDPOINT: 'client/save',

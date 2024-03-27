@@ -112,18 +112,19 @@ export class LetterListComponent implements OnInit, OnDestroy {
     });
     if (resultModal) {
       this.loadingService.show();
-      this.subscriptions.push(this.letterService.delete(element).subscribe(async result => {
+      this.subscriptions.push(this.letterService.delete(element.id).subscribe(async result => {
         this.loadingService.hide();
         const resultModal = await this.modalService.open(
           {
-            title: 'Eliminacion de producto',
-            text: `El producto "${element.id}" se ha eliminado correctamente.`,
+            title: 'Letter deletion',
+            text: `The letter "${element.id}" has been successfully deleted.`,
             icon: 'success',
             showCancelButton: false,
-            acceptText: 'Confirmar',
-            confirmIdentifier: 'btn-AceptarCambioEstadoPropiedad',
+            acceptText: 'Confirm',
+            confirmIdentifier: 'btn-AcceptChangePropertyStatus',
           }
         );
+
 
         this.initializeTable();
 
@@ -146,7 +147,7 @@ export class LetterListComponent implements OnInit, OnDestroy {
         var downloadURL = window.URL.createObjectURL(<any>response);
         var link = document.createElement('a');
         link.href = downloadURL;
-        link.download = `Cotización_${this.zfill(selected.id, 5)}_${selected.location}_${moment(dateNow).format('DDMMYYYY')}.pdf`;
+        link.download = `PREQUALIFICATION_LETTER_${this.zfill(selected.id, 5)}_${selected.location}_${moment(dateNow).format('DDMMYYYY')}.pdf`;
         link.click();
         this.initializeTable();
       })

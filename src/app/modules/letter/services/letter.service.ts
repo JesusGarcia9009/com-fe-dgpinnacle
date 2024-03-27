@@ -22,8 +22,8 @@ export class LetterService {
     return this.httpClient.get<any>(`${env.url_ms_base}/${env.gestion_confg.DOMAIN_ROUTE}${env.gestion_confg.LETTER_ENCO_ENDPOINT}/${loanId}`).pipe();
   }
 
-  delete(item: LetterModel) {
-    return this.httpClient.post<boolean>(`${env.url_ms_base}/${env.gestion_confg.DOMAIN_ROUTE}${env.gestion_confg.LETTER_DELETE_ENDPOINT}`, item).pipe();
+  delete(id: number) {
+    return this.httpClient.get<boolean>(`${env.url_ms_base}/${env.gestion_confg.DOMAIN_ROUTE}${env.gestion_confg.LETTER_DELETE_ENDPOINT}${id}`).pipe();
   }
 
   save(item: LetterModel) {

@@ -86,16 +86,12 @@ export class AddUpdateLetterComponent implements OnInit, OnDestroy {
         this.loadingService.hide();
         this.realtorList = result[0];
         this.clientList = result[1];
-
-        //cargo la lista de clientes
-        this.initClientList(element);
-
-        //agrego el estilo de datatable de la tabla
-        this.renderedClientTable();
-
-        //cargo el formulario
         if (element)
+          this.initClientList(element);
           this.registerForm.patchValue(element);
+          debugger
+          this.registerFormControls.realtors.setValue(element.realtors);
+          this.realtorFormList = element.realtors
       })
     );
   }
@@ -163,6 +159,7 @@ export class AddUpdateLetterComponent implements OnInit, OnDestroy {
         }
       )
     });
+    this.renderedClientTable();
   }
 
   onCheckChangeSelected(id: number, isChecked: boolean) {

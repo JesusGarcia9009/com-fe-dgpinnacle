@@ -259,7 +259,8 @@
                                                                                 (change)="onCheckChangeSelected(row.id, $event.target.checked)"
                                                                                 name="{{ row.name }} {{ row.lastName }}"
                                                                                 type="checkbox" id="{{ row.id }}"
-                                                                                [checked]="row.selected">
+                                                                                [checked]="row.selected"
+                                                                                [disabled]="this.isReadOnly">
                                                                             <span class="select-check">{{ row.name }} {{
                                                                                 row.lastName }}</span>
 
