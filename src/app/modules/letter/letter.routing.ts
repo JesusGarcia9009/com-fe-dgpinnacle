@@ -2,6 +2,7 @@ import { Routes } from "@angular/router";
 import { LetterListComponent } from "./letter-list/letter-list.component";
 import { AddUpdateLetterComponent } from "./add-update-letter/add-update-letter.component";
 import { AddLetterEncompassComponent } from "./add-letter-encompass/add-letter-encompass.component";
+import { CalculatorLetterComponent } from "./calculator-letter/calculator-letter.component";
 
 export const MastersPagesRoutes: Routes = [
 
@@ -22,6 +23,10 @@ export const MastersPagesRoutes: Routes = [
         {
             path: 'add-letter-enc',
             component: AddLetterEncompassComponent
+        },
+        {
+            path: 'calculator-letter',
+            component: CalculatorLetterComponent
         }]
     }
 ];

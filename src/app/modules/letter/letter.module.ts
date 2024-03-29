@@ -11,11 +11,12 @@ import { SharedModule } from '../shared/shared.module';
 import { LetterListComponent } from './letter-list/letter-list.component';
 import { AddUpdateLetterComponent } from './add-update-letter/add-update-letter.component';
 import { AddLetterEncompassComponent } from './add-letter-encompass/add-letter-encompass.component';
+import { CalculatorLetterComponent } from './calculator-letter/calculator-letter.component';
 
 
 
 @NgModule({
-  declarations: [ LetterListComponent, AddUpdateLetterComponent, AddLetterEncompassComponent ],
+  declarations: [ LetterListComponent, AddUpdateLetterComponent, AddLetterEncompassComponent, CalculatorLetterComponent ],
   providers: [ DatePipe ],
   imports: [
     CommonModule,

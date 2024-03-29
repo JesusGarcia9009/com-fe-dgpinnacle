@@ -49,6 +49,13 @@ export const ROUTES: RouteInfo[] = [
         roles: [SharedProperties.ROL_ADMIN]
     },
     {
+        path: '/letters/calculator-letter',
+        title: 'Calculator',
+        type: 'link',
+        icontype: 'attach_money',
+        roles: [SharedProperties.ROL_ADMIN]
+    },
+    {
         path: '/letters/add-letter-enc',
         title: 'Create letter Encompass',
         type: 'link',

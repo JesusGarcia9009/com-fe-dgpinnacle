@@ -86,8 +86,8 @@ export class AddUpdateLetterComponent implements OnInit, OnDestroy {
         this.loadingService.hide();
         this.realtorList = result[0];
         this.clientList = result[1];
+        this.initClientList(element);
         if (element)
-          this.initClientList(element);
           this.registerForm.patchValue(element);
           this.registerFormControls.realtors.setValue(element.realtors);
           this.realtorFormList = element.realtors

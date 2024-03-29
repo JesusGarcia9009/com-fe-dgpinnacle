@@ -91,7 +91,11 @@ export class LetterListComponent implements OnInit, OnDestroy {
   redirectToEdit(element: LetterModel) {
     this.letterService.elementSelected = element;
     this.router.navigate(['/letters/add-upd-letter']);
+  }
 
+  redirectToCalculator(element: LetterModel) {
+    this.letterService.elementSelected = element;
+    this.router.navigate(['/letters/calculator-letter']);
   }
 
   redirectToView(element: LetterModel) {
