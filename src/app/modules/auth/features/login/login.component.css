@@ -16,3 +16,7 @@
 .btn-login {
   width: 100%;
 }
+
+div .mat-tab-body-content{
+ background-color: red;
+}
