@@ -7,16 +7,21 @@ const URL_MS_BASE = 'http://localhost:9000';
 
 const LOGIN_CONFIG = {
   DOMAIN_ROUTE: 'api/dgpinnacle/',
-  LOGIN_ENDPOINT: 'login/auth'
+  LOGIN_ENDPOINT: 'login/auth',
+  REGISTER_ENDPOINT: 'login/register'
 };
 
 const GESTION_CONFIG = {
   DOMAIN_ROUTE: 'api/dgpinnacle/',
   DASHBOARD_ENDPOINT: 'dashboard/widget',
+  DASHBOARD_DOCUMENT_ENDPOINT: 'dashboard/document',
   ROLES_ENDPOINT: 'user/list-profile',
   USER_REGISTER_ENDPOINT: 'user/save',
+  USER_CHANGE_PASSWORD_ENDPOINT: 'user/change-password',
   USER_DELETE_ENDPOINT: 'user/delete',
   USER_LIST_ENDPOINT: 'user/list',
+  USER_FIND_REALTOR_ENDPOINT: 'user/find-realtor',
+  USER_FIND_LOAN_ENDPOINT: 'user/find-loan',
 
   //new endpoints
   LETTER_LIST_ENDPOINT: 'letter/list',
@@ -33,6 +38,7 @@ const GESTION_CONFIG = {
   REALTOR_SAVE_ENDPOINT: 'realtor/save',
   REALTOR_DELETE_ENDPOINT: 'realtor/delete',
   BROKER_LIST_ENDPOINT: 'broker/list',
+  LOAN_SAVE_ENDPOINT: 'loan-officer/save',
   
   
   

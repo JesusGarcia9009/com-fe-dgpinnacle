@@ -23,14 +23,16 @@
                                                     <div class="row" *ngIf="element">
                                                         <div class="col-md-6">
                                                             <mat-form-field>
-                                                                <input matInput formControlName="id" placeholder="Id" type="input" readonly>
+                                                                <input matInput formControlName="id" placeholder="Id"
+                                                                    type="input" readonly>
                                                             </mat-form-field>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <mat-form-field>
-                                                                <input matInput formControlName="uniqueKey" placeholder="uniqueKey" type="input" readonly>
+                                                                <input matInput formControlName="uniqueKey"
+                                                                    placeholder="uniqueKey" type="input" readonly>
                                                             </mat-form-field>
-                                                            
+
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -44,8 +46,8 @@
                                                                     The "location" field is <strong>required</strong>
                                                                 </mat-error>
                                                             </mat-form-field>
-                                                            
-                                                            
+
+
                                                         </div>
                                                         <div class="col-md-6">
                                                             <mat-form-field>
@@ -57,8 +59,8 @@
                                                                     The "price" field is <strong>required</strong>
                                                                 </mat-error>
                                                             </mat-form-field>
-                                                           
-                                                            
+
+
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -72,19 +74,20 @@
                                                                     The "interest" field is <strong>required</strong>
                                                                 </mat-error>
                                                             </mat-form-field>
-                                                            
+
                                                         </div>
                                                         <div class="col-md-6">
                                                             <mat-form-field>
-                                                                <input matInput formControlName="mi" placeholder="* MI (%)"
-                                                                    autocomplete="off" type="number">
+                                                                <input matInput formControlName="mi"
+                                                                    placeholder="* MI (%)" autocomplete="off"
+                                                                    type="number">
                                                                 <mat-error *ngIf="(registerFormControls.mi.dirty || registerFormControls.mi.touched) 
                                                                 && registerFormControls.mi.errors?.required">
                                                                     The "mi" field is <strong>required</strong>
                                                                 </mat-error>
                                                             </mat-form-field>
-                                                            
-                                                            
+
+
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -92,14 +95,14 @@
                                                         <div class="col-md-6">
                                                             <mat-form-field>
                                                                 <input matInput formControlName="insurance"
-                                                                    placeholder="* Insurance (montlhy)" autocomplete="off"
-                                                                    type="number">
+                                                                    placeholder="* Insurance (montlhy)"
+                                                                    autocomplete="off" type="number">
                                                                 <mat-error *ngIf="(registerFormControls.insurance.dirty || registerFormControls.insurance.touched) 
                                                                 && registerFormControls.insurance.errors?.required">
                                                                     The "insurance" field is <strong>required</strong>
                                                                 </mat-error>
                                                             </mat-form-field>
-                                                            
+
                                                         </div>
                                                         <div class="col-md-6">
                                                             <mat-form-field>
@@ -111,9 +114,9 @@
                                                                     The "taxes" field is <strong>required</strong>
                                                                 </mat-error>
                                                             </mat-form-field>
-                                                            
 
-                                                            
+
+
                                                         </div>
 
                                                     </div>
@@ -132,7 +135,8 @@
                                                         <div class="col-md-6">
                                                             <mat-form-field>
                                                                 <input matInput formControlName="ltv"
-                                                                    placeholder="* Ltv (%)" autocomplete="off" type="number">
+                                                                    placeholder="* Ltv (%)" autocomplete="off"
+                                                                    type="number">
                                                                 <mat-error *ngIf="(registerFormControls.ltv.dirty || registerFormControls.ltv.touched) 
                                                                 && registerFormControls.ltv.errors?.required">
                                                                     The "ltv" field is <strong>required</strong>
@@ -154,8 +158,8 @@
                                                                     The "loanType" field is <strong>required</strong>
                                                                 </mat-error>
                                                             </mat-form-field>
-                                                            
-                                                           
+
+
                                                         </div>
                                                         <div class="col-md-6">
                                                             <mat-form-field>
@@ -172,7 +176,7 @@
                                                                     The "realtors" field is <strong>required</strong>
                                                                 </mat-error>
                                                             </mat-form-field>
-                                                            
+
                                                         </div>
 
                                                     </div>
@@ -187,10 +191,10 @@
                                                                     The "maxPay" field is <strong>required</strong>
                                                                 </mat-error>
                                                             </mat-form-field>
-                                                            
+
                                                         </div>
                                                         <div class="col-md-6">
-                                                            
+
                                                             <mat-form-field>
                                                                 <input matInput formControlName="hoa" type="number"
                                                                     placeholder="* HOA (montlhy)" autocomplete="off">
@@ -215,10 +219,27 @@
                                                             </mat-form-field>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            
+
                                                         </div>
                                                     </div>
-                                                    
+                                                    <div class="row mt-4">
+                                                        <div class="col">
+                                                            <button *ngIf="!this.isReadOnly" (click)="goBack()"
+                                                                mat-raised-button type="button"
+                                                                class="btn btn-fill btn-default">
+                                                                Cancel</button>
+
+                                                            <button *ngIf="!this.isReadOnly" mat-raised-button
+                                                                type="submit" [disabled]="!registerForm.valid"
+                                                                class="btn btn-fill btn-rose">Save</button>
+
+
+                                                            <button *ngIf="this.isReadOnly" (click)="goBack()"
+                                                                mat-raised-button type="button"
+                                                                class="btn btn-fill btn-default">
+                                                                Go Back</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -279,17 +300,7 @@
                             </div>
 
 
-                            <button *ngIf="!this.isReadOnly" (click)="goBack()" mat-raised-button type="button"
-                                class="btn btn-fill btn-default">
-                                Cancel</button>
 
-                            <button *ngIf="!this.isReadOnly" mat-raised-button type="submit"
-                            [disabled]="!registerForm.valid" class="btn btn-fill btn-rose">Save</button>
-
-
-                            <button *ngIf="this.isReadOnly" (click)="goBack()" mat-raised-button type="button"
-                                class="btn btn-fill btn-default">
-                                Go Back</button>
 
 
                         </form>

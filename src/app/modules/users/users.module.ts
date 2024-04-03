@@ -7,13 +7,16 @@ import { MaterialModule } from 'src/app/app.module';
 import { CoreModule } from '../core/core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { usersPagesRoutes } from './users.routing';
-import { UsersMainComponent } from './usuarios-main/users-main.component';
-import { UsersAddUpdateComponent } from './usuarios-add-update/users-add-update.component';
+import { UsersMainComponent } from './users-principal/users-main.component';
+import { UsersAddUpdateComponent } from './users-add-update/users-add-update.component';
+import { LoanAddUpdateComponent } from './loan-add-update/loan-add-update.component';
+import { RealtorAddUpdateComponent } from './realtor-add-update/realtor-add-update.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 
 @NgModule({
-  declarations: [UsersMainComponent, UsersAddUpdateComponent],
+  declarations: [UsersMainComponent, UsersAddUpdateComponent, LoanAddUpdateComponent, RealtorAddUpdateComponent, ChangePasswordComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(usersPagesRoutes),

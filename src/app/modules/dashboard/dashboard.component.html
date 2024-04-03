@@ -1,21 +1,21 @@
 <div class="main-content">
     <div class="container-fluid">
-        <div class="row">
+        <div class="row" *ngIf="!showLetter">
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-header card-header-warning card-header-icon">
                         <div class="card-icon">
                             <i class="material-icons">content_copy</i>
                         </div>
-                        <p class="card-category">Number of letters</p>
-                        <h3 class="card-title">{{ widget.productsGreater }}
+                        <p class="card-category">Number of letters managed</p>
+                        <h3 class="card-title">{{ widget.letterConfigCount }}
                             <small>letters</small>
                         </h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
                             <i class="material-icons text-danger">warning</i>
-                            <a href="javascript:void(0)">{{ widget.productsLess }} letters</a>
+                            <a href="javascript:void(0)">{{ widget.deletedLetterConfigCount }} Inactive letters</a>
                         </div>
                     </div>
                 </div>
@@ -27,10 +27,9 @@
                             <i class="material-icons">store</i>
                         </div>
                         <p class="card-category">
-                            Operation
+                            Number of operations generated
                         </p>
-                        <h3 class="card-title">{{ widget.quotationNumber }} - 
-                            <small>{{ widget.quotationAmount | currency:'CLP':'symbol':'1.0-0' }}</small></h3>
+                        <h3 class="card-title">{{ widget.operationCount }} </h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -40,16 +39,15 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="!showLetter">
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-header card-header-danger card-header-icon">
                         <div class="card-icon">
                             <i class="material-icons">info_outline</i>
                         </div>
-                        <p class="card-category">Clientes</p>
-                        <h3 class="card-title">{{ widget.orderNoteNumber }} 
-                            - <small>{{ widget.orderNoteAmount | currency:'CLP':'symbol':'1.0-0' }}</small></h3>
+                        <p class="card-category">Number of clients generated.</p>
+                        <h3 class="card-title">{{ widget.clientCount }} </h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -64,8 +62,8 @@
                         <div class="card-icon">
                             <i class="material-icons">public</i>
                         </div>
-                        <p class="card-category">Realtors</p>
-                        <h3 class="card-title">{{ widget.billOfBuyNumber }}</h3>
+                        <p class="card-category">User with the most letters managed</p>
+                        <h3 class="card-title">{{ widget.topUser }}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -75,7 +73,14 @@
                 </div>
             </div>
         </div>
-        
-        
+        <div class="row" *ngIf="showLetter">
+            <pdf-viewer *ngIf="pdfSrc" [src]="pdfSrc" [render-text]="true" [original-size]="true" [fit-to-page]="true"
+                [zoom-scale]="'page-width'" style="width: 100%; height: 100vh; max-width: 900px;"
+                >
+            </pdf-viewer>
+            <!-- style="width: 100%; height: 727px;max-width: 900px;" -->
+        </div>
+
+
     </div>
 </div>

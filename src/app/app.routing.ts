@@ -28,10 +28,6 @@ export const AppRoutes: Routes = [
 	                   {
                 path: '',
                 loadChildren: './modules/client/client.module#ClientModule'
-            },
-	        {
-                path: '',
-                loadChildren: './modules/realtor/realtor.module#RealtorModule'
             }
         ]
     }, {
@@ -41,13 +37,5 @@ export const AppRoutes: Routes = [
             path: 'auth',
             loadChildren: './modules/auth/auth.module#AuthModule'
         }]
-    },
-    {
-        path: 'pagos',
-        component: ClienteExternoComponent,
-        children: [{
-            path: '',
-            loadChildren: './modules/pagos/pagos.module#PagosModule'
-        }]
-    },
+    }
 ];

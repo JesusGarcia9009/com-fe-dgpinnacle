@@ -5,8 +5,9 @@ import { InitService } from './services/init.service';
 import { ModalService } from '../../modules/core/core/services/modal.service';
 import { LoadingService } from '../../modules/core/core/services/loading.service';
 import Chartist from 'chartist';
-import { Subscription,  zip } from 'rxjs';
+import { Subscription, zip } from 'rxjs';
 import { DashboardWidgetModel } from './models/quotation.model';
+import { SharedProperties } from '../shared/properties/shared.properties';
 
 declare const $: any;
 
@@ -16,217 +17,97 @@ declare const $: any;
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  public formTitle: string = 'Inicio';
+  public formTitle: string = 'Init';
   public widget: DashboardWidgetModel = {
-    productsGreater: 0,
-    productsLess: 0,
-    orderNoteNumber: 0,
-    billOfBuyNumber: 0,
-    quotationNumber: 0,
-    quotationAmount: 0,
-	  orderNoteAmount: 0,
-    quotationList: [],
-    orderNoteList: [],
-    moreSellersProduct: [],
-    lessSellersProduct: []
+    letterConfigCount: 0,
+    deletedLetterConfigCount: 0,
+    topUser: '',
+    operationCount: 0,
+    clientCount: 0,
   };
-  public higherValueQ = 0;
-  public higherValueOn = 0;
-  public higherValueProductMore = 0;
-  public labelQ: Array<string>= [];
-  public labelOn: Array<string>= [];
-  public labelProductMore: Array<string>= ['No hay ventas registradas'];
-  public seriesQuotation: Array<number>= [];
-  public seriesOrderNote: Array<number>= [];
-  public seriesProductMore: Array<number>= [0];
+
+  public showLetter = false;
+  public pdfSrc = null;
+  public pdfBlob = null;
   public date: Date;
   public subscriptions: Array<Subscription> = [];
 
-  constructor(private initService: InitService) { }
+  constructor(private initService: InitService, private loadingService: LoadingService, private modalService: ModalService) { }
 
   ngOnInit() {
     sessionStorage.setItem('title', this.formTitle);
-    this.iniciarSelects();
+
+    const sst = sessionStorage;
+    const logedRol = sst.profile;
+    if (logedRol === SharedProperties.ROL_VIEWVER) {
+      this.showLetter = true;
+      this.loadPdf();
+    }else{
+      this.showLetter = false;
+      this.loadStatistics();
+    }
+
+    //this.iniciarSelects();
     this.date = new Date();
 
-   
+
   }
 
-  iniciarSelects() {
+  loadStatistics() {
     this.subscriptions.push(
       zip(
         this.initService.findAllDashboardWidgets()
       ).subscribe(result => {
+        this.loadingService.hide();
         this.widget = result[0];
-        for(let i = 0; i < this.widget.quotationList.length; i++){
-          this.labelQ.push(this.widget.quotationList[i].weekDay);
-          this.seriesQuotation.push(this.widget.quotationList[i].numberQuotation);
-    
-          if(this.widget.quotationList[i].numberQuotation > this.higherValueQ)
-            this.higherValueQ = this.widget.quotationList[i].numberQuotation;
-        }
-        for(let i = 0; i < this.widget.orderNoteList.length; i++){
-          this.labelOn.push(this.widget.orderNoteList[i].weekDay);
-          this.seriesOrderNote.push(this.widget.orderNoteList[i].numberOrderNote);
-    
-          if(this.widget.orderNoteList[i].numberOrderNote > this.higherValueOn)
-            this.higherValueOn = this.widget.orderNoteList[i].numberOrderNote;
-        }
-        if(this.widget.moreSellersProduct.length > 0){
-          this.seriesProductMore = [];
-          this.labelProductMore = [];
-        }
-        for(let i = 0; i < this.widget.moreSellersProduct.length; i++){
-          
-          this.labelProductMore.push(this.widget.moreSellersProduct[i].productGis);
-          this.seriesProductMore.push(this.widget.moreSellersProduct[i].amount);
-    
-          if(this.widget.moreSellersProduct[i].amount > this.higherValueProductMore)
-            this.higherValueProductMore = this.widget.moreSellersProduct[i].amount;
-        }
-        this.getQuotationChart();
-        this.getOrderNoteChart();
-        this.getProductBestSerlersChart();
       })
     );
   }
 
-  getQuotationChart(){
-    const dataDailySalesChart: any = {
-      labels: this.labelQ,
-      series: [
-        this.seriesQuotation
-      ]
-    };
+  async loadPdf() {
+    this.loadingService.show();
+    await this.initService.download().toPromise()
+      .then(blob => {
+        this.loadingService.hide();
+        this.pdfBlob = blob;
 
-    const optionsDailySalesChart: any = {
-      lineSmooth: Chartist.Interpolation.cardinal({
-        tension: 0
-      }),
-      low: 0,
-      high: this.higherValueQ + 2, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-      chartPadding: { top: 0, right: 0, bottom: 0, left: 0 },
-    }
-
-    var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
-
-    this.startAnimationForLineChart(dailySalesChart);
+        const fileReader = new FileReader();
+        fileReader.onload = () => {
+          this.pdfSrc = new Uint8Array(fileReader.result as ArrayBuffer);
+        };
+        fileReader.readAsArrayBuffer(blob);
+      })
+      .catch(async error => {
+        this.loadingService.hide();
+        this.handleError(error);
+      });
   }
 
-  getOrderNoteChart(){
-    
-    const dataCompletedTasksChart: any = {
-      labels: this.labelOn,
-      series: [
-        this.seriesOrderNote
-      ]
-    };
-
-    const optionsCompletedTasksChart: any = {
-      lineSmooth: Chartist.Interpolation.cardinal({
-        tension: 0
-      }),
-      low: 0,
-      high: this.higherValueOn + 2,
-      chartPadding: { top: 0, right: 0, bottom: 0, left: 0 }
-    }
-
-    var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
-
-    // start animation for the Completed Tasks Chart - Line Chart
-    this.startAnimationForLineChart(completedTasksChart);
-  }
-
-  getProductBestSerlersChart(){
-    
-     /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
-
-     var datawebsiteViewsChart = {
-      labels: this.labelProductMore,
-      series: [
-        this.seriesProductMore
-      ]
-    };
-    var optionswebsiteViewsChart = {
-      axisX: {
-        showGrid: false
-      },
-      low: 0,
-      high: this.higherValueProductMore,
-      chartPadding: { top: 0, right: 5, bottom: 0, left: 0 }
-    };
-    var responsiveOptions: any[] = [
-      ['screen and (max-width: 640px)', {
-        seriesBarDistance: 5,
-        axisX: {
-          labelInterpolationFnc: function (value) {
-            return value[0];
-          }
-        }
-      }]
-    ];
-    var websiteViewsChart = new Chartist.Bar('#websiteViewsChart', datawebsiteViewsChart, optionswebsiteViewsChart, responsiveOptions);
-
-    //start animation for the Emails Subscription Chart
-    this.startAnimationForBarChart(websiteViewsChart);
-  }
-
-  startAnimationForLineChart(chart) {
-    let seq: any, delays: any, durations: any;
-    seq = 0;
-    delays = 80;
-    durations = 500;
-
-    chart.on('draw', function (data) {
-      if (data.type === 'line' || data.type === 'area') {
-        data.element.animate({
-          d: {
-            begin: 600,
-            dur: 700,
-            from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
-            to: data.path.clone().stringify(),
-            easing: Chartist.Svg.Easing.easeOutQuint
-          }
-        });
-      } else if (data.type === 'point') {
-        seq++;
-        data.element.animate({
-          opacity: {
-            begin: seq * delays,
-            dur: durations,
-            from: 0,
-            to: 1,
-            easing: 'ease'
-          }
-        });
+  private async handleError(error) {
+    this.loadingService.hide();
+    if (error.error === 'LETTER_NOT_EXIST') {
+      this.modalService.open({
+        icon: 'warning',
+        text: 'The customer does not have a letter associated with it',
+        title: 'Letter does not exist.',
+        acceptText: 'Accept'
+      });
+    } else if (error.error === 'CLIENT_NOT_EXIST') {
+      this.modalService.open({
+        icon: 'warning',
+        text: 'The client does not exist in our records',
+        title: 'Client does not exist',
+        acceptText: 'Accept'
+      });
+    } else {
+      const modalResult = await this.modalService.open({ genericType: 'error-gen' });
+      if (modalResult) {
+        this.loadPdf();
       }
-    });
+    }
+  }
 
-    seq = 0;
-  };
-  startAnimationForBarChart(chart) {
-    let seq2: any, delays2: any, durations2: any;
 
-    seq2 = 0;
-    delays2 = 80;
-    durations2 = 500;
-    chart.on('draw', function (data) {
-      if (data.type === 'bar') {
-        seq2++;
-        data.element.animate({
-          opacity: {
-            begin: seq2 * delays2,
-            dur: durations2,
-            from: 0,
-            to: 1,
-            easing: 'ease'
-          }
-        });
-      }
-    });
-
-    seq2 = 0;
-  };
 
   async ngOnDestroy() {
     this.subscriptions.forEach(

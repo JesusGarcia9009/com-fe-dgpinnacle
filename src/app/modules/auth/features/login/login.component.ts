@@ -8,7 +8,7 @@ import { LoginRequestModel } from '../../models/login.model';
 import { LoadingService } from 'src/app/modules/core/core/services/loading.service';
 import { ModalService } from 'src/app/modules/core/core/services/modal.service';
 import { Router } from '@angular/router';
-import { SharedProperties } from 'src/app/modules/shared/properties/shared.properties';
+import { RegisterModel } from '../../models/register.model';
 
 @Component({
     selector: 'app-login',
@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     private sidebarVisible: boolean;
     private nativeElement: Node;
     public loginForm: FormGroup;
+    public registerForm: FormGroup;
     public isShowPassword: boolean;
     public passwordType = LoginProperties.PASS_TYPE_PASSWORD;
     public subscriptions: Array<Subscription> = [];
@@ -64,9 +65,19 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
             username: ['', [Validators.required]],
             password: ['', Validators.required],
         });
+        this.registerForm = this.fb.group({
+            name: ['', Validators.required],
+            lastName: ['', Validators.required],
+            email: ['', [Validators.required, Validators.email]],
+            cellphone: ['', [Validators.required]],
+            mailingAdd: [''],
+            password: ['', Validators.required],
+            confirmPassword: ['', Validators.required]
+        });
+
     }
     get loginFormControls() { return this.loginForm.controls; }
-
+    get registerFormControls() { return this.registerForm.controls; }
 
     turnOffPassword() {
 
@@ -93,35 +104,64 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
             const logedRol = sst.rolClave;
 
             this.router.navigate(['/start']);
-            // if (logedRol === SharedProperties.ROL_INV) {
-            //     this.router.navigate(['/inversionista/dashboard']);
-            // } else {
-                
-            // }
-
-
         }, async err => {
             this.loadingService.hide();
-            // if (
-            //   err.error && err.error.message.toString().toUpperCase() === LoginProperties.NO_AUTH) {
-            //   this.modalService.open(
-            //     {
-            //       title: 'Error de autenticación',
-            //       text: 'Usuario o contraseña erroneo, vuelva a intentarlo',
-            //       icon: 'error',
-            //       showCancelButton: false,
-            //       acceptText: 'Aceptar',
-            //       confirmIdentifier: 'btn-AceptarBadUserOrPass'
-            //     }
-            //   );
-            // } else {
-
             if (err.error === LoginProperties.LOGIN_ERRONEO) {
                 this.modalService.open(
                     {
                         title: 'Error de autenticación',
                         text: 'Usuario o contraseña erroneo, vuelva a intentarlo',
                         icon: 'error',
+                        showCancelButton: false,
+                        acceptText: 'Aceptar',
+                        confirmIdentifier: 'btn-AceptarBadUserOrPass'
+                    });
+            } else {
+                const modalResult = await this.modalService.open({ genericType: 'error-gen' });
+                if (modalResult) {
+                    this.onLoginSubmit();
+                }
+            }
+        }));
+
+    }
+
+    onRegisterSubmit() {
+        const formValue: RegisterModel = this.registerForm.value;
+
+        this.subscriptions.push(this.authService.register(formValue).subscribe(async value => {
+            await this.modalService.open(
+                {
+                    title: `User ${formValue.name + ' ' + formValue.lastName}`,
+                    text: `The user was register successfully.`,
+                    icon: 'success',
+                    showCancelButton: false,
+                    acceptText: 'Accept',
+                    confirmIdentifier: 'btn-SaveUser'
+                }
+            );
+            const loginReq: LoginRequestModel = {
+                username: formValue.email,
+                password: formValue.password
+            };
+            this.subscriptions.push(this.authService.login(loginReq).subscribe(resp => {
+                this.loadingService.hide();
+                this.isShowForm = false;
+                this.authService.registerLoginInfo(resp);
+
+                const sst = sessionStorage;
+                const logedRol = sst.rolClave;
+
+                this.router.navigate(['/start']);
+            }));
+
+        }, async err => {
+            if (err.error === LoginProperties.CLIENT_NOT_EXIST) {
+                this.modalService.open(
+                    {
+                        title: 'Client Error',
+                        text: 'Client does not exist in our records.',
+                        icon: 'warning',
                         showCancelButton: false,
                         acceptText: 'Aceptar',
                         confirmIdentifier: 'btn-AceptarBadUserOrPass'

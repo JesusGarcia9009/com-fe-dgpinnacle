@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MdModule } from '../../md/md.module';
 import { MaterialModule } from '../../app.module';
-
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutes } from './dashboard.routing';
 
@@ -14,7 +14,8 @@ import { DashboardRoutes } from './dashboard.routing';
         RouterModule.forChild(DashboardRoutes),
         FormsModule,
         MdModule,
-        MaterialModule
+        MaterialModule,
+        PdfViewerModule
     ],
     declarations: [DashboardComponent]
 })

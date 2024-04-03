@@ -1,36 +1,16 @@
 export interface DashboardWidgetModel {
 
-    productsGreater: number;
-	productsLess: number;
-	orderNoteNumber: number;
-	billOfBuyNumber: number;
-	quotationNumber: number;
+    letterConfigCount: number;
+    deletedLetterConfigCount: number;
 
-	quotationAmount: number;
-	orderNoteAmount:number;
+	topUser: string;
 
-	quotationList: Array<DashboardQuotationDataModel>;
-	orderNoteList: Array<DashboardOrderNoteDataModel>;
-	moreSellersProduct: Array<DashboardProductModel>;
-	lessSellersProduct: Array<DashboardProductModel>;
+	operationCount: number;
+    clientCount: number;
+    
 }
 
-export interface DashboardQuotationDataModel {
-	weekDay: string;
-    numberQuotation: number;
-}
 
-export interface DashboardOrderNoteDataModel {
-	weekDay: string;
-	numberOrderNote: number;
-}
-
-export interface DashboardProductModel {
-	id: number;
-	productDescription: string;
-	productGis: string;
-	amount: number;
-}
 
 
 

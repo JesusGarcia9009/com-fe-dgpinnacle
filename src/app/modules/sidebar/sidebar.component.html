@@ -15,9 +15,13 @@
       <div *ngIf="isMobileMenu()" class="collapse" id="collapseExample">
         <ul class="nav">
           <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link" href="#/users/update/password">
+              <span class="sidebar-mini"><i class="material-icons">exit_to_app</i></span>
+              <span class="sidebar-normal">Change Password</span>
+            </a>
             <a href="javascript:void(0)" (click)="onLogOut()" class="nav-link">
               <span class="sidebar-mini"><i class="material-icons">exit_to_app</i></span>
-              <span class="sidebar-normal">Cerrar sesión</span>
+              <span class="sidebar-normal">Log out</span>
             </a>
           </li>
         </ul>

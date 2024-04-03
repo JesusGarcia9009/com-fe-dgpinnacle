@@ -119,15 +119,15 @@ export class AddLetterEncompassComponent implements OnInit, OnDestroy {
       if (err.error === 'LOAN_NOT_EXIST') {
         this.modalService.open({
           icon: 'error',
-          text: 'The LOAN OFFICER does not exist, please create before inserting the letterr',
-          title: 'Duplicate operation',
+          text: 'The LOAN OFFICER does not exist, please create before inserting the letter',
+          title: 'Loan Officer',
           acceptText: 'Accept'
         });
       } else if (err.error === 'MSG_MAX_PAYMENT_TO_HIGH') {
         this.modalService.open({
           icon: 'error',
           text: 'An error has occurred, Max Payment to high',
-          title: 'Operation',
+          title: 'Letter Data',
           acceptText: 'Accept'
         });
       } else {

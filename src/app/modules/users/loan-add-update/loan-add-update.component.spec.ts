@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListRealtorComponent } from './list-realtor.component';
+import { LoanAddUpdateComponent } from './loan-add-update.component';
 
-describe('ListRealtorComponent', () => {
-  let component: ListRealtorComponent;
-  let fixture: ComponentFixture<ListRealtorComponent>;
+describe('LoanAddUpdateComponent', () => {
+  let component: LoanAddUpdateComponent;
+  let fixture: ComponentFixture<LoanAddUpdateComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListRealtorComponent ]
+      declarations: [ LoanAddUpdateComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ListRealtorComponent);
+    fixture = TestBed.createComponent(LoanAddUpdateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

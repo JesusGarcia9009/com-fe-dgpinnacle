@@ -246,6 +246,16 @@
                                                             </mat-form-field>
                                                         </div>
                                                     </div>
+                                                    <div class="row mt-4">
+                                                        <div class="col">
+                                                            <button (click)="goBack()" mat-raised-button type="button"
+                                                                class="btn btn-fill btn-default">
+                                                                Go Back to List</button>
+                                                            <button mat-raised-button type="submit"
+                                                                [disabled]="!registerForm.valid"
+                                                                class="btn btn-fill btn-rose">Save</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -329,25 +339,12 @@
                                                             </table>
                                                         </div>
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-
-
-
-                            <button mat-raised-button type="submit" [disabled]="!registerForm.valid"
-                                class="btn btn-fill btn-rose">Save</button>
-
-
-                            <button (click)="goBack()" mat-raised-button type="button" class="btn btn-fill btn-default">
-                                Go Back to List</button>
-
-
                         </form>
                     </div>
                 </div>

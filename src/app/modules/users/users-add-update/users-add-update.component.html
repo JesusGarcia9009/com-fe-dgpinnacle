@@ -1,0 +1,118 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <form [formGroup]="registerUserForm" autocomplete="off" (ngSubmit)="onRegisterSubmit()">
+            <div class="row">
+                <div class="col-md-12 col-lg-6">
+                    <div class="card ">
+                        <div class="card-header card-header-rose card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">perm_identity</i>
+                            </div>
+                            <h4 class="card-title">{{ formTitle }}</h4>
+                        </div>
+                        <div class="card-body">
+                            <input formControlName="id" placeholder="Identificador" type="hidden">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field>
+                                        <input matInput formControlName="name" placeholder="* Name" type="input"
+                                            autocomplete="off">
+                                        <mat-error *ngIf="(registerFormControls.name.dirty || registerFormControls.name.touched) 
+                                        && registerFormControls.name.errors?.required">
+                                            The "name" field is <strong>required</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field>
+                                        <input id="lastName" matInput formControlName="lastName"
+                                            placeholder="* Last name" type="input" autocomplete="nope">
+                                        <mat-error *ngIf="(registerFormControls.lastName.dirty || registerFormControls.lastName.touched) 
+                                        && registerFormControls.lastName.errors?.required">
+                                            The "lastName" field is <strong>required</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field>
+                                        <input id="email" matInput formControlName="email" placeholder="* Email"
+                                            type="input" autocomplete="nope">
+                                        <mat-error *ngIf="(registerFormControls.email.dirty || registerFormControls.email.touched) 
+                                        && registerFormControls.email.errors?.required">
+                                            The "email" field is <strong>required</strong>
+                                        </mat-error>
+                                        <mat-error
+                                            *ngIf="(registerFormControls.email.dirty || registerFormControls.email.touched) && registerFormControls.email.errors?.email">
+                                            Please enter a valid email
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field>
+                                        <input id="cellphone" matInput formControlName="cellphone"
+                                            placeholder="* Cellphone" type="input" autocomplete="nope">
+                                        <mat-error *ngIf="(registerFormControls.cellphone.dirty || registerFormControls.cellphone.touched) 
+                                        && registerFormControls.cellphone.errors?.required">
+                                            The "cellphone" field is <strong>required</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field>
+                                        <input id="mailingAdd" matInput formControlName="mailingAdd"
+                                            placeholder="Mailing Address" type="input" autocomplete="nope">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field>
+                                        <input id="profileName" matInput formControlName="profileName"
+                                            placeholder="Profile" type="input" autocomplete="nope" readonly>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field>
+                                        <input matInput formControlName="password" placeholder="Password"
+                                            type="password" autocomplete="off">
+                                        <mat-error *ngIf="(registerFormControls.password.dirty || registerFormControls.password.touched) 
+                                        && registerFormControls.password.errors?.required">
+                                            Password is <strong>required</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field>
+                                        <input matInput formControlName="confirmPassword" placeholder="Confirm Password"
+                                            type="password" autocomplete="off">
+                                        <mat-error *ngIf="(registerFormControls.confirmPassword.dirty || registerFormControls.confirmPassword.touched) 
+                                        && registerFormControls.confirmPassword.errors?.required">
+                                            Confirm password is <strong>required</strong>
+                                        </mat-error>
+                                        <mat-error
+                                            *ngIf="registerFormControls.confirmPassword.errors && registerFormControls.confirmPassword.errors.mustMatch">
+                                            Passwords must match
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer ">
+                            <button (click)="goBack()" mat-raised-button type="button" class="btn btn-fill btn-default">
+                                Cancel</button>
+
+                            <button mat-raised-button type="submit" [disabled]="!registerUserForm.valid"
+                                class="btn btn-fill btn-rose">Save</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

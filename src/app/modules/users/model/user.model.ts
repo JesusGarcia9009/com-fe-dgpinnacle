@@ -1,10 +1,19 @@
 export interface UserModel {
     id: number;
-    socialSecurityNumber: string;
-    fullName: string;
-    mail: string;
-    businessPosition: string;
+    name: string;
+    lastName: string;
+    email: string;
+    cellphone: string;
+    username?: string;
     pass: string;
+    mailingAdd?: string;
     profileId: number;
-    profileName: string;
+    profileCode?: string;
+    profileName?: string;
 }
+
+export interface ChangePasswordModel {
+    id: number;
+    password: string;
+}
+

@@ -1,25 +1,41 @@
 import { Routes } from "@angular/router";
 import { AuthGuardService } from "../auth/services/auth-guard.service";
-import { UsersMainComponent } from "./usuarios-main/users-main.component";
-import { UsersAddUpdateComponent } from "./usuarios-add-update/users-add-update.component";
+import { UsersMainComponent } from "./users-principal/users-main.component";
+import { UsersAddUpdateComponent } from "./users-add-update/users-add-update.component";
+import { LoanAddUpdateComponent } from "./loan-add-update/loan-add-update.component";
+import { RealtorAddUpdateComponent } from "./realtor-add-update/realtor-add-update.component";
+import { ChangePasswordComponent } from "./change-password/change-password.component";
 
 
 export const usersPagesRoutes: Routes = [
 
     {
         path: 'users',
-        children: [ {
-            path: '',
+        children: [{
+            path: 'index/:tabIndex',
             component: UsersMainComponent,
-            canActivate: [AuthGuardService],
-            children: [
-                
-            ]
+            canActivate: [AuthGuardService]
         },
         {
-            path: 'add-upd-user',
+            path: 'add-upd-user/:profile',
             component: UsersAddUpdateComponent,
             canActivate: [AuthGuardService]
+        },
+        {
+            path: 'add-upd-loan',
+            component: LoanAddUpdateComponent,
+            canActivate: [AuthGuardService]
+        },
+        {
+            path: 'add-upd-realtor',
+            component: RealtorAddUpdateComponent,
+            canActivate: [AuthGuardService]
+        },
+        {
+            path: 'update/password',
+            component: ChangePasswordComponent,
+            canActivate: [AuthGuardService]
         }]
+
     }
 ];

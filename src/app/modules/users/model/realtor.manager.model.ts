@@ -12,4 +12,9 @@ export interface RealtorManagerModel {
 	brokerCompanyPhone: string;
 	brokerCompanyPhysicalAdd: string;
 	brokerCompanyWebSite: string;
+
+	password: string;
+	profileId: number;
+	profileCode: string;
+	profileName: string;
 }

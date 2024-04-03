@@ -17,5 +17,10 @@ export class InitService {
     return this.httpClient.get<any>(`${env.url_ms_base}/${env.gestion_confg.DOMAIN_ROUTE}${env.gestion_confg.DASHBOARD_ENDPOINT}`).pipe();
   }
 
+  download(): Observable<Blob> {
+    return this.httpClient.get(`${env.url_ms_base}/${env.gestion_confg.DOMAIN_ROUTE}${env.gestion_confg.DASHBOARD_DOCUMENT_ENDPOINT}`,
+      { responseType: 'blob' }).pipe();
+  }
+
 
 }

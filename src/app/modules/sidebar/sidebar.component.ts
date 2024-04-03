@@ -32,58 +32,49 @@ export const ROUTES: RouteInfo[] = [
         title: 'Home',
         type: 'link',
         icontype: 'home',
-        roles: [SharedProperties.ROL_ADMIN]
+        roles: [SharedProperties.ROL_ADMIN, SharedProperties.ROL_LOAN, SharedProperties.ROL_REALTOR, SharedProperties.ROL_VIEWVER]
     },
     {
         path: '/letters/list',
         title: 'Letter Manager',
         type: 'link',
         icontype: 'data_usage',
-        roles: [SharedProperties.ROL_ADMIN]
+        roles: [SharedProperties.ROL_ADMIN, SharedProperties.ROL_LOAN, , SharedProperties.ROL_REALTOR]
     },
     {
         path: '/letters/add-upd-letter',
         title: 'Create letter',
         type: 'link',
         icontype: 'build',
-        roles: [SharedProperties.ROL_ADMIN]
-    },
-    {
-        path: '/letters/calculator-letter',
-        title: 'Calculator',
-        type: 'link',
-        icontype: 'attach_money',
-        roles: [SharedProperties.ROL_ADMIN]
+        roles: [SharedProperties.ROL_ADMIN, SharedProperties.ROL_LOAN, SharedProperties.ROL_REALTOR]
     },
     {
         path: '/letters/add-letter-enc',
         title: 'Create letter Encompass',
         type: 'link',
         icontype: 'create',
-        roles: [SharedProperties.ROL_ADMIN]
+        roles: [SharedProperties.ROL_ADMIN, SharedProperties.ROL_LOAN]
+    },
+    {
+        path: '/letters/calculator-letter',
+        title: 'Calculator',
+        type: 'link',
+        icontype: 'attach_money',
+        roles: [SharedProperties.ROL_ADMIN, SharedProperties.ROL_LOAN, SharedProperties.ROL_REALTOR, SharedProperties.ROL_VIEWVER]
     },
     {
         path: '/client/list',
         title: 'Client Manager',
         type: 'link',
         icontype: 'local_atm',
-        roles: [SharedProperties.ROL_ADMIN]
+        roles: [SharedProperties.ROL_ADMIN, SharedProperties.ROL_LOAN]
     },
     {
-        path: '/realtor/list',
-        title: 'Realtor Manager',
-        type: 'link',
-        icontype: 'article',
-        roles: [SharedProperties.ROL_ADMIN]
-    },
-    {
-        path: '/users',
+        path: '/users/index/0',
         title: 'Users',
         type: 'link',
         icontype: 'supervised_user_circle',
-        roles: [SharedProperties.ROL_ADMIN, 
-            SharedProperties.ROL_JEFE, 
-            SharedProperties.ROL_GERENTE]
+        roles: [SharedProperties.ROL_ADMIN , SharedProperties.ROL_LOAN]
     }
 
 ];

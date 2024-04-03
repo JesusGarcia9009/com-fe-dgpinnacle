@@ -1,5 +1,6 @@
 export interface ProfileModel {
-    username: string;
-    password: string;
+    id: number;
+    code: string;
+    name: string;
 }
 
