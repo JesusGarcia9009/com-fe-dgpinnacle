@@ -32,7 +32,7 @@ export const ROUTES: RouteInfo[] = [
         title: 'Home',
         type: 'link',
         icontype: 'home',
-        roles: [SharedProperties.ROL_ADMIN, SharedProperties.ROL_LOAN, SharedProperties.ROL_REALTOR, SharedProperties.ROL_VIEWVER]
+        roles: [SharedProperties.ROL_ADMIN, SharedProperties.ROL_LOAN, SharedProperties.ROL_REALTOR, SharedProperties.ROL_VIEWVER, SharedProperties.ROL_CLIENT]
     },
     {
         path: '/letters/list',
@@ -60,14 +60,7 @@ export const ROUTES: RouteInfo[] = [
         title: 'Calculator',
         type: 'link',
         icontype: 'attach_money',
-        roles: [SharedProperties.ROL_ADMIN, SharedProperties.ROL_LOAN, SharedProperties.ROL_REALTOR, SharedProperties.ROL_VIEWVER]
-    },
-    {
-        path: '/client/list',
-        title: 'Client Manager',
-        type: 'link',
-        icontype: 'local_atm',
-        roles: [SharedProperties.ROL_ADMIN, SharedProperties.ROL_LOAN]
+        roles: [SharedProperties.ROL_ADMIN, SharedProperties.ROL_LOAN, SharedProperties.ROL_REALTOR, SharedProperties.ROL_VIEWVER, SharedProperties.ROL_CLIENT]
     },
     {
         path: '/users/index/0',

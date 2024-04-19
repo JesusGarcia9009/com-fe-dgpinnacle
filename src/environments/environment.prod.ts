@@ -21,6 +21,7 @@ const GESTION_CONFIG = {
   USER_DELETE_ENDPOINT: 'user/delete',
   USER_LIST_ENDPOINT: 'user/list',
   USER_FIND_REALTOR_ENDPOINT: 'user/find-realtor',
+  USER_FIND_CLIENT_ENDPOINT: 'user/find-client',
   USER_FIND_LOAN_ENDPOINT: 'user/find-loan',
 
   //new endpoints

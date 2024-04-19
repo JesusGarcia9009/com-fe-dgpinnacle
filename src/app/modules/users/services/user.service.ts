@@ -6,6 +6,7 @@ import { Observable, of } from 'rxjs';
 import { ChangePasswordModel, UserModel } from '../model/user.model';
 import { RealtorManagerModel } from '../model/realtor.manager.model';
 import { LoanOfficerModel } from '../model/loan.model';
+import { ClientManagerModel } from '../model/client.manager.model';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,14 @@ export class UserService {
   getRealtor(user: UserModel): Observable<RealtorManagerModel>{
     if(user){
       return this.httpClient.get<RealtorManagerModel>(`${env.url_ms_base}/${env.gestion_confg.DOMAIN_ROUTE}${env.gestion_confg.USER_FIND_REALTOR_ENDPOINT}/${user.id}`).pipe();
+    }else{
+      return of(null);
+    }
+  }
+
+  getClient(user: UserModel): Observable<ClientManagerModel>{
+    if(user){
+      return this.httpClient.get<ClientManagerModel>(`${env.url_ms_base}/${env.gestion_confg.DOMAIN_ROUTE}${env.gestion_confg.USER_FIND_CLIENT_ENDPOINT}/${user.id}`).pipe();
     }else{
       return of(null);
     }

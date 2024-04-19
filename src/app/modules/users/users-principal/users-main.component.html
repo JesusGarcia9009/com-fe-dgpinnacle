@@ -22,8 +22,7 @@
                                 <div class="material-datatables">
                                     <div class="table-responsive">
                                         <table datatable [dtTrigger]="dtTriggerLoan" [dtOptions]="dtOptions"
-                                            class="table table-striped  table-hover"
-                                            cellspacing="0">
+                                            class="table table-striped  table-hover" cellspacing="0">
                                             <thead>
                                                 <tr>
                                                     <th>Name</th>
@@ -41,19 +40,21 @@
                                                     <td>{{ row.cellphone }}</td>
                                                     <td>{{ row.profileName }}</td>
                                                     <td class="text-right">
-                                                        <button mat-raised-button type="button" (click)="redirectToEdit(row, 'loan')"
+                                                        <button mat-raised-button type="button"
+                                                            (click)="redirectToEdit(row, 'loan')"
                                                             class="btn btn-link btn-warning btn-just-icon edit-user"
                                                             title="editar"><i class="material-icons">edit</i></button>
                                                         <button mat-raised-button type="button" (click)="onDelete(row)"
                                                             class="btn btn-link btn-danger btn-just-icon remove-user"
-                                                            title="eliminar"><i class="material-icons">close</i></button>
+                                                            title="eliminar"><i
+                                                                class="material-icons">close</i></button>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-        
+
                                 <button mat-raised-button routerLink="/users/add-upd-loan" type="button"
                                     class="btn btn-primary" title="Add Loan">Add
                                     Loan</button>
@@ -77,8 +78,7 @@
                                 <div class="material-datatables">
                                     <div class="table-responsive">
                                         <table datatable [dtTrigger]="dtTriggerRealtor" [dtOptions]="dtOptions"
-                                            class="table table-striped  table-hover"
-                                            cellspacing="0">
+                                            class="table table-striped  table-hover" cellspacing="0">
                                             <thead>
                                                 <tr>
                                                     <th>Name</th>
@@ -96,19 +96,21 @@
                                                     <td>{{ row.cellphone }}</td>
                                                     <td>{{ row.profileName }}</td>
                                                     <td class="text-right">
-                                                        <button mat-raised-button type="button" (click)="redirectToEdit(row, 'realtor')"
+                                                        <button mat-raised-button type="button"
+                                                            (click)="redirectToEdit(row, 'realtor')"
                                                             class="btn btn-link btn-warning btn-just-icon edit-user"
                                                             title="editar"><i class="material-icons">edit</i></button>
                                                         <button mat-raised-button type="button" (click)="onDelete(row)"
                                                             class="btn btn-link btn-danger btn-just-icon remove-user"
-                                                            title="eliminar"><i class="material-icons">close</i></button>
+                                                            title="eliminar"><i
+                                                                class="material-icons">close</i></button>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-        
+
                                 <button mat-raised-button routerLink="/users/add-upd-realtor" type="button"
                                     class="btn btn-primary" title="Add Realtor">Add
                                     Realtor</button>
@@ -118,8 +120,77 @@
 
 
                     </mat-tab>
+                    <mat-tab label="Clients">
+
+                        <div class="card">
+                            <div class="card-header card-header-rose card-header-icon">
+                                <div class="card-icon">
+                                    <i class="material-icons">perm_identity</i>
+                                </div>
+                                <h4 class="card-title">Clients List</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="toolbar">
+                                    <!--        Here you can write extra buttons/actions for the toolbar              -->
+                                </div>
+                                <div class="material-datatables">
+                                    <div class="table-responsive">
+                                        <table datatable [dtTrigger]="dtTriggerClient" [dtOptions]="dtOptions"
+                                            class="table table-striped  table-hover" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Cellphone</th>
+                                                    <th>Profile</th>
+                                                    <th class="disabled-sorting text-right">Actions
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let row of tblDataClient">
+                                                    <td>{{ row.name }} {{ row.lastName }}</td>
+                                                    <td>{{ row.email }}</td>
+                                                    <td>{{ row.cellphone }}</td>
+                                                    <td>{{ row.profileName }}</td>
+                                                    <td class="text-right">
+                                                        <button mat-icon-button [matMenuTriggerFor]="menuProperties"
+                                                            aria-label="Properties Menu">
+                                                            <mat-icon>more_vert</mat-icon>
+                                                        </button>
+                                                        <mat-menu #menuProperties="matMenu">
+                                                            <button (click)="redirectToView(row)" mat-menu-item>
+                                                                <mat-icon>visibility</mat-icon>
+                                                                <span>View</span>
+                                                            </button>
+                                                            <button (click)="redirectToEdit(row, 'client')"
+                                                                mat-menu-item>
+                                                                <mat-icon>edit</mat-icon>
+                                                                <span>Edit</span>
+                                                            </button>
+                                                            <button mat-menu-item (click)="onDelete(row)">
+                                                                <mat-icon>delete</mat-icon>
+                                                                <span>Delete</span>
+                                                            </button>
+                                                        </mat-menu>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <button mat-raised-button routerLink="/users/add-upd-client" type="button"
+                                    class="btn btn-primary" title="Add Client">Add
+                                    Client</button>
+                            </div>
+                            <!-- end content-->
+                        </div>
+
+
+                    </mat-tab>
                     <mat-tab label="Viewers">
-                        
+
                         <div class="card">
                             <div class="card-header card-header-rose card-header-icon">
                                 <div class="card-icon">
@@ -134,8 +205,7 @@
                                 <div class="material-datatables">
                                     <div class="table-responsive">
                                         <table datatable [dtTrigger]="dtTriggerViewer" [dtOptions]="dtOptions"
-                                            class="table table-striped  table-hover"
-                                            cellspacing="0">
+                                            class="table table-striped  table-hover" cellspacing="0">
                                             <thead>
                                                 <tr>
                                                     <th>Name</th>
@@ -153,19 +223,21 @@
                                                     <td>{{ row.cellphone }}</td>
                                                     <td>{{ row.profileName }}</td>
                                                     <td class="text-right">
-                                                        <button mat-raised-button type="button" (click)="redirectToEdit(row, 'viewer')"
+                                                        <button mat-raised-button type="button"
+                                                            (click)="redirectToEdit(row, 'viewer')"
                                                             class="btn btn-link btn-warning btn-just-icon edit-user"
                                                             title="editar"><i class="material-icons">edit</i></button>
                                                         <button mat-raised-button type="button" (click)="onDelete(row)"
                                                             class="btn btn-link btn-danger btn-just-icon remove-user"
-                                                            title="eliminar"><i class="material-icons">close</i></button>
+                                                            title="eliminar"><i
+                                                                class="material-icons">close</i></button>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-        
+
                                 <button mat-raised-button routerLink="/users/add-upd-user/VIEWER" type="button"
                                     class="btn btn-primary" title="Add Viewer">Add
                                     Viewer</button>
@@ -176,7 +248,7 @@
                     </mat-tab>
 
                     <mat-tab label="Administrators">
-                        
+
                         <div class="card">
                             <div class="card-header card-header-rose card-header-icon">
                                 <div class="card-icon">
@@ -191,8 +263,7 @@
                                 <div class="material-datatables">
                                     <div class="table-responsive">
                                         <table datatable [dtTrigger]="dtTriggerAdministrators" [dtOptions]="dtOptions"
-                                            class="table table-striped  table-hover"
-                                            cellspacing="0">
+                                            class="table table-striped  table-hover" cellspacing="0">
                                             <thead>
                                                 <tr>
                                                     <th>Name</th>
@@ -210,19 +281,21 @@
                                                     <td>{{ row.cellphone }}</td>
                                                     <td>{{ row.profileName }}</td>
                                                     <td class="text-right">
-                                                        <button mat-raised-button type="button" (click)="redirectToEdit(row)"
+                                                        <button mat-raised-button type="button"
+                                                            (click)="redirectToEdit(row)"
                                                             class="btn btn-link btn-warning btn-just-icon edit-user"
                                                             title="editar"><i class="material-icons">edit</i></button>
                                                         <button mat-raised-button type="button" (click)="onDelete(row)"
                                                             class="btn btn-link btn-danger btn-just-icon remove-user"
-                                                            title="eliminar"><i class="material-icons">close</i></button>
+                                                            title="eliminar"><i
+                                                                class="material-icons">close</i></button>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-        
+
                                 <button mat-raised-button routerLink="/users/add-upd-user/ADMINISTRATOR" type="button"
                                     class="btn btn-primary" title="Add Administrator">Add
                                     Administrator</button>

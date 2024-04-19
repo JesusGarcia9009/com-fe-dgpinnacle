@@ -75,7 +75,7 @@ export class RealtorAddUpdateComponent implements OnInit, OnDestroy {
       brokerCompanyPhone: ['', ],
       brokerCompanyPhysicalAdd: ['', ],
       brokerCompanyWebSite: ['', ],
-      profileId: ['', Validators.required],
+      profileId: ['', ],
       profileName: ['REALTOR', ],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]

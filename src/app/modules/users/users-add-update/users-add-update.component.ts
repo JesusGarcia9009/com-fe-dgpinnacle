@@ -38,7 +38,6 @@ export class UsersAddUpdateComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    debugger
     const profileUrl = this.route.snapshot.paramMap.get('profile');
     this.profile = profileUrl;
     this.userSel = this.userService.userSelected;

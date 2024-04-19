@@ -24,10 +24,6 @@ export const AppRoutes: Routes = [
             {
                 path: '',
                 loadChildren: './modules/users/users.module#UsersModule'
-            },
-	                   {
-                path: '',
-                loadChildren: './modules/client/client.module#ClientModule'
             }
         ]
     }, {

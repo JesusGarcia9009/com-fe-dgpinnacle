@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     const sst = sessionStorage;
     const logedRol = sst.profile;
-    if (logedRol === SharedProperties.ROL_VIEWVER) {
+    if (logedRol === SharedProperties.ROL_VIEWVER || logedRol === SharedProperties.ROL_CLIENT) {
       this.showLetter = true;
       this.loadPdf();
     }else{

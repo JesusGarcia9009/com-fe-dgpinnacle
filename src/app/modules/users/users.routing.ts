@@ -5,6 +5,7 @@ import { UsersAddUpdateComponent } from "./users-add-update/users-add-update.com
 import { LoanAddUpdateComponent } from "./loan-add-update/loan-add-update.component";
 import { RealtorAddUpdateComponent } from "./realtor-add-update/realtor-add-update.component";
 import { ChangePasswordComponent } from "./change-password/change-password.component";
+import { ClientAddUpdateComponent } from "./client-add-update/client-add-update.component";
 
 
 export const usersPagesRoutes: Routes = [
@@ -29,6 +30,11 @@ export const usersPagesRoutes: Routes = [
         {
             path: 'add-upd-realtor',
             component: RealtorAddUpdateComponent,
+            canActivate: [AuthGuardService]
+        },
+        {
+            path: 'add-upd-client',
+            component: ClientAddUpdateComponent,
             canActivate: [AuthGuardService]
         },
         {

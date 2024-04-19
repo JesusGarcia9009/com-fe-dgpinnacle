@@ -24,6 +24,7 @@ export class UsersMainComponent implements OnInit, OnDestroy {
 
   public loanListData: Array<UserModel> = [];
   public realtorListData: Array<UserModel> = [];
+  public clientListData: Array<UserModel> = [];
   public viewerListData: Array<UserModel> = [];
 
   //common
@@ -39,6 +40,10 @@ export class UsersMainComponent implements OnInit, OnDestroy {
   //realtor
   public tblDataRealtor: UserModel[] = [];
   public dtTriggerRealtor: Subject<any> = new Subject();
+
+  //client
+  public tblDataClient: UserModel[] = [];
+  public dtTriggerClient: Subject<any> = new Subject();
 
   //viewer
   public tblDataViewer: UserModel[] = [];
@@ -74,6 +79,7 @@ export class UsersMainComponent implements OnInit, OnDestroy {
 
       this.initializeLoanTable();
       this.initializeRealtorTable();
+      this.initializeClientTable();
       this.initializeViewerTable();
       this.initializeAdministratorsTable();
     }, async err => {
@@ -111,6 +117,19 @@ export class UsersMainComponent implements OnInit, OnDestroy {
     this.dtTriggerRealtor.next();
   }
 
+  async initializeClientTable() {
+    this.dtOptions = this.getDtOptions();
+
+    this.clientListData = this.allUsersListData.filter(x => x.profileCode === "CLIENT");
+    this.tblDataClient = this.clientListData;
+
+    const dtInstance = await this.dtElement.dtInstance;
+    if (dtInstance) {
+      dtInstance.destroy();
+    }
+    this.dtTriggerClient.next();
+  }
+
   async initializeViewerTable() {
     this.dtOptions = this.getDtOptions();
 
@@ -144,6 +163,8 @@ export class UsersMainComponent implements OnInit, OnDestroy {
       this.router.navigate(['/users/add-upd-loan']);
     }else if(type === 'realtor') {
       this.router.navigate(['/users/add-upd-realtor']);
+    }else if(type === 'client') {
+      this.router.navigate(['/users/add-upd-client']);
     }else if(type === 'viewer') {
       this.router.navigate(['/users/add-upd-user/VIEWER']);
     } else {
