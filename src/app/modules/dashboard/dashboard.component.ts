@@ -13,7 +13,8 @@ declare const $: any;
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html'
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
@@ -68,6 +69,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.loadingService.show();
     await this.initService.download().toPromise()
       .then(blob => {
+        console.log("TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT")
         this.loadingService.hide();
         this.pdfBlob = blob;
 
@@ -78,13 +80,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
         fileReader.readAsArrayBuffer(blob);
       })
       .catch(async error => {
+        console.log("ERRORRRRRRRRRRRRRRRR")
         this.loadingService.hide();
-        this.handleError(error);
+        // this.handleError(error);
       });
   }
 
   private async handleError(error) {
     this.loadingService.hide();
+    console.log(JSON.stringify(error))
+    debugger
+
     if (error.error === 'LETTER_NOT_EXIST') {
       this.modalService.open({
         icon: 'warning',

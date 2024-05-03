@@ -73,11 +73,25 @@
                 </div>
             </div>
         </div>
+
         <div class="row" *ngIf="showLetter">
+
+
+            <div *ngIf="!pdfSrc">
+                <div class="card card-stats widget">
+                    <div class="card-header card-header-info card-header-icon">
+                        <mat-icon class="widget-icon">error_outline</mat-icon>
+                        <h2 class="widget-title">No letters available</h2>
+                    </div>
+                    <div class="card-footer" style="margin-top: 0px;">
+                        <p class="widget-message">Sorry, no data found to display.</p>
+                    </div>
+                </div>
+            </div>
             <pdf-viewer *ngIf="pdfSrc" [src]="pdfSrc" [render-text]="true" [original-size]="true" [fit-to-page]="true"
-                [zoom-scale]="'page-width'" style="width: 100%; height: 100vh; max-width: 900px;"
-                >
+                [zoom-scale]="'page-width'" style="width: 100%; height: 100vh; max-width: 900px;">
             </pdf-viewer>
+
             <!-- style="width: 100%; height: 727px;max-width: 900px;" -->
         </div>
 
