@@ -8,6 +8,7 @@ import Chartist from 'chartist';
 import { Subscription, zip } from 'rxjs';
 import { DashboardWidgetModel } from './models/quotation.model';
 import { SharedProperties } from '../shared/properties/shared.properties';
+import moment from 'moment';
 
 declare const $: any;
 
@@ -28,6 +29,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   };
 
   public showLetter = false;
+  public showError = false;
   public pdfSrc = null;
   public pdfBlob = null;
   public date: Date;
@@ -43,7 +45,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     if (logedRol === SharedProperties.ROL_VIEWVER || logedRol === SharedProperties.ROL_CLIENT) {
       this.showLetter = true;
       this.loadPdf();
-    }else{
+    } else {
       this.showLetter = false;
       this.loadStatistics();
     }
@@ -69,7 +71,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.loadingService.show();
     await this.initService.download().toPromise()
       .then(blob => {
-        console.log("TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT")
         this.loadingService.hide();
         this.pdfBlob = blob;
 
@@ -77,10 +78,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
         fileReader.onload = () => {
           this.pdfSrc = new Uint8Array(fileReader.result as ArrayBuffer);
         };
+        this.showError = false;
         fileReader.readAsArrayBuffer(blob);
       })
       .catch(async error => {
-        console.log("ERRORRRRRRRRRRRRRRRR")
+        this.showError = true;
         this.loadingService.hide();
         // this.handleError(error);
       });
@@ -109,6 +111,36 @@ export class DashboardComponent implements OnInit, OnDestroy {
       const modalResult = await this.modalService.open({ genericType: 'error-gen' });
       if (modalResult) {
         this.loadPdf();
+      }
+    }
+  }
+
+  async download() {
+    const dateNow = new Date();
+    var downloadURL = window.URL.createObjectURL(<any>this.pdfBlob);
+    var link = document.createElement('a');
+    link.href = downloadURL;
+    link.download = `PREQUALIFICATION_LETTER_${moment(dateNow).format('DDMMYYYY')}.pdf`;
+    link.click();
+  }
+
+
+  zfill(number, width) {
+    var numberOutput = Math.abs(number); /* Valor absoluto del número */
+    var length = number.toString().length; /* Largo del número */
+    var zero = "0"; /* String de cero */
+
+    if (width <= length) {
+      if (number < 0) {
+        return ("-" + numberOutput.toString());
+      } else {
+        return numberOutput.toString();
+      }
+    } else {
+      if (number < 0) {
+        return ("-" + (zero.repeat(width - length)) + numberOutput.toString());
+      } else {
+        return ((zero.repeat(width - length)) + numberOutput.toString());
       }
     }
   }
